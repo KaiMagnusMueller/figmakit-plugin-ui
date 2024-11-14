@@ -2,16 +2,17 @@
 	import { preventDefault, blurOnEvent } from '$lib/helpers.svelte.js';
 
 	/** @type {{
-	 * onclick: (e: MouseEvent) => void,
-	 * onsubmit: (e: SubmitEvent) => void,
-	 * variant: 'primary' | 'secondary' | 'tertiary',
-	 * disabled: boolean,
-	 *	destructive: boolean,
-	 *	rounded: boolean,
-	 *	class: string,
-	 *	children: import('svelte').Snippet
+	 * onclick?: MouseEvent,
+	 * onsubmit?: SubmitEvent,
+	 * variant?: 'primary' | 'secondary' | 'tertiary',
+	 * disabled?: boolean,
+	 * destructive?: boolean,
+	 * rounded?: boolean,
+	 * class?: string,
+	 * children?: import('svelte').Snippet
 	 * }}
 	 */
+
 	let {
 		onclick,
 		onsubmit,
@@ -30,7 +31,6 @@
 	{onclick}
 	onsubmit={(e) => {
 		preventDefault();
-		e.target.blur();
 		props.onsubmit?.(e);
 	}}
 	{variant}
