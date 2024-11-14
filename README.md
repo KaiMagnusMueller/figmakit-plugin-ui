@@ -18,6 +18,16 @@ import { Button } from 'figma-plugin-ui-kit';
 <Button onClick={() => console.log('Button clicked!')}>Click Me</Button>;
 ```
 
+### Styles
+
+Import styles somewhere in a +page.svelte file like this:
+
+```bash
+<script>
+	import '../../node_modules/figma-kit-plugin-ui/dist/css/global.css';
+</script>
+```
+
 ## Contributing
 
 Contributions are welcome! If you have any suggestions or find any issues, please open an issue or submit a pull request.

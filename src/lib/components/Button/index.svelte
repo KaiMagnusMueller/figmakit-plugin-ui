@@ -1,17 +1,19 @@
-<script>
-	import { preventDefault, blurOnEvent } from '$lib/helpers.svelte.js';
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+	import { blurOnEvent } from '$lib/helpers.svelte';
+	import type { HTMLButtonAttributes } from 'svelte/elements';
 
-	/** @type {{
-	 * onclick?: MouseEvent,
-	 * onsubmit?: SubmitEvent,
-	 * variant?: 'primary' | 'secondary' | 'tertiary',
-	 * disabled?: boolean,
-	 * destructive?: boolean,
-	 * rounded?: boolean,
-	 * class?: string,
-	 * children?: import('svelte').Snippet
-	 * }}
-	 */
+	type Props = {
+		onclick?: (arg: string) => void;
+		onsubmit?: (arg: string) => void;
+		variant?: 'primary' | 'secondary' | 'tertiary';
+		disabled?: boolean;
+		destructive?: boolean;
+		rounded?: boolean;
+		class?: string;
+		children?: Snippet;
+		[key: string]: unknown;
+	} & HTMLButtonAttributes;
 
 	let {
 		onclick,
@@ -23,23 +25,28 @@
 		class: className,
 		children,
 		...props
-	} = $props();
+	}: Props = $props();
 </script>
 
 <button
 	{...props}
-	{onclick}
+	onclick={(e) => {
+		// TODO: Fix type error "Property 'onclick' does not exist on type '{}'.ts(2339)"
+		// @ts-ignore
+		props.onclick?.(e);
+	}}
 	onsubmit={(e) => {
-		preventDefault();
+		e.preventDefault();
+		// @ts-ignore
 		props.onsubmit?.(e);
 	}}
-	{variant}
 	{disabled}
 	class:destructive
 	class:rounded
 	class="{variant}
 	{className}"
-	use:blurOnEvent>
+	use:blurOnEvent
+>
 	{#if children}
 		{@render children?.()}
 	{:else}
