@@ -2,18 +2,25 @@
 import Button from '$lib/components/Button/index.svelte';
 import IconButton from '$lib/components/IconButton/index.svelte';
 import Icon from '$lib/components/Icon/index.svelte';
+import Checkbox from './components/Checkbox/index.svelte';
+import Switch from './components/Switch/index.svelte';
+import Radio from './components/Radio/index.svelte';
 
 //Icons
 import IconAdjust from './icons/adjust.svg?raw';
 import IconAlert from './icons/alert.svg?raw';
+import IconAlignHorizontalCenters from './icons/layout-align-horizontal-centers.svg?raw';
+import IconAlignLeft from './icons/layout-align-left.svg?raw';
+import IconAlignRight from './icons/layout-align-right.svg?raw';
+import IconAlignTop from './icons/layout-align-top.svg?raw';
+import IconAlignVerticalCenters from './icons/layout-align-vertical-centers.svg?raw';
 import IconAngle from './icons/angle.svg?raw';
 import IconArrowLeftRight from './icons/arrow-left-right.svg?raw';
-import IconUpDown from './icons/arrow-up-down.svg?raw';
 import IconAutoLayoutHorizontal from './icons/auto-layout-horizontal.svg?raw';
 import IconAutoLayoutVertical from './icons/auto-layout-vertical.svg?raw';
 import IconBack from './icons/back.svg?raw';
-import IconBlendEmpty from './icons/blend-empty.svg?raw';
 import IconBlend from './icons/blend.svg?raw';
+import IconBlendEmpty from './icons/blend-empty.svg?raw';
 import IconBreak from './icons/break.svg?raw';
 import IconCaretDown from './icons/caret-down.svg?raw';
 import IconCaretLeft from './icons/caret-left.svg?raw';
@@ -40,20 +47,15 @@ import IconImage from './icons/image.svg?raw';
 import IconInstance from './icons/instance.svg?raw';
 import IconKey from './icons/key.svg?raw';
 import IconLayoutAlignBottom from './icons/layout-align-bottom.svg?raw';
-import IconAlignHorizontalCenters from './icons/layout-align-horizontal-centers.svg?raw';
-import IconAlignLeft from './icons/layout-align-left.svg?raw';
-import IconAlignRight from './icons/layout-align-right.svg?raw';
-import IconAlignTop from './icons/layout-align-top.svg?raw';
-import IconAlignVerticalCenters from './icons/layout-align-vertical-centers.svg?raw';
 import IconLayoutGridColumns from './icons/layout-grid-columns.svg?raw';
 import IconLayoutGridRows from './icons/layout-grid-rows.svg?raw';
 import IconLayoutGridUniform from './icons/layout-grid-uniform.svg?raw';
 import IconLibrary from './icons/library.svg?raw';
 import IconLinkBroken from './icons/link-broken.svg?raw';
 import IconLinkConnected from './icons/link-connected.svg?raw';
+import IconList from './icons/list.svg?raw';
 import IconListDetailed from './icons/list-detailed.svg?raw';
 import IconListTile from './icons/list-tile.svg?raw';
-import IconList from './icons/list.svg?raw';
 import IconLockOff from './icons/lock-off.svg?raw';
 import IconLockOn from './icons/lock-on.svg?raw';
 import IconMinus from './icons/minus.svg?raw';
@@ -62,11 +64,11 @@ import IconPlus from './icons/plus.svg?raw';
 import IconRandom from './icons/random.svg?raw';
 import IconRecent from './icons/recent.svg?raw';
 import IconResizeToFit from './icons/resize-to-fit.svg?raw';
-import IconResolveFilled from './icons/resolve-filled.svg?raw';
 import IconResolve from './icons/resolve.svg?raw';
+import IconResolveFilled from './icons/resolve-filled.svg?raw';
 import IconReverse from './icons/reverse.svg?raw';
-import IconSearchLarge from './icons/search-large.svg?raw';
 import IconSearch from './icons/search.svg?raw';
+import IconSearchLarge from './icons/search-large.svg?raw';
 import IconSettings from './icons/settings.svg?raw';
 import IconShare from './icons/share.svg?raw';
 import IconSmiley from './icons/smiley.svg?raw';
@@ -86,10 +88,11 @@ import IconTidyUpListHorizontal from './icons/tidy-up-list-horizontal.svg?raw';
 import IconTidyUpListVertical from './icons/tidy-up-list-vertical.svg?raw';
 import IconTimer from './icons/timer.svg?raw';
 import IconTrash from './icons/trash.svg?raw';
+import IconUpDown from './icons/arrow-up-down.svg?raw';
 import IconVerticalPadding from './icons/vertical-padding.svg?raw';
 import IconVisible from './icons/visible.svg?raw';
-import IconWarningLarge from './icons/warning-large.svg?raw';
 import IconWarning from './icons/warning.svg?raw';
+import IconWarningLarge from './icons/warning-large.svg?raw';
 import IconNodeBooleanOperation from './icons/node-types/BooleanOperation.svg?raw';
 import IconNodeComponent from './icons/node-types/BooleanOperation.svg?raw';
 import IconNodeConnector from './icons/node-types/Connector.svg?raw';
@@ -106,18 +109,25 @@ import IconNodeText from './icons/node-types/Text.svg?raw';
 
 export {
 	Button,
-	IconButton,
+	Checkbox,
 	Icon,
+	IconButton,
+	Switch,
+	Radio,
 	IconAdjust,
 	IconAlert,
+	IconAlignHorizontalCenters,
+	IconAlignLeft,
+	IconAlignRight,
+	IconAlignTop,
+	IconAlignVerticalCenters,
 	IconAngle,
 	IconArrowLeftRight,
-	IconUpDown,
 	IconAutoLayoutHorizontal,
 	IconAutoLayoutVertical,
 	IconBack,
-	IconBlendEmpty,
 	IconBlend,
+	IconBlendEmpty,
 	IconBreak,
 	IconCaretDown,
 	IconCaretLeft,
@@ -144,20 +154,15 @@ export {
 	IconInstance,
 	IconKey,
 	IconLayoutAlignBottom,
-	IconAlignHorizontalCenters,
-	IconAlignLeft,
-	IconAlignRight,
-	IconAlignTop,
-	IconAlignVerticalCenters,
 	IconLayoutGridColumns,
 	IconLayoutGridRows,
 	IconLayoutGridUniform,
 	IconLibrary,
 	IconLinkBroken,
 	IconLinkConnected,
+	IconList,
 	IconListDetailed,
 	IconListTile,
-	IconList,
 	IconLockOff,
 	IconLockOn,
 	IconMinus,
@@ -166,11 +171,11 @@ export {
 	IconRandom,
 	IconRecent,
 	IconResizeToFit,
-	IconResolveFilled,
 	IconResolve,
+	IconResolveFilled,
 	IconReverse,
-	IconSearchLarge,
 	IconSearch,
+	IconSearchLarge,
 	IconSettings,
 	IconShare,
 	IconSmiley,
@@ -190,10 +195,11 @@ export {
 	IconTidyUpListVertical,
 	IconTimer,
 	IconTrash,
+	IconUpDown,
 	IconVerticalPadding,
 	IconVisible,
-	IconWarningLarge,
 	IconWarning,
+	IconWarningLarge,
 	IconNodeBooleanOperation,
 	IconNodeComponent,
 	IconNodeConnector,

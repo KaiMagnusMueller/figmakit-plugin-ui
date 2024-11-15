@@ -6,7 +6,7 @@
 		style,
 		children,
 		...props
-	}: { title?: string; style?: string; children: Snippet; [key: string]: unknown } = $props();
+	}: { title?: string; style?: string; children?: Snippet; [key: string]: unknown } = $props();
 </script>
 
 <section {...props}>
@@ -34,6 +34,7 @@
 
 	div {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		gap: var(--size-xsmall);
 	}
