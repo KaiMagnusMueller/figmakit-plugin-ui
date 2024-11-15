@@ -4,6 +4,7 @@ import IconButton from '$lib/components/IconButton/index.svelte';
 import Icon from '$lib/components/Icon/index.svelte';
 import Checkbox from './components/Checkbox/index.svelte';
 import Switch from './components/Switch/index.svelte';
+import Radio from './components/Radio/index.svelte';
 
 //Icons
 import IconAdjust from './icons/adjust.svg?raw';
@@ -112,6 +113,7 @@ export {
 	Icon,
 	IconButton,
 	Switch,
+	Radio,
 	IconAdjust,
 	IconAlert,
 	IconAlignHorizontalCenters,

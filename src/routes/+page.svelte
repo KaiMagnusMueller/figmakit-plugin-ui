@@ -14,20 +14,24 @@
 		IconNodeBooleanOperation,
 		IconInstance,
 		Checkbox,
-		Switch
+		Switch,
+		Radio
 	} from '$lib/index.js';
 
 	let buttonCounter = $state(0);
 	let checked = $state(true);
+	let radioValue = $state('a');
 </script>
 
 <svelte:head>
 	<title>FigmaKit</title>
 </svelte:head>
 
-<h1>Welcome to FigmaKit Plugin UI Svelte</h1>
+<div class="prose">
+	<h1>Welcome to FigmaKit Plugin UI Svelte</h1>
 
-<p>A component library for Svelte based Figma plugins.</p>
+	<p>A component library for Svelte based Figma plugins.</p>
+</div>
 
 <LayoutContainer>
 	<Section title="Buttons">
@@ -106,14 +110,48 @@
 			}}>Switch 4</Switch
 		>
 	</Section>
+
+	<Section title="Radio">
+		<Radio
+			bind:group={radioValue}
+			value="a"
+			onchange={(e) => {
+				console.log('Radio 1 clicked', e.currentTarget as HTMLInputElement);
+			}}>Radio 1</Radio
+		>
+		<Radio
+			bind:group={radioValue}
+			value="b"
+			disabled
+			onchange={(e) => {
+				console.log('Radio 2 clicked', e.currentTarget as HTMLInputElement);
+			}}>Radio 2</Radio
+		>
+		<Radio
+			bind:group={radioValue}
+			value="c"
+			checked
+			onchange={(e) => {
+				console.log('Radio 3 clicked', e.currentTarget as HTMLInputElement);
+			}}>Radio 3</Radio
+		>
+		<Radio
+			bind:group={radioValue}
+			value="d"
+			disabled
+			onchange={(e) => {
+				console.log('Radio 3 clicked', e.currentTarget as HTMLInputElement);
+			}}>Radio 4</Radio
+		>
+		<p>Selected radio: {radioValue}</p>
+	</Section>
 </LayoutContainer>
 
 <style>
-	h1 {
+	.prose h1 {
 		margin-block: 2rem;
 	}
-
-	p {
+	.prose p {
 		margin-block: 1rem;
 		font-size: 1rem;
 	}

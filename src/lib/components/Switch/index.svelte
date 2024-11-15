@@ -56,7 +56,6 @@
 		align-items: center;
 		gap: 0.5rem;
 		cursor: default;
-
 		color: var(--figma-color-text);
 		user-select: none;
 	}
