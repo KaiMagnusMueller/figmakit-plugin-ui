@@ -3,6 +3,7 @@ import Button from '$lib/components/Button/index.svelte';
 import IconButton from '$lib/components/IconButton/index.svelte';
 import Icon from '$lib/components/Icon/index.svelte';
 import Checkbox from './components/Checkbox/index.svelte';
+import Switch from './components/Switch/index.svelte';
 
 //Icons
 import IconAdjust from './icons/adjust.svg?raw';
@@ -110,6 +111,7 @@ export {
 	Checkbox,
 	Icon,
 	IconButton,
+	Switch,
 	IconAdjust,
 	IconAlert,
 	IconAlignHorizontalCenters,

@@ -13,7 +13,8 @@
 		IconButton,
 		IconNodeBooleanOperation,
 		IconInstance,
-		Checkbox
+		Checkbox,
+		Switch
 	} from '$lib/index.js';
 
 	let buttonCounter = $state(0);
@@ -80,6 +81,31 @@
 			>Checkbox 4</Checkbox
 		>
 	</Section>
+	<Section title="Switch">
+		<Switch
+			onchange={(e) => {
+				console.log('Switch 1 clicked', e.currentTarget as HTMLInputElement);
+			}}>Switch 1</Switch
+		><Switch
+			disabled
+			onchange={() => {
+				console.log('Switch 2 clicked');
+			}}>Switch 2</Switch
+		>
+		<Switch
+			checked
+			onchange={() => {
+				console.log('Switch 3 clicked');
+			}}>Switch 3</Switch
+		>
+		<Switch
+			checked
+			disabled
+			onchange={() => {
+				console.log('Switch 4 clicked');
+			}}>Switch 4</Switch
+		>
+	</Section>
 </LayoutContainer>
 
 <style>
@@ -89,5 +115,6 @@
 
 	p {
 		margin-block: 1rem;
+		font-size: 1rem;
 	}
 </style>

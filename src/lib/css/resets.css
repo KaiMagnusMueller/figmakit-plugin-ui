@@ -57,17 +57,37 @@ h4 {
 	text-wrap: balance;
 }
 
+input,
+label,
+select,
+textarea,
+button {
+	margin: 0;
+	padding: 0;
+}
+
+span,
+p,
+a,
+button,
+li,
+input,
+label,
+select,
+textarea,
+dd,
+dl,
+dt {
+	font-weight: var(--font-weight-normal);
+	font-size: var(--font-size-xsmall);
+	line-height: var(--font-line-height);
+	letter-spacing: var(--font-letter-spacing-pos-xsmall);
+}
+
 p,
 li,
 dd {
 	text-wrap: pretty;
-}
-
-input,
-button,
-textarea,
-select {
-	font: inherit;
 }
 
 iframe {

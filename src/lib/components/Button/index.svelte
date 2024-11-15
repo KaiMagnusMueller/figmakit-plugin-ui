@@ -80,10 +80,8 @@
 		height: 2rem;
 		color: var(--figma-color-text-onbrand);
 		font-weight: var(--font-weight-medium);
-		font-size: var(--font-size-xsmall);
+
 		line-height: 1rem;
-		font-family: var(--font-stack);
-		letter-spacing: var(--font-letter-spacing-neg-small);
 		user-select: none;
 		text-decoration: none;
 		fill: var(--figma-color-icon);

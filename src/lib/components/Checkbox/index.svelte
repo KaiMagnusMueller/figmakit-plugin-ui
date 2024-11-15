@@ -57,6 +57,7 @@
 	label {
 		display: flex;
 		align-items: center;
+		gap: 0.5rem;
 		font-size: var(--font-size-small);
 		user-select: none;
 	}
@@ -64,10 +65,10 @@
 	input {
 		position: relative;
 		appearance: none;
-		margin: 0;
+		margin-block: 0.625rem;
 		padding: 0;
-		width: 2rem;
-		height: 2rem;
+		width: 0.75rem;
+		height: 0.75rem;
 	}
 
 	input::before {
@@ -79,8 +80,8 @@
 		appearance: none;
 		border: 1px solid var(--figma-color-icon);
 		border-radius: var(--border-radius-small);
-		width: 0.75rem;
-		height: 0.75rem;
+		width: inherit;
+		height: inherit;
 		content: '';
 	}
 
