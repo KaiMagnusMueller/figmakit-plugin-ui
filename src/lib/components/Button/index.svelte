@@ -11,6 +11,7 @@
 		destructive?: boolean;
 		rounded?: boolean;
 		class?: string;
+		style?: string;
 		children?: Snippet;
 		[key: string]: unknown;
 	} & HTMLButtonAttributes;
@@ -23,6 +24,7 @@
 		destructive,
 		rounded,
 		class: className,
+		style,
 		children,
 		...props
 	}: Props = $props();
@@ -45,6 +47,7 @@
 	class:rounded
 	class="{variant}
 	{className}"
+	{style}
 	use:blurOnEvent
 >
 	{#if children}
@@ -57,21 +60,22 @@
 <style>
 	button {
 		display: flex;
-		align-items: center;
-		border-radius: var(--border-radius-large);
-		color: var(--figma-color-text-onbrand);
 		flex-shrink: 0;
-		font-family: var(--font-stack);
-		font-size: var(--font-size-xsmall);
-		font-weight: var(--font-weight-medium);
-		letter-spacing: var(--font-letter-spacing-neg-small);
-		line-height: 1rem;
-		height: 2rem;
-		padding: 0 0.75rem;
-		text-decoration: none;
+		justify-content: center;
+		align-items: center;
 		outline: none;
 		border: 2px solid transparent;
+		border-radius: var(--border-radius-medium);
+		padding: 0 0.75rem;
+		height: 2rem;
+		color: var(--figma-color-text-onbrand);
+		font-weight: var(--font-weight-medium);
+		font-size: var(--font-size-xsmall);
+		line-height: 1rem;
+		font-family: var(--font-stack);
+		letter-spacing: var(--font-letter-spacing-neg-small);
 		user-select: none;
+		text-decoration: none;
 	}
 
 	/* Primary styles */
@@ -99,10 +103,10 @@
 
 	/* Secondary styles */
 	.secondary {
-		background-color: transparent;
 		border: 1px solid var(--figma-color-border-strong);
-		color: var(--figma-color-text);
+		background-color: transparent;
 		padding: 0 calc(var(--size-xsmall) + 1px) 0 calc(var(--size-xsmall) + 1px);
+		color: var(--figma-color-text);
 		letter-spacing: var(--font-letter-spacing-pos-small);
 	}
 	.secondary:enabled:active,
@@ -130,13 +134,13 @@
 
 	/* tertiary styles */
 	.tertiary {
+		cursor: pointer;
 		border: 1px solid transparent;
-		color: var(--figma-color-text-brand);
 		background: initial;
 		padding: 0;
+		color: var(--figma-color-text-brand);
 		font-weight: var(--font-weight-normal);
 		letter-spacing: var(--font-letter-spacing-pos-small);
-		cursor: pointer;
 	}
 	.tertiary:enabled:focus {
 		text-decoration: underline;
@@ -155,6 +159,6 @@
 	}
 
 	.rounded {
-		border-radius: 6px;
+		border-radius: var(--border-radius-medium);
 	}
 </style>

@@ -15,45 +15,45 @@
     */
 
 	/* Accent */
-	--blue: var(--figma-color-bg-brand);
+	/* --blue: var(--figma-color-bg-brand);
 	--purple: var(--figma-color-bg-component);
 	--hot-pink: #ff00ff;
 	--green: #1bc47d;
 	--red: var(--figma-color-bg-danger);
-	--yellow: var(--figma-color-bg-warning);
+	--yellow: var(--figma-color-bg-warning); */
 
 	/* Basic foreground */
-	--black: #000000;
+	/* --black: #000000;
 	--black8: var(--figma-color-text);
 	--black8-opaque: #333333;
 	--black3: var(--figma-color-text-secondary);
 	--black3-opaque: #7a7a7a;
 	--white: var(--figma-color-bg);
 	--white8: var(--figma-color-text-onbrand-secondary);
-	--white4: var(--figma-color-text-onbrand-tertiary);
+	--white4: var(--figma-color-text-onbrand-tertiary); */
 
 	/* Basic background */
-	--grey: #f0f0f0;
+	/* --grey: #f0f0f0;
 	--silver: var(--figma-color-border);
 	--hud: #222222;
-	--toolbar: var(--figma-color-bg-inverse);
+	--toolbar: var(--figma-color-bg-inverse); */
 
 	/* Special */
-	--black1: rgba(0, 0, 0, 0.1);
+	/* --black1: rgba(0, 0, 0, 0.1);
 	--blue3: rgba(24, 145, 251, 0.3);
 	--purple4: var(--figma-color-text-component-secondary);
 	--hover-fill: var(--figma-color-bg-hover);
 	--selection-a: var(--figma-color-bg-selected);
 	--selection-b: var(--figma-color-bg-selected-secondary);
-	--white2: var(--figma-color-text-onbrand-tertiary);
+	--white2: var(--figma-color-text-onbrand-tertiary); */
 
 	/* SHIM */
-	--color-bg-menu: #1e1e1e;
+	/* --color-bg-menu: #1e1e1e; */
 	/* to update */
-	--color-text-menu-text: #ffffff;
+	/* --color-text-menu-text: #ffffff;
 	--color-text-menu-secondary: rgba(255, 255, 255, 0.7);
 	--color-border-menu: #383838;
-	--text-highlight: rgba(13, 153, 255, 0.4);
+	--text-highlight: rgba(13, 153, 255, 0.4); */
 
 	/* TYPOGRAPHY */
 	/* Pos = positive applications (black on white) */
@@ -74,9 +74,9 @@
 	--font-weight-bold: 600;
 
 	/* Lineheight */
-	--font-line-height: 16px;
+	--font-line-height: 1em;
 	/* Use For xsmall, small font sizes */
-	--font-line-height-large: 24px;
+	--font-line-height-large: 1.5em;
 	/* Use For large, xlarge font sizes */
 
 	/* Letterspacing */
@@ -90,78 +90,67 @@
 	--font-letter-spacing-neg-xlarge: -0.001em;
 
 	/* BORDER RADIUS */
-	--border-radius-small: 2px;
-	--border-radius-med: 5px;
-	--border-radius-large: 6px;
+	--border-radius-small: 0.125rem; /* 2px */
+	--border-radius-medium: 0.375rem; /* 6px */
+	--border-radius-large: 0.375rem; /* 6px */
 
 	/* SHADOWS */
 	--shadow-hud: 0 5px 17px rgba(0, 0, 0, 0.2), 0 2px 7px rgba(0, 0, 0, 0.15);
 	--shadow-floating-window: 0 2px 14px rgba(0, 0, 0, 0.15);
 
 	/* SPACING + SIZING */
-	--size-xxxsmall: 4px;
-	--size-xxsmall: 8px;
-	--size-xsmall: 16px;
-	--size-small: 24px;
-	--size-medium: 32px;
-	--size-large: 40px;
-	--size-xlarge: 48px;
-	--size-xxlarge: 64px;
-	--size-huge: 80px;
-}
-
-/* Global styles */
-
-* {
-	box-sizing: border-box;
-}
-
-body {
-	position: relative;
-	box-sizing: border-box;
-	font-family: 'Inter', sans-serif;
-	margin: 0;
-	padding: 0;
+	--size-xxxsmall: 0.25rem;
+	--size-xxsmall: 0.5rem;
+	--size-xsmall: 1rem;
+	--size-small: 1.5rem;
+	--size-medium: 2rem;
+	--size-large: 2.5rem;
+	--size-xlarge: 3rem;
+	--size-xxlarge: 4rem;
+	--size-huge: 5rem;
 }
 
 /*  FONTS */
 @font-face {
-	font-family: 'Inter';
+	font-style: normal;
 	font-weight: 400;
-	font-style: normal;
-	src: url('https://static.figma.com/webfont/1/Inter-Regular.woff2') format('woff2'),
+	src:
+		url('https://static.figma.com/webfont/1/Inter-Regular.woff2') format('woff2'),
 		url('https://static.figma.com/webfont/1/Inter-Regular.woff') format('woff');
+	font-family: 'Inter';
 }
 
 @font-face {
-	font-family: 'Inter';
+	font-style: normal;
 	font-weight: 500;
-	font-style: normal;
-	src: url('https://static.figma.com/webfont/1/Inter-Medium.woff2') format('woff2'),
+	src:
+		url('https://static.figma.com/webfont/1/Inter-Medium.woff2') format('woff2'),
 		url('https://static.figma.com/webfont/1/Inter-Medium.woff') format('woff');
+	font-family: 'Inter';
 }
 
 @font-face {
-	font-family: 'Inter';
-	font-weight: 600;
 	font-style: normal;
-	src: url('https://static.figma.com/webfont/1/Inter-SemiBold.woff2') format('woff2'),
+	font-weight: 600;
+	src:
+		url('https://static.figma.com/webfont/1/Inter-SemiBold.woff2') format('woff2'),
 		url('https://static.figma.com/webfont/1/Inter-SemiBold.woff') format('woff');
+	font-family: 'Inter';
 }
 
 /* Hyperlink styling */
 a {
-	color: var(--blue);
-	text-decoration: none;
 	cursor: pointer;
+	color: var(--figma-color-text-brand);
+	text-decoration: none;
 }
 
 a:hover {
-	color: var(--blue);
+	color: var(--figma-color-text-brand);
 }
 
 a:active {
-	color: var(--blue);
+	color: var(--figma-color-text-brand);
 }
 
 a:focus {

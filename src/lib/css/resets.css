@@ -1,0 +1,75 @@
+html {
+	margin: 0;
+	padding: 0;
+
+	width: 100%;
+	color: var(--figma-color-text);
+	font-size: 1rem;
+	line-height: var(--font-line-height);
+	font-family: var(--font-stack);
+	font-feature-settings:
+		'liga' on,
+		'calt' on;
+	letter-spacing: calc(0.005px + var(--text-tracking-pos, 0) * 11px);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ul,
+ol,
+pre {
+	margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+input,
+label {
+	line-height: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	/* font-size: 1em; */
+	font-weight: normal;
+	text-wrap: balance;
+}
+
+p,
+li,
+dd {
+	text-wrap: pretty;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+iframe {
+	background-color: transparent;
+}
