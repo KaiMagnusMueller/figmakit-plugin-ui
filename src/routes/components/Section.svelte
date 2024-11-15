@@ -9,9 +9,9 @@
 	}: { title?: string; style?: string; children: Snippet; [key: string]: unknown } = $props();
 </script>
 
-<section {title} {...props}>
+<section {...props}>
 	<header>
-		<h2>Button</h2>
+		<h2>{title}</h2>
 	</header>
 	<div {style}>
 		{#if children}

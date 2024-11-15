@@ -1,8 +1,13 @@
-<script>
+<script lang="ts">
+	// Imports for showcase
+	import Section from './components/Section.svelte';
+
+	// Global styles
 	import '$lib/css/global.css';
 	import '$lib/css/resets.css';
-	import Button from '$lib/components/Button/index.svelte';
-	import Section from './components/Section.svelte';
+
+	// Imports for demo components
+	import { Button, IconButton, IconNodeBooleanOperation, IconInstance } from '$lib/index.js';
 </script>
 
 <svelte:head>
@@ -20,6 +25,13 @@
 	<Button destructive onclick={() => console.log('Button 4 clicked')}>Button 4</Button>
 	<Button disabled onclick={() => console.log('Button 5 clicked')}>Button 5</Button>
 	<Button theme="ui3" onclick={() => console.log('Button 6 clicked')}>Button 6</Button>
+
+<Section title="Icon Buttons">
+	<IconButton
+		icon={IconNodeBooleanOperation}
+		onclick={() => console.log('Icon Button 1 clicked')}
+	/>
+	<IconButton icon={IconInstance} onclick={() => console.log('Icon Button 2 clicked')} />
 </Section>
 
 <style>
