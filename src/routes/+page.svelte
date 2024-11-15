@@ -24,7 +24,18 @@
 	<Button variant="tertiary" onclick={() => console.log('Button 3 clicked')}>Button 3</Button>
 	<Button destructive onclick={() => console.log('Button 4 clicked')}>Button 4</Button>
 	<Button disabled onclick={() => console.log('Button 5 clicked')}>Button 5</Button>
-	<Button theme="ui3" onclick={() => console.log('Button 6 clicked')}>Button 6</Button>
+	<Button disabled destructive onclick={() => console.log('Button 5 clicked')}>Button 5</Button>
+	<Button icon={IconNodeBooleanOperation} onclick={() => console.log('Button 1 clicked')}
+		>Button 1</Button
+	>
+	<Button
+		icon={IconNodeBooleanOperation}
+		variant="secondary"
+		onclick={() => console.log('Button 2 clicked')}>Button 2</Button
+	>
+
+	<Button rounded onclick={() => console.log('Button 6 clicked')}>Button 6</Button>
+</Section>
 
 <Section title="Icon Buttons">
 	<IconButton

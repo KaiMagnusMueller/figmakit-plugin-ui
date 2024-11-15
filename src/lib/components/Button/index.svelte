@@ -3,9 +3,13 @@
 	import { blurOnEvent } from '$lib/helpers.svelte';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 
+	import { Icon } from '$lib/index.js';
+
 	type Props = {
 		onclick?: (arg: string) => void;
 		onsubmit?: (arg: string) => void;
+		icon?: string;
+		spin?: boolean;
 		variant?: 'primary' | 'secondary' | 'tertiary';
 		disabled?: boolean;
 		destructive?: boolean;
@@ -19,6 +23,8 @@
 	let {
 		onclick,
 		onsubmit,
+		icon,
+		spin,
 		variant = 'primary',
 		disabled,
 		destructive,
@@ -45,11 +51,15 @@
 	{disabled}
 	class:destructive
 	class:rounded
+	class:icon-button={!!icon}
 	class="{variant}
 	{className}"
 	{style}
 	use:blurOnEvent
 >
+	{#if icon}
+		<Icon {icon} {spin} color="currentColor" />
+	{/if}
 	{#if children}
 		{@render children?.()}
 	{:else}
@@ -76,6 +86,11 @@
 		letter-spacing: var(--font-letter-spacing-neg-small);
 		user-select: none;
 		text-decoration: none;
+		fill: var(--figma-color-icon);
+	}
+
+	button.icon-button {
+		padding-inline-start: 0.25rem;
 	}
 
 	/* Primary styles */
@@ -83,20 +98,28 @@
 		background-color: var(--figma-color-bg-brand);
 		color: var(--figma-color-text-onbrand);
 	}
-	.primary:enabled:active,
-	.primary:enabled:focus {
+	.primary:enabled:active {
+		background-color: var(--figma-color-bg-brand-pressed);
+	}
+
+	.primary:enabled:focus-visible {
 		border: 2px solid var(--figma-color-border-brand-strong);
 	}
+
 	.primary:disabled {
 		background-color: var(--figma-color-bg-disabled);
 	}
 	.primary.destructive {
 		background-color: var(--figma-color-bg-danger);
 	}
-	.primary.destructive:active,
-	.primary.destructive:focus {
+	.primary.destructive:active {
+		background-color: var(--figma-color-bg-danger-pressed);
+	}
+
+	.primary.destructive:focus-visible {
 		border: 2px solid var(--figma-color-border-disabled-strong);
 	}
+
 	.primary.destructive:disabled {
 		background-color: var(--figma-color-bg-disabled);
 	}
@@ -109,11 +132,15 @@
 		color: var(--figma-color-text);
 		letter-spacing: var(--font-letter-spacing-pos-small);
 	}
-	.secondary:enabled:active,
-	.secondary:enabled:focus {
-		border: 2px solid var(--figma-color-border-selected);
-		padding: 0 var(--size-xsmall) 0 var(--size-xsmall);
+	.secondary:enabled:active {
+		background-color: var(--figma-color-bg-hover);
 	}
+
+	.secondary:enabled:focus-visible {
+		outline: 0.125rem solid #2c2c2c;
+		outline-offset: -0.125rem;
+	}
+
 	.secondary:disabled {
 		border: 1px solid var(--figma-color-border-disabled-strong);
 		color: var(--figma-color-text-disabled);
@@ -124,7 +151,7 @@
 		color: var(--figma-color-text-danger);
 	}
 	.secondary.destructive:enabled:active,
-	.secondary.destructive:enabled:focus {
+	.secondary.destructive:enabled:focus-visible {
 		border: 2px solid var(--figma-color-border-danger-strong);
 		padding: 0 var(--size-xsmall) 0 var(--size-xsmall);
 	}
@@ -142,7 +169,7 @@
 		font-weight: var(--font-weight-normal);
 		letter-spacing: var(--font-letter-spacing-pos-small);
 	}
-	.tertiary:enabled:focus {
+	.tertiary:enabled:focus-visible {
 		text-decoration: underline;
 	}
 	.tertiary:disabled {
@@ -151,7 +178,7 @@
 	.tertiary.destructive {
 		color: var(--figma-color-text-danger);
 	}
-	.tertiary.destructive:enabled:focus {
+	.tertiary.destructive:enabled:focus-visible {
 		text-decoration: underline;
 	}
 	.tertiary.destructive:disabled {
