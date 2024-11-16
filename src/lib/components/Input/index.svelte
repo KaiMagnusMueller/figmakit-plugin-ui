@@ -8,9 +8,9 @@
 		onkeydown?: (e: Event) => void;
 		onfocus?: (e: Event) => void;
 		onblur?: (e: Event) => void;
-		id?: any;
-		value?: any;
-		name?: any;
+		id?: string;
+		value?: string;
+		name?: string;
 		icon?: string;
 		iconText?: string;
 		borders?: boolean;
@@ -50,7 +50,7 @@
 </script>
 
 <div class="input {className}">
-	{#if icon || iconText}
+	{#if icon}
 		<div class="icon">
 			<Icon {icon} {iconText} {spin} color="--figma-color-icon" />
 		</div>
@@ -132,8 +132,8 @@
 	}
 	input:disabled {
 		position: relative;
+		cursor: not-allowed;
 		background-image: none;
-		color: var(--figma-color-text-disabled);
 	}
 	input:disabled:active {
 		outline: none;
@@ -146,7 +146,6 @@
 	}
 	.borders:disabled,
 	.borders:disabled:placeholder-shown {
-		border: 1px solid transparent;
 		background-image: none;
 	}
 	.borders:disabled:placeholder-shown:active {

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	export { className as class };
+	//pass svg data into icon by importing an svg in parent
 
 	type Props = {
-		icon?: string;
+		icon: string;
 		color?: string;
 		iconText?: string;
 		disabled?: boolean;
@@ -21,7 +21,7 @@
 
 	let {
 		color = '--figma-color-icon',
-		icon, //pass svg data into this var by importing an svg in parent
+		icon,
 		iconText,
 		spin,
 		size = 32,
@@ -35,9 +35,14 @@
 		children,
 		...props
 	}: Props = $props();
+
+	// let svg: SVGSVGElement | null = new DOMParser()
+	// 	.parseFromString(icon, 'image/svg+xml')
+	// 	.querySelector('svg');
 </script>
 
 <div
+	{...props}
 	class:spin
 	class="icon-component {className}"
 	style="color: currentColor; fill: currentColor; width: {size}px; height: {size}px"

@@ -1,5 +1,7 @@
 <script lang="ts">
-	interface Props {
+	import type { HTMLTextareaAttributes } from 'svelte/elements';
+
+	type Props = {
 		oninput?: (e: Event) => void;
 		onchange?: (e: Event) => void;
 		onkeydown?: (e: Event) => void;
@@ -13,7 +15,7 @@
 		placeholder?: string;
 		class?: string;
 		[key: string]: unknown;
-	}
+	} & HTMLTextareaAttributes;
 
 	let {
 		oninput,
@@ -95,21 +97,18 @@
 		outline-offset: -2px;
 		border: 1px solid var(--figma-color-border-selected);
 	}
-	textarea:active,
+
 	textarea:focus {
 		outline: 1px solid var(--figma-color-border-selected);
 		outline-offset: -2px;
 		border: 1px solid var(--figma-color-border-selected);
-		padding: 7px 4px 9px 7px;
-
-		color: var(--figma-color-text);
 	}
 	textarea:disabled,
 	textarea:disabled:hover {
 		position: relative;
-		border: 1px solid transparent;
-		color: var(--figma-color-text-disabled);
+		cursor: not-allowed;
 	}
+
 	textarea:disabled:active {
 		outline: none;
 		padding: 7px 4px 9px 7px;
