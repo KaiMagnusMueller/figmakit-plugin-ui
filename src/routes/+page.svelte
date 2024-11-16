@@ -15,7 +15,9 @@
 		IconInstance,
 		Checkbox,
 		Switch,
-		Radio
+		Radio,
+		Input,
+		Textarea
 	} from '$lib/index.js';
 
 	let buttonCounter = $state(0);
@@ -144,6 +146,18 @@
 			}}>Radio 4</Radio
 		>
 		<p>Selected value: {radioValue}</p>
+	</Section>
+
+	<Section title="Input">
+		<Input value="Input with value"></Input>
+		<Input value="Input with value"></Input>
+		<Input placeholder="Custom placeholder…"></Input>
+		<Input value="Disabled with value" disabled />
+		<Input placeholder="Input with icon" icon={IconNodeBooleanOperation} />
+
+		<Input borders={false} value="No border"></Input>
+		<Input borders={false} placeholder="No border"></Input>
+		<Textarea></Textarea>
 	</Section>
 </LayoutContainer>
 
