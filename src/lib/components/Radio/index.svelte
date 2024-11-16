@@ -46,7 +46,6 @@
 		{onchange}
 		{onfocus}
 		{onblur}
-		use:blurOnEvent
 	/>
 	{@render children?.()}
 </label>
@@ -110,15 +109,12 @@
 		content: '';
 	}
 
-	input:enabled:checked:focus:before {
-		box-shadow: 0 0 0 1px var(--figma-color-border-selected);
-		border: 1px solid var(--figma-color-border-selected);
-		border-radius: var(--border-radius-small);
-		border-radius: 50%;
+	input:enabled:focus:before {
+		outline: 2px solid var(--figma-color-border-selected);
+		outline-offset: -1px;
 	}
 
-	input:enabled:focus:before {
-		box-shadow: 0 0 0 1px var(--figma-color-border-selected);
-		border: 1px solid var(--figma-color-border-selected);
+	input:focus-visible {
+		outline: none;
 	}
 </style>

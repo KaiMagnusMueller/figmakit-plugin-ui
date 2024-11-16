@@ -44,7 +44,6 @@
 		{onchange}
 		{onfocus}
 		{onblur}
-		use:blurOnEvent
 	/>
 	{@render children?.()}
 
@@ -104,5 +103,14 @@
 	input:checked:disabled::before {
 		border: 1px solid transparent;
 		background-color: var(--figma-color-icon-disabled);
+	}
+
+	input:focus:before {
+		outline: 2px solid var(--figma-color-border-selected);
+		outline-offset: -1px;
+	}
+
+	input:focus {
+		outline: none;
 	}
 </style>

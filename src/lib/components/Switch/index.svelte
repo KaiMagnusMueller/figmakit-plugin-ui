@@ -44,7 +44,6 @@
 		{onchange}
 		{onfocus}
 		{onblur}
-		use:blurOnEvent
 	/>
 	{@render children?.()}
 </label>
@@ -128,7 +127,12 @@
 		background-color: var(--figma-color-bg-disabled-secondary);
 	}
 
-	input:focus::after {
-		box-shadow: 0 0 0 2px var(--figma-color-border-selected);
+	input:focus::before {
+		outline: 2px solid var(--figma-color-border-selected);
+		outline-offset: 2px;
+	}
+
+	input:focus-visible {
+		outline: none;
 	}
 </style>
