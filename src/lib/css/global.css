@@ -157,6 +157,11 @@ a:focus {
 	text-decoration: underline;
 }
 
+/* FONT STYLES */
+.text-small {
+	font-size: var(--font-size-xsmall);
+}
+
 /* UTILITIES */
 
 /* padding */
