@@ -1,16 +1,16 @@
 # Figma Plugin UI Kit
 
-This repository contains a UI kit for developing Figma plugins. It provides a set of reusable components and utilities to help you build Figma plugin interfaces quickly and efficiently with Svelte 5.
+A component library for Svelte 5 based Figma plugins. It provides a set of reusable components and utilities to help you build Figma plugin interfaces quickly and efficiently with Svelte 5.
 
-They are designed to resemble the original Figma UI as close as possible, so users get a high quality and familiar experience.
+Number one priority was to re-implement the original Figma UI elements as close as possible, so plugin users have a familiar and high quality experience.
 
 This library is built on top of [figma-plugin-ds-svelte](https://github.com/thomas-lowry/figma-plugin-ds-svelte), many thanks to the original author for providing this resource.
 
 ## Usage
 
-You can use the components and utilities provided in this UI kit in your Figma plugin projects. Import the necessary components from the `src/lib` directory and use them in your plugin code.
+### Setup
 
-Example:
+Install this library via `npm install figma-kit-plugin-ui` and import components like this
 
 ```javascript
 import { Button } from 'figma-plugin-ui-kit';
@@ -18,9 +18,11 @@ import { Button } from 'figma-plugin-ui-kit';
 <Button onClick={() => console.log('Button clicked!')}>Click Me</Button>;
 ```
 
+Inside '/routes' is a demo page with all the components and usage examples. After cloning this repo and installing the dependencies via `npm install`, run `npm run dev` to start a local server and the demo app. There you find some usage examples on how to use the components and which properties they have in action.
+
 ### Styles
 
-Import styles somewhere in a +page.svelte file like this:
+There are additional global styles needed for the components to work correctly. Import them somewhere in a Svelte file like this:
 
 ```bash
 <script>
