@@ -64,12 +64,13 @@
 	}
 
 	input {
+		--radio-diameter: 0.875rem; /* 14px */
 		position: relative;
 		appearance: none;
 		margin: 0;
 		padding: 0;
-		width: 0.75rem;
-		height: 0.75rem;
+		width: var(--radio-diameter);
+		height: var(--radio-diameter);
 	}
 
 	input:checked:after {
@@ -92,8 +93,8 @@
 		transform: translate(-50%, -50%);
 		border-radius: 50%;
 		background-color: transparent;
-		width: 5px;
-		height: 5px;
+		width: calc(var(--radio-diameter) - 8px);
+		height: calc(var(--radio-diameter) - 8px);
 		content: '';
 	}
 

@@ -61,13 +61,14 @@
 	}
 
 	input {
+		--switch-width: 1.5rem;
+		--switch-height: 0.75rem;
 		position: relative;
 		appearance: none;
-		/* margin-inline: 0.25rem; */
 		margin-block: 0.625rem;
 		padding: 0;
-		width: 1.5rem;
-		height: 0.75rem;
+		width: var(--switch-width);
+		height: var(--switch-height);
 	}
 
 	/* track */
@@ -78,24 +79,27 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		transition: background-color 0.2s;
-		border-radius: 6px;
+		border-radius: calc(var(--switch-height) / 2);
 		background-color: var(--figma-color-icon-tertiary);
 		width: inherit;
 		height: inherit;
 		content: '';
 	}
-	/* slider */
+
+	/* knob */
 	input:after {
+		--knob-padding: 1px;
+		--knob-diameter: calc(var(--switch-height) - var(--knob-padding) * 2);
 		display: block;
 		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-11px, -50%);
+		top: var(--knob-padding);
+		left: var(--knob-padding);
+		/* transform: translate(-11px, -50%); */
 		transition: transform 0.2s;
 		border-radius: 50%;
 		background-color: var(--figma-color-icon-onbrand);
-		width: calc(0.75rem - 2px);
-		height: calc(0.75rem - 2px);
+		width: var(--knob-diameter);
+		height: var(--knob-diameter);
 		content: '';
 	}
 
@@ -105,13 +109,16 @@
 	}
 
 	input:checked::after {
-		transform: translate(1px, -50%);
+		transform: translateX(
+			calc(var(--switch-width) - var(--knob-diameter) - var(--knob-padding) * 2)
+		);
 	}
 
 	label:has(input:disabled) {
 		color: var(--figma-color-text-disabled);
 	}
 
+	input:disabled::before,
 	input:checked:disabled::before {
 		background-color: var(--figma-color-bg-disabled);
 	}

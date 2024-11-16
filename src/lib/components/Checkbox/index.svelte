@@ -105,24 +105,4 @@
 		border: 1px solid transparent;
 		background-color: var(--figma-color-icon-disabled);
 	}
-
-	/* label {
-		display: flex;
-		padding: var(--size-xxsmall) var(--size-xsmall) var(--size-xxsmall) var(--size-small);
-		color: var(--figma-color-text);
-		font-weight: var(--font-weight-normal);
-		font-size: var(--font-size-xsmall);
-		user-select: none;
-	} */
-
-	/* input:enabled:checked:focus + label:before {
-		box-shadow: 0 0 0 2px var(--figma-color-border-brand-strong);
-		border: 1px solid var(--figma-color-bg);
-		border-radius: var(--border-radius-small);
-	}
-
-	input:enabled:focus + label:before {
-		box-shadow: 0 0 0 1px var(--figma-color-border-brand-strong);
-		border: 1px solid var(--figma-color-border-brand-strong);
-	} */
 </style>

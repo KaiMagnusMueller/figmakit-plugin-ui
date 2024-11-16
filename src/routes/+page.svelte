@@ -143,7 +143,7 @@
 				console.log('Radio 3 clicked', e.currentTarget as HTMLInputElement);
 			}}>Radio 4</Radio
 		>
-		<p>Selected radio: {radioValue}</p>
+		<p>Selected value: {radioValue}</p>
 	</Section>
 </LayoutContainer>
 
