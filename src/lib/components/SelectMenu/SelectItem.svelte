@@ -58,6 +58,7 @@
 		cursor: default;
 		outline: none;
 		padding: 0px var(--size-xsmall) 0px var(--size-xxsmall);
+		width: fit-content;
 		height: var(--size-small);
 		color: var(--color-text-menu-text);
 		font-weight: var(--font-weight-normal);

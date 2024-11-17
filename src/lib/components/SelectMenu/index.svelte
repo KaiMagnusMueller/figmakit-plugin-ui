@@ -147,29 +147,27 @@
 			return;
 		}
 
-		if (selectedItem.selected) {
-			selectedItem.selected = false;
-			value = value.filter((item) => item.id !== selectedItem.id);
+		selectedItem.selected = !selectedItem.selected;
+
+		if (multiselect) {
+			value = selectedItem.selected
+				? [...value, selectedItem]
+				: value.filter((item) => item.id !== selectedItem.id);
 		} else {
-			selectedItem.selected = true; //select current item
-			if (multiselect) {
-				value = [...value, selectedItem];
-			} else {
-				value = [selectedItem];
-			}
+			internalGroups.forEach((group) =>
+				group.items.forEach((item) => (item.selected = false))
+			);
+			selectedItem.selected = true;
+			value = [selectedItem];
 		}
 
 		onchange?.(value);
 		open = false;
 	}
 
-	function hideMenu(event?: Event) {
+	function hideMenu() {
 		open = false;
 	}
-
-	// $effect(() => {
-	// 	$inspect(value);
-	// });
 </script>
 
 <div
@@ -185,6 +183,7 @@
 			<span class="icon"><Icon {icon} color="black3" /></span>
 		{/if}
 
+		<!-- TODO: Placeholder / display value handling for more than one value -->
 		{#if !!value && value.length === 1}
 			<span class="label">{value[0].label}</span>
 		{:else}
@@ -218,7 +217,7 @@
 			bind:this={menuList}
 			use:clickOutside={menuButton}
 			use:resizeAndPosition={menuButton}
-			onclickOutside={(e) => hideMenu(e)}
+			onclickOutside={() => hideMenu()}
 		>
 			{#if internalGroups && internalGroups.length > 0}
 				{#each internalGroups as group, i}
@@ -230,6 +229,7 @@
 					{/if}
 					{#each group.items as item}
 						<SelectItem
+							selected={item.selected}
 							onclick={(e) => menuClick(e)}
 							itemId={item.id}
 							disabled={item.hidden}
@@ -341,7 +341,6 @@
 		border-radius: var(--border-radius-small);
 		background-color: var(--figma-color-bg);
 		padding: var(--size-xxsmall) 0 var(--size-xxsmall) 0;
-		width: 100%;
 		overflow-x: overlay;
 		overflow-y: auto;
 	}
