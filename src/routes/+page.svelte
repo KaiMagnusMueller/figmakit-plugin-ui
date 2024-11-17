@@ -17,7 +17,8 @@
 		Switch,
 		Radio,
 		Input,
-		Textarea
+		Textarea,
+		SelectMenu
 	} from '$lib/index.js';
 
 	let buttonCounter = $state(0);
@@ -166,6 +167,36 @@
 		<Textarea value="Tall textarea with more rows for longer descriptions" rows={5}></Textarea>
 		<Textarea disabled placeholder="This textarea is disabled"></Textarea>
 	</Section>
+
+	<Section title="Select Menu">
+		<SelectMenu
+			optGroups={[
+				{
+					label: 'Group 1',
+					items: [
+						{ value: 'a', label: 'Option A' },
+						{ value: 'b', label: 'Option B' },
+						{ value: 'c', label: 'Option C' },
+						{ value: 'd', label: 'Option D' }
+					]
+				},
+				{
+					label: 'Group 2',
+					items: [
+						{ value: 'e', label: 'Option E' },
+						{ value: 'f', label: 'Option F' },
+						{ value: 'g', label: 'Option G' },
+						{ value: 'h', label: 'Option H' }
+					]
+				}
+			]}
+			onchange={(e) => {
+				console.log('Option selected;', e.label);
+			}}
+		></SelectMenu>
+	</Section>
+
+	<Section title="Dropdown Menu"></Section>
 </LayoutContainer>
 
 <style>
