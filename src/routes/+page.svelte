@@ -21,9 +21,34 @@
 		SelectMenu
 	} from '$lib/index.js';
 
+	import type { Option, Group } from '$lib/components/SelectMenu/index.svelte';
+
 	let buttonCounter = $state(0);
 	let checked = $state(true);
 	let radioValue = $state('a');
+	let optGroups: Group[] = [
+		{
+			label: 'Group 1',
+			items: [
+				{ value: 'a', label: 'Option A' },
+				{ value: 'b', label: 'Option B' },
+				{ value: 'c', label: 'Option C' },
+				{ value: 'd', label: 'Option D' }
+			]
+		},
+		{
+			label: 'Group 2',
+			items: [
+				{ value: 'e', label: 'Option E' },
+				{ value: 'f', label: 'Option F' },
+				{ value: 'g', label: 'Option G' },
+				{ value: 'h', label: 'Option H' }
+			]
+		}
+	];
+
+	let selectedOpt1: Option[] = $state([]);
+	let selectedOpt2: Option[] = $state([]);
 </script>
 
 <svelte:head>
@@ -170,30 +195,26 @@
 
 	<Section title="Select Menu">
 		<SelectMenu
-			optGroups={[
-				{
-					label: 'Group 1',
-					items: [
-						{ value: 'a', label: 'Option A' },
-						{ value: 'b', label: 'Option B' },
-						{ value: 'c', label: 'Option C' },
-						{ value: 'd', label: 'Option D' }
-					]
-				},
-				{
-					label: 'Group 2',
-					items: [
-						{ value: 'e', label: 'Option E' },
-						{ value: 'f', label: 'Option F' },
-						{ value: 'g', label: 'Option G' },
-						{ value: 'h', label: 'Option H' }
-					]
-				}
-			]}
+			{optGroups}
+			bind:value={selectedOpt1}
 			onchange={(e) => {
-				console.log('Option selected;', e.label);
+				// console.log('Option selected;', e[0].label);
+			}}
+			placeholder="Single select menu"
+		></SelectMenu>
+
+		<p>Selected options: {selectedOpt1.map((o) => o.label).join(', ')}</p>
+
+		<SelectMenu
+			placeholder="Multi select menu"
+			{optGroups}
+			multiselect
+			onchange={(e) => {
+				selectedOpt2 = e;
+				// console.log('Options selected:', e.map((o) => o.label).join(', '));
 			}}
 		></SelectMenu>
+		<p>Selected options: {selectedOpt2.map((o) => o.label).join(', ')}</p>
 	</Section>
 
 	<Section title="Dropdown Menu"></Section>

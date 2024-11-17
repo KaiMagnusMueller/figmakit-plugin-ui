@@ -1,33 +1,29 @@
+<script module lang="ts">
+	export type Group = IGroup;
+	export type Option = IOption;
+
+	interface IGroup {
+		label?: string;
+		items: IOption[];
+	}
+
+	interface IOption {
+		value: string;
+		label: string;
+		selected?: boolean;
+		hidden?: boolean;
+		id?: string;
+	}
+</script>
+
 <script lang="ts">
 	import { clickOutside, resizeAndPosition } from '$lib/helpers.svelte.js';
 
 	import { SelectItem, SelectDivider } from './index.js';
 	import { Icon } from '$lib/index.js';
 
-	type Group = {
-		label?: string;
-		items: Option[];
-	};
-
-	type Option = {
-		value: string;
-		label: string;
-		selected?: boolean;
-		hidden?: boolean;
-		id?: string;
-	};
-
-	type OptionInternal = Option & {
-		id: string;
-	};
-
-	type GroupInternal = {
-		label?: string;
-		items: OptionInternal[];
-	};
-
 	type Props = {
-		onchange?: (e: Option[]) => void;
+		onchange?: (e: IOption[]) => void;
 		onfocus?: (e: Event) => void;
 		onblur?: (e: Event) => void;
 		icon?: string;
@@ -36,7 +32,7 @@
 		macOSBlink?: boolean;
 		optGroups?: Group[]; //pass data in via this prop to generate menu items
 		placeholder?: string;
-		value?: OptionI[]; //stores the current selection, note, the value will be an object from your array
+		value?: IOption[]; //stores the current selection, note, the value will be an object from your array
 		open?: boolean;
 		multiselect?: boolean;
 		showGroupLabels?: boolean; //default prop, true will show option group labels
@@ -53,7 +49,9 @@
 		iconText,
 		disabled = $bindable(false),
 		optGroups = [],
-		placeholder = $bindable('Please make a selection.'),
+		placeholder = optGroups.length <= 0
+			? 'There are no items to select'
+			: 'Please make a selection',
 		value = $bindable([]),
 		multiselect = $bindable(false),
 		open = $bindable(false),
@@ -64,21 +62,17 @@
 	}: Props = $props();
 
 	let menuWrapper = $state();
-	let menuButton: HTMLButtonElement = $state(undefined);
-	let menuList: HTMLUListElement = $state(undefined);
+	let menuButton: HTMLButtonElement | null = $state(null);
+	let menuList: HTMLUListElement | null = $state(null);
 
-	let internalGroups: GroupInternal[] = $state([]);
+	let internalGroups: Group[] = updateSelectedAndIds(optGroups);
 
 	//FUNCTIONS
 
-	$effect(() => {
-		updateSelectedAndIds();
-	});
-
 	// this function runs everytime the optGroups array os updated
 	// it will auto assign ids and keep the value var updated
-	function updateSelectedAndIds() {
-		internalGroups = optGroups.map((group, groupIndex) => {
+	function updateSelectedAndIds(groups: Group[]): Group[] {
+		return groups.map((group, groupIndex) => {
 			return {
 				...group,
 				items: group.items.map((item, itemIndex) => ({
@@ -89,25 +83,7 @@
 		});
 
 		//Update the value variable, if an element is selected. If not, select the first one.
-
-		//set placeholder
-		if (optGroups.length <= 0) {
-			placeholder = 'There are no items to select';
-			disabled = true;
-		} else {
-			placeholder = 'Please make a selection';
-			disabled = false;
-		}
 	}
-
-	// //menu highlight function on the selected menu item
-	// function removeHighlight(event) {
-	// 	let items = Array.from(event.target.parentNode.children);
-	// 	items.forEach((item) => {
-	// 		item.blur();
-	// 		item.classList.remove('highlight');
-	// 	});
-	// }
 
 	//run for all menu click events
 	//this opens/closes the menu
@@ -148,9 +124,9 @@
 		// } else if (menuList.contains(event.target)) {
 		//find selected item in array
 
-		let itemId = (event.target as HTMLElement).getAttribute('data-id');
+		let id = (event.target as HTMLElement).getAttribute('data-id');
 
-		function getOptionById(id: string, groups: GroupInternal[]): OptionInternal | null {
+		function getOptionById(id: string, groups: Group[]): Option | null {
 			for (const group of groups) {
 				for (const item of group.items) {
 					if (item.id === id) {
@@ -161,11 +137,11 @@
 			return null;
 		}
 
-		if (!itemId) {
+		if (!id) {
 			return;
 		}
 
-		const selectedItem = getOptionById(itemId, internalGroups);
+		const selectedItem = getOptionById(id, internalGroups);
 
 		if (!selectedItem) {
 			return;
@@ -183,42 +159,17 @@
 			}
 		}
 
-		// updateSelectedAndIds();
 		onchange?.(value);
-
-		// if (macOSBlink) {
-		// var x = 4;
-		// var interval = 70;
-
-		// //blink the background
-		// for (var i = 0; i < x; i++) {
-		// 	setTimeout(function () {
-		// 		event.target.classList.toggle('blink');
-		// 	}, i * interval);
-		// }
-		// //delay closing the menu
-		// setTimeout(
-		// 	function () {
-		// 		menuList.classList.add('hidden'); //hide the menu
-		// 	},
-		// 	interval * x + 40
-		// );
-		// } else {
-
 		open = false;
-
-		// menuButton.classList.remove('selected'); //remove selected state from button
-		// }
-		// 	}
 	}
 
 	function hideMenu(event?: Event) {
 		open = false;
 	}
 
-	$effect(() => {
-		$inspect(value);
-	});
+	// $effect(() => {
+	// 	$inspect(value);
+	// });
 </script>
 
 <div
@@ -285,27 +236,6 @@
 							{rounded}>{item.label}</SelectItem
 						>
 					{/each}
-
-					<!-- {#if i === 0}
-					{#if item.group && showGroupLabels}
-						<SelectDivider label>{item.group}</SelectDivider>
-					{/if}
-				{:else if i > 0 && item.group && optGroups[i - 1].group != item.group}
-					{#if showGroupLabels}
-						<SelectDivider />
-						<SelectDivider label>{item.group}</SelectDivider>
-					{:else}
-						<SelectDivider />
-					{/if}
-				{/if}
-				<SelectItem
-					on:click={menuClick}
-					on:mouseenter={removeHighlight}
-					itemId={item.id}
-					disabled={item.hidden}
-					bind:selected={item.selected}
-					{rounded}>{item.label}</SelectItem
-				> -->
 				{/each}
 			{/if}
 		</ul>
