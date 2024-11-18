@@ -11,8 +11,6 @@
 	import {
 		Button,
 		IconButton,
-		IconNodeBooleanOperation,
-		IconInstance,
 		Checkbox,
 		Switch,
 		Radio,
@@ -20,8 +18,219 @@
 		Textarea,
 		SelectMenu,
 		Disclosure,
-		DisclosureItem
+		DisclosureItem,
+		OnboardingTip,
+		Label,
+		Type,
+		Icon
 	} from '$lib/index.js';
+
+	import {
+		IconAdjust,
+		IconAlert,
+		IconAlignHorizontalCenters,
+		IconAlignLeft,
+		IconAlignRight,
+		IconAlignTop,
+		IconAlignVerticalCenters,
+		IconAngle,
+		IconArrowLeftRight,
+		IconAutoLayoutHorizontal,
+		IconAutoLayoutVertical,
+		IconBack,
+		IconBlend,
+		IconBlendEmpty,
+		IconBreak,
+		IconCaretDown,
+		IconCaretLeft,
+		IconCaretRight,
+		IconCaretUp,
+		IconCheck,
+		IconClose,
+		IconComponent,
+		IconCornerRadius,
+		IconCorners,
+		IconDistributeHorizontalSpacing,
+		IconDistributeVerticalSpacing,
+		IconDraft,
+		IconEffects,
+		IconEllipses,
+		IconEyedropper,
+		IconForward,
+		IconFrame,
+		IconGroup,
+		IconHidden,
+		IconHorizontalPadding,
+		IconHyperlink,
+		IconImage,
+		IconInstance,
+		IconKey,
+		IconLayoutAlignBottom,
+		IconLayoutGridColumns,
+		IconLayoutGridRows,
+		IconLayoutGridUniform,
+		IconLibrary,
+		IconLinkBroken,
+		IconLinkConnected,
+		IconList,
+		IconListDetailed,
+		IconListTile,
+		IconLockOff,
+		IconLockOn,
+		IconMinus,
+		IconPlay,
+		IconPlus,
+		IconRandom,
+		IconRecent,
+		IconResizeToFit,
+		IconResolve,
+		IconResolveFilled,
+		IconReverse,
+		IconSearch,
+		IconSearchLarge,
+		IconSettings,
+		IconShare,
+		IconSmiley,
+		IconSortAlphaAsc,
+		IconSortAlphaDsc,
+		IconSortTopBottom,
+		IconSpacing,
+		IconSpinner,
+		IconStarOff,
+		IconStarOn,
+		IconStrokeWeight,
+		IconStyles,
+		IconSwap,
+		IconTheme,
+		IconTidyUpGrid,
+		IconTidyUpListHorizontal,
+		IconTidyUpListVertical,
+		IconTimer,
+		IconTrash,
+		IconUpDown,
+		IconVerticalPadding,
+		IconVisible,
+		IconWarning,
+		IconWarningLarge,
+		IconNodeBooleanOperation,
+		IconNodeComponent,
+		IconNodeConnector,
+		IconNodeEllipse,
+		IconNodeFrame,
+		IconNodeGroup,
+		IconNodeImage,
+		IconNodeInstance,
+		IconNodePage,
+		IconNodeSection,
+		IconNodeSlice,
+		IconNodeStar,
+		IconNodeText
+	} from '$lib/index.js';
+
+	let icons = [
+		IconAdjust,
+		IconAlert,
+		IconAlignHorizontalCenters,
+		IconAlignLeft,
+		IconAlignRight,
+		IconAlignTop,
+		IconAlignVerticalCenters,
+		IconAngle,
+		IconArrowLeftRight,
+		IconAutoLayoutHorizontal,
+		IconAutoLayoutVertical,
+		IconBack,
+		IconBlend,
+		IconBlendEmpty,
+		IconBreak,
+		IconCaretDown,
+		IconCaretLeft,
+		IconCaretRight,
+		IconCaretUp,
+		IconCheck,
+		IconClose,
+		IconComponent,
+		IconCornerRadius,
+		IconCorners,
+		IconDistributeHorizontalSpacing,
+		IconDistributeVerticalSpacing,
+		IconDraft,
+		IconEffects,
+		IconEllipses,
+		IconEyedropper,
+		IconForward,
+		IconFrame,
+		IconGroup,
+		IconHidden,
+		IconHorizontalPadding,
+		IconHyperlink,
+		IconImage,
+		IconInstance,
+		IconKey,
+		IconLayoutAlignBottom,
+		IconLayoutGridColumns,
+		IconLayoutGridRows,
+		IconLayoutGridUniform,
+		IconLibrary,
+		IconLinkBroken,
+		IconLinkConnected,
+		IconList,
+		IconListDetailed,
+		IconListTile,
+		IconLockOff,
+		IconLockOn,
+		IconMinus,
+		IconPlay,
+		IconPlus,
+		IconRandom,
+		IconRecent,
+		IconResizeToFit,
+		IconResolve,
+		IconResolveFilled,
+		IconReverse,
+		IconSearch,
+		IconSearchLarge,
+		IconSettings,
+		IconShare,
+		IconSmiley,
+		IconSortAlphaAsc,
+		IconSortAlphaDsc,
+		IconSortTopBottom,
+		IconSpacing,
+		IconSpinner,
+		IconStarOff,
+		IconStarOn,
+		IconStrokeWeight,
+		IconStyles,
+		IconSwap,
+		IconTheme,
+		IconTidyUpGrid,
+		IconTidyUpListHorizontal,
+		IconTidyUpListVertical,
+		IconTimer,
+		IconTrash,
+		IconUpDown,
+		IconVerticalPadding,
+		IconVisible,
+		IconWarning,
+		IconWarningLarge
+	];
+
+	let nodeIcons = [
+		IconNodeBooleanOperation,
+		IconNodeComponent,
+		IconNodeConnector,
+		IconNodeEllipse,
+		IconNodeFrame,
+		IconNodeGroup,
+		IconNodeImage,
+		IconNodeInstance,
+		IconNodePage,
+		IconNodeSection,
+		IconNodeSlice,
+		IconNodeStar,
+		IconNodeText
+	];
 
 	import type { Option, Group } from '$lib/components/SelectMenu/index.svelte';
 
@@ -96,6 +305,19 @@
 			onclick={() => console.log('Icon Button 1 clicked')}
 		/>
 		<IconButton icon={IconInstance} onclick={() => console.log('Icon Button 2 clicked')} />
+	</Section>
+
+	<Section title="Icons">
+		<div style="display: inherit; flex-wrap: inherit; gap: .5rem;">
+			{#each icons as icon}
+				<Icon {icon}></Icon>
+			{/each}
+		</div>
+		<div style="display: inherit; flex-wrap: inherit; gap: .5rem;">
+			{#each nodeIcons as icon}
+				<Icon {icon}></Icon>
+			{/each}
+		</div>
 	</Section>
 
 	<Section title="Checkbox">
@@ -236,6 +458,17 @@
 			<DisclosureItem title="Item 3">Content here</DisclosureItem>
 		</Disclosure>
 	</Section>
+	<Section title="Misc">
+		<OnboardingTip icon={IconNodeBooleanOperation}
+			>This is an onboarding tip, like you can sometimes see in the sidebar.</OnboardingTip
+		>
+		<Label>This is a label</Label>
+
+		<Type>This is a somple text component.</Type>
+		<div style="padding: 2rem; background-color: var(--figma-color-bg-inverse)">
+			<Type inverse>It supports inverse styling.</Type>
+		</div>
+	</Section>
 </LayoutContainer>
 
 <style>
@@ -245,6 +478,7 @@
 
 	.prose p {
 		margin-block: 1rem;
+		background-color: var();
 		font-size: 1rem;
 	}
 </style>
