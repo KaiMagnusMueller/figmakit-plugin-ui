@@ -19,7 +19,8 @@
 <script lang="ts">
 	import { clickOutside, resizeAndPosition } from '$lib/helpers.svelte.js';
 
-	import { SelectItem, SelectDivider } from './index.js';
+	import SelectItem from './SelectItem.svelte';
+	import SelectDivider from './SelectDivider.svelte';
 	import { Icon } from '$lib/index.js';
 
 	type Props = {
@@ -29,7 +30,7 @@
 		icon?: string;
 		iconText?: string;
 		disabled?: boolean;
-		macOSBlink?: boolean;
+		blink?: boolean;
 		optGroups?: Group[]; //pass data in via this prop to generate menu items
 		placeholder?: string;
 		value?: IOption[]; //stores the current selection, note, the value will be an object from your array
@@ -56,6 +57,7 @@
 		multiselect = $bindable(false),
 		open = $bindable(false),
 		showGroupLabels,
+		blink,
 		rounded,
 		class: className = '',
 		...props
@@ -183,9 +185,10 @@
 			<span class="icon"><Icon {icon} color="black3" /></span>
 		{/if}
 
-		<!-- TODO: Placeholder / display value handling for more than one value -->
-		{#if !!value && value.length === 1}
-			<span class="label">{value[0].label}</span>
+		{#if value.length > 3}
+			<span class="label">{value[0].label}, {value[1].label}, {value.length - 2} more</span>
+		{:else if value.length > 0}
+			<span class="label">{value.map((o) => o.label).join(', ')}</span>
 		{:else}
 			<span class="placeholder">{placeholder}</span>
 		{/if}
@@ -224,11 +227,12 @@
 					{#if internalGroups.length > 1 && i > 0}
 						<SelectDivider></SelectDivider>
 					{/if}
-					{#if group.label && internalGroups.length > 1}
+					{#if group.label && internalGroups.length > 1 && showGroupLabels}
 						<SelectDivider label>{group.label}</SelectDivider>
 					{/if}
 					{#each group.items as item}
 						<SelectItem
+							{blink}
 							selected={item.selected}
 							onclick={(e) => menuClick(e)}
 							itemId={item.id}
@@ -339,7 +343,8 @@
 		margin: 0;
 		box-shadow: var(--shadow-hud);
 		border-radius: var(--border-radius-small);
-		background-color: var(--figma-color-bg);
+		background-color: var(--figma-color-bg-inverse);
+
 		padding: var(--size-xxsmall) 0 var(--size-xxsmall) 0;
 		overflow-x: overlay;
 		overflow-y: auto;
@@ -378,7 +383,7 @@
 			background-color: transparent;
 		}
 		50% {
-			background-color: yellow; /* Highlight color */
+			background-color: var(--figma-color-border-brand); /* Highlight color */
 		}
 	}
 

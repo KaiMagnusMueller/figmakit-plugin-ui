@@ -8,9 +8,6 @@ import Radio from './components/Radio/index.svelte';
 import Input from './components/Input/index.svelte';
 import Textarea from './components/Textarea/index.svelte';
 import SelectMenu from './components/SelectMenu/index.svelte';
-import SelectDivider from './components/SelectMenu/SelectDivider.svelte';
-import SelectItem from './components/SelectMenu/SelectItem.svelte';
-import DropdownMenu from './components/DropdownMenu/index.svelte';
 
 //Icons
 import IconAdjust from './icons/adjust.svg?raw';
@@ -123,9 +120,6 @@ export {
 	Input,
 	Textarea,
 	SelectMenu,
-	SelectItem,
-	SelectDivider,
-	DropdownMenu,
 	IconAdjust,
 	IconAlert,
 	IconAlignHorizontalCenters,

@@ -111,8 +111,11 @@ export function resizeAndPosition(node: HTMLElement, parent: HTMLElement): void 
 
 export function blinkEffect(node: HTMLElement, doBlink: boolean): void {
 	function handleClick(event: MouseEvent): void {
-		if (!doBlink) return;
-		const x = 4;
+		if (!doBlink) {
+			node.dispatchEvent(new CustomEvent('blinkDone'));
+			return;
+		}
+		const x = 2;
 		const interval = 70;
 
 		for (let i = 0; i < x; i++) {
@@ -120,6 +123,15 @@ export function blinkEffect(node: HTMLElement, doBlink: boolean): void {
 				node.classList.toggle('blink');
 			}, i * interval);
 		}
+
+		setTimeout(() => {
+			node.classList.remove('blink');
+			fireBlinkEvent();
+		}, x * interval);
+	}
+
+	function fireBlinkEvent() {
+		node.dispatchEvent(new CustomEvent('blinkDone'));
 	}
 
 	$effect(() => {

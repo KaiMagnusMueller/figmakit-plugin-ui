@@ -37,11 +37,8 @@
 	class:rounded
 	class:disabled
 	{onmouseenter}
-	onclick={(e) => {
-		let timeout = blink ? 400 : 0;
-		setTimeout(() => {
-			onclick?.(e);
-		}, timeout);
+	onblinkDone={(e) => {
+		onclick?.(e);
 	}}
 	use:blinkEffect={blink}
 >
@@ -58,9 +55,8 @@
 		cursor: default;
 		outline: none;
 		padding: 0px var(--size-xsmall) 0px var(--size-xxsmall);
-		width: fit-content;
 		height: var(--size-small);
-		color: var(--color-text-menu-text);
+		color: var(--figma-color-bg);
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-small);
 		line-height: var(--font-line-height);
@@ -76,6 +72,7 @@
 	}
 
 	.label {
+		width: fit-content;
 		overflow-x: hidden;
 		pointer-events: none;
 		text-overflow: ellipsis;

@@ -13,6 +13,10 @@ declare global {
 		interface HTMLAttributes<T> {
 			onclickOutside?: (event: CustomEvent) => void;
 		}
+
+		interface HTMLAttributes<T> {
+			onblinkDone?: (event: MouseEvent) => void;
+		}
 	}
 }
 

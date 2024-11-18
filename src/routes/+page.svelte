@@ -215,9 +215,9 @@
 			}}
 		></SelectMenu>
 		<p>Selected options: {selectedOpt2.map((o) => o.label).join(', ')}</p>
-	</Section>
 
-	<Section title="Dropdown Menu"></Section>
+		<SelectMenu {optGroups} blink placeholder="Blinking select menu"></SelectMenu>
+	</Section>
 </LayoutContainer>
 
 <style>
