@@ -7,6 +7,7 @@ import Switch from './components/Switch/index.svelte';
 import Radio from './components/Radio/index.svelte';
 import Input from './components/Input/index.svelte';
 import Textarea from './components/Textarea/index.svelte';
+import SelectMenu from './components/SelectMenu/index.svelte';
 
 //Icons
 import IconAdjust from './icons/adjust.svg?raw';
@@ -118,6 +119,7 @@ export {
 	Radio,
 	Input,
 	Textarea,
+	SelectMenu,
 	IconAdjust,
 	IconAlert,
 	IconAlignHorizontalCenters,

@@ -48,12 +48,13 @@
 	--white2: var(--figma-color-text-onbrand-tertiary); */
 
 	/* SHIM */
-	/* --color-bg-menu: #1e1e1e; */
 	/* to update */
-	/* --color-text-menu-text: #ffffff;
+	--text-highlight: rgba(13, 153, 255, 0.4);
+
+	--color-text-menu-text: #ffffff;
 	--color-text-menu-secondary: rgba(255, 255, 255, 0.7);
+	--color-bg-menu: #1e1e1e;
 	--color-border-menu: #383838;
-	--text-highlight: rgba(13, 153, 255, 0.4); */
 
 	/* TYPOGRAPHY */
 	/* Pos = positive applications (black on white) */
