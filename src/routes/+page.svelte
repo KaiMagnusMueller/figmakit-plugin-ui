@@ -441,6 +441,13 @@
 		></SelectMenu>
 		<p>Selected options: {selectedOpt2.map((o) => o.label).join(', ')}</p>
 
+		<SelectMenu
+			icon={IconNodeBooleanOperation}
+			{optGroups}
+			bind:value={selectedOpt1}
+			placeholder="Single select menu"
+		></SelectMenu>
+
 		<SelectMenu {optGroups} blink placeholder="Blinking select menu"></SelectMenu>
 	</Section>
 

@@ -182,7 +182,7 @@
 >
 	<button bind:this={menuButton} onclick={(e) => menuClick(e)} {disabled} class:selected={open}>
 		{#if icon}
-			<span class="icon"><Icon {icon} color="black3" /></span>
+			<span class="icon"><Icon {icon} /></span>
 		{/if}
 
 		{#if value.length > 3}
@@ -254,13 +254,12 @@
 	button {
 		display: flex;
 		align-items: center;
-		margin: 1px 0 1px 0;
 		border: 1px solid transparent;
 		border-radius: var(--border-radius-small);
 		background-color: var(--figma-color-bg);
-		padding: 4px var(--size-xxsmall) 0px var(--size-xxsmall);
+		padding-inline: var(--size-xxsmall) var(--size-xxsmall);
 		width: 100%;
-		height: 30px;
+		height: calc(2rem - 2px);
 		overflow-y: hidden;
 	}
 	button:hover,
@@ -304,13 +303,8 @@
 
 	.label,
 	.placeholder {
-		margin-top: -3px;
-		margin-right: 6px;
-		overflow-x: hidden;
+		margin-inline-end: 0.5rem;
 		color: var(--figma-color-text);
-		font-weight: var(--font-weight-normal);
-		font-size: var(--font-size-xsmall);
-		line-height: var(--line-height);
 		letter-spacing: var(--font-letter-spacing-neg-xsmall);
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -320,19 +314,12 @@
 		color: var(--figma-color-text-tertiary);
 	}
 
-	.caret {
-		display: block;
-		margin-top: -1px;
-	}
-
 	.caret svg path {
 		fill: var(--figma-color-icon-tertiary);
 	}
 
 	.icon {
-		margin-top: -2px;
-		margin-right: 0;
-		margin-left: -8px;
+		margin-inline-start: -0.5rem;
 	}
 
 	.menu {
@@ -344,7 +331,6 @@
 		box-shadow: var(--shadow-hud);
 		border-radius: var(--border-radius-small);
 		background-color: var(--color-bg-menu);
-
 		padding: var(--size-xxsmall) 0 var(--size-xxsmall) 0;
 		overflow-x: overlay;
 		overflow-y: auto;
