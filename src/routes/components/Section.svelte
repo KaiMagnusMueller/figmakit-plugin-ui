@@ -32,7 +32,7 @@
 		padding: var(--size-xsmall);
 	}
 
-	div {
+	section > div {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;

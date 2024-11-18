@@ -1,15 +1,18 @@
 // Reexport your entry components here
 import Button from '$lib/components/Button/index.svelte';
-import IconButton from '$lib/components/IconButton/index.svelte';
-import Icon from '$lib/components/Icon/index.svelte';
 import Checkbox from './components/Checkbox/index.svelte';
-import Switch from './components/Switch/index.svelte';
-import Radio from './components/Radio/index.svelte';
-import Input from './components/Input/index.svelte';
-import Textarea from './components/Textarea/index.svelte';
-import SelectMenu from './components/SelectMenu/index.svelte';
-import DisclosureItem from './components/Disclosure/DisclosureItem.svelte';
 import Disclosure from './components/Disclosure/index.svelte';
+import DisclosureItem from './components/Disclosure/DisclosureItem.svelte';
+import Icon from '$lib/components/Icon/index.svelte';
+import IconButton from '$lib/components/IconButton/index.svelte';
+import Input from './components/Input/index.svelte';
+import Label from './components/Label/index.svelte';
+import OnboardingTip from './components/OnboardingTip/index.svelte';
+import Radio from './components/Radio/index.svelte';
+import SelectMenu from './components/SelectMenu/index.svelte';
+import Switch from './components/Switch/index.svelte';
+import Textarea from './components/Textarea/index.svelte';
+import Type from './components/Type/index.svelte';
 
 //Icons
 import IconAdjust from './icons/adjust.svg?raw';
@@ -115,15 +118,18 @@ import IconNodeText from './icons/node-types/Text.svg?raw';
 export {
 	Button,
 	Checkbox,
-	Icon,
-	IconButton,
-	Switch,
-	Radio,
-	Input,
-	Textarea,
-	SelectMenu,
 	Disclosure,
 	DisclosureItem,
+	Icon,
+	IconButton,
+	Input,
+	Label,
+	OnboardingTip,
+	Radio,
+	SelectMenu,
+	Switch,
+	Textarea,
+	Type,
 	IconAdjust,
 	IconAlert,
 	IconAlignHorizontalCenters,
