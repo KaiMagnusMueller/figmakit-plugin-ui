@@ -429,23 +429,11 @@
 
 		<p>Selected options: {selectedOpt1.map((o) => o.label).join(', ')}</p>
 
-		<SelectMenu
-			placeholder="Multi select menu"
-			{optGroups}
-			multiselect
-			showGroupLabels
-			onchange={(e) => {
-				selectedOpt2 = e;
-				// console.log('Options selected:', e.map((o) => o.label).join(', '));
-			}}
+		<SelectMenu placeholder="Multi select menu" {optGroups} multiselect showGroupLabels
 		></SelectMenu>
 		<p>Selected options: {selectedOpt2.map((o) => o.label).join(', ')}</p>
 
-		<SelectMenu
-			icon={IconNodeBooleanOperation}
-			{optGroups}
-			bind:value={selectedOpt1}
-			placeholder="Single select menu"
+		<SelectMenu icon={IconNodeBooleanOperation} {optGroups} placeholder="Single select menu"
 		></SelectMenu>
 
 		<SelectMenu {optGroups} blink placeholder="Blinking select menu"></SelectMenu>
