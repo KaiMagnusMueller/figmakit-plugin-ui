@@ -209,6 +209,7 @@
 			placeholder="Multi select menu"
 			{optGroups}
 			multiselect
+			showGroupLabels
 			onchange={(e) => {
 				selectedOpt2 = e;
 				// console.log('Options selected:', e.map((o) => o.label).join(', '));

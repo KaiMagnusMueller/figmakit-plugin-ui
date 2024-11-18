@@ -343,7 +343,7 @@
 		margin: 0;
 		box-shadow: var(--shadow-hud);
 		border-radius: var(--border-radius-small);
-		background-color: var(--figma-color-bg-inverse);
+		background-color: var(--color-bg-menu);
 
 		padding: var(--size-xxsmall) 0 var(--size-xxsmall) 0;
 		overflow-x: overlay;

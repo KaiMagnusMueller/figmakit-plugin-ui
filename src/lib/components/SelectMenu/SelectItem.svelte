@@ -56,7 +56,7 @@
 		outline: none;
 		padding: 0px var(--size-xsmall) 0px var(--size-xxsmall);
 		height: var(--size-small);
-		color: var(--figma-color-bg);
+		color: var(--color-text-menu-text);
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-small);
 		line-height: var(--font-line-height);

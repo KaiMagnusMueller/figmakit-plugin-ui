@@ -15,7 +15,7 @@
 		margin-top: var(--size-xxsmall);
 		padding: 0 var(--size-xxsmall) 0 var(--size-medium);
 		height: var(--size-small);
-		color: var(--figma-color-text-oninverse);
+		color: var(--color-text-menu-secondary);
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-small);
 		line-height: var(--line-height);
@@ -29,7 +29,7 @@
 	.divider {
 		display: block;
 		margin: 8px 0 7px 0;
-		background-color: var(--figma-color-text-onsuccess-tertiary);
+		background-color: var(--colo-border-menu);
 		height: 1px;
 	}
 </style>
