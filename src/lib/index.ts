@@ -8,6 +8,8 @@ import Radio from './components/Radio/index.svelte';
 import Input from './components/Input/index.svelte';
 import Textarea from './components/Textarea/index.svelte';
 import SelectMenu from './components/SelectMenu/index.svelte';
+import DisclosureItem from './components/Disclosure/DisclosureItem.svelte';
+import Disclosure from './components/Disclosure/index.svelte';
 
 //Icons
 import IconAdjust from './icons/adjust.svg?raw';
@@ -120,6 +122,8 @@ export {
 	Input,
 	Textarea,
 	SelectMenu,
+	Disclosure,
+	DisclosureItem,
 	IconAdjust,
 	IconAlert,
 	IconAlignHorizontalCenters,

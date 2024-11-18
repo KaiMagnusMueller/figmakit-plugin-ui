@@ -18,7 +18,9 @@
 		Radio,
 		Input,
 		Textarea,
-		SelectMenu
+		SelectMenu,
+		Disclosure,
+		DisclosureItem
 	} from '$lib/index.js';
 
 	import type { Option, Group } from '$lib/components/SelectMenu/index.svelte';
@@ -218,6 +220,21 @@
 		<p>Selected options: {selectedOpt2.map((o) => o.label).join(', ')}</p>
 
 		<SelectMenu {optGroups} blink placeholder="Blinking select menu"></SelectMenu>
+	</Section>
+
+	<Section title="Disclosure">
+		<Disclosure>
+			<DisclosureItem title="Item 1" expanded>
+				Automatically closes other items.</DisclosureItem
+			>
+			<DisclosureItem title="Item 2">Content here</DisclosureItem>
+			<DisclosureItem title="Item 3">Content here</DisclosureItem>
+		</Disclosure>
+		<Disclosure multiple>
+			<DisclosureItem title="Item 1" expanded>Open all at once here</DisclosureItem>
+			<DisclosureItem title="Item 2">Content here</DisclosureItem>
+			<DisclosureItem title="Item 3">Content here</DisclosureItem>
+		</Disclosure>
 	</Section>
 </LayoutContainer>
 
