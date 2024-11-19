@@ -6,6 +6,7 @@
 		color?: string;
 		inline?: boolean;
 		class?: string;
+		style?: string;
 		children?: import('svelte').Snippet;
 	}
 
@@ -16,26 +17,14 @@
 		color = '--figma-color-text',
 		inline = false,
 		class: className = '',
+		style = color === '--figma-color-text' && inverse
+			? 'color: var(--figma-color-text-oninverse)'
+			: `color: ${color}`,
 		children
 	}: Props = $props();
-
-	let cssColorVar = $state();
-
-	$effect(() => {
-		if (inverse && color === '--figma-color-text') {
-			cssColorVar = 'var(--color-text-menu-text)';
-		} else {
-			cssColorVar = 'var(' + color + ')';
-		}
-	});
 </script>
 
-<div
-	class="type {className} {size} {weight}"
-	class:inverse
-	class:inline
-	style="color: {cssColorVar}"
->
+<div class="type {className} {size} {weight}" class:inverse class:inline {style}>
 	{@render children?.()}
 </div>
 

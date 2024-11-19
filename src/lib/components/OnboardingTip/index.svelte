@@ -9,13 +9,7 @@
 		children?: import('svelte').Snippet;
 	}
 
-	let {
-		spin = false,
-		color = 'black8',
-		icon = '',
-		class: className = '',
-		children
-	}: Props = $props();
+	let { spin = false, color, icon = '', class: className = '', children }: Props = $props();
 </script>
 
 <div class="onboarding-tip {className}">
