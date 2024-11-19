@@ -128,6 +128,7 @@
 
 		let id = (event.target as HTMLElement).getAttribute('data-id');
 
+		// Make this depth independent
 		function getOptionById(id: string, groups: Group[]): Option | null {
 			for (const group of groups) {
 				for (const item of group.items) {
@@ -269,6 +270,8 @@
 	button:hover .placeholder {
 		color: var(--figma-color-icon);
 	}
+
+	/* Can probably be removed */
 	button:hover .caret svg path,
 	button:focus .caret svg path {
 		fill: var(--figma-color-icon);
@@ -285,17 +288,17 @@
 		color: var(--figma-color-text);
 	}
 	button:disabled .label {
-		color: var(--black3);
+		color: var(--figma-color-text-secondary);
 	}
 	button:disabled:hover {
 		justify-content: flex-start;
 		border-color: transparent;
 	}
 	button:disabled:hover .placeholder {
-		color: var(--black3);
+		color: var(--figma-color-text-secondary);
 	}
 	button:disabled:hover .caret svg path {
-		fill: var(--black3);
+		fill: var(--figma-color-text-secondary);
 	}
 	button * {
 		pointer-events: none;
@@ -320,6 +323,7 @@
 
 	.icon {
 		margin-inline-start: -0.5rem;
+		color: var(--figma-color-icon);
 	}
 
 	.menu {

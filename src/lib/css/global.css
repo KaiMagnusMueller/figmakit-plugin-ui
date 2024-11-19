@@ -14,39 +14,6 @@
     Figma's variables to support light and dark mode.
     */
 
-	/* Accent */
-	/* --blue: var(--figma-color-bg-brand);
-	--purple: var(--figma-color-bg-component);
-	--hot-pink: #ff00ff;
-	--green: #1bc47d;
-	--red: var(--figma-color-bg-danger);
-	--yellow: var(--figma-color-bg-warning); */
-
-	/* Basic foreground */
-	/* --black: #000000;
-	--black8: var(--figma-color-text);
-	--black8-opaque: #333333;
-	--black3: var(--figma-color-text-secondary);
-	--black3-opaque: #7a7a7a;
-	--white: var(--figma-color-bg);
-	--white8: var(--figma-color-text-onbrand-secondary);
-	--white4: var(--figma-color-text-onbrand-tertiary); */
-
-	/* Basic background */
-	/* --grey: #f0f0f0;
-	--silver: var(--figma-color-border);
-	--hud: #222222;
-	--toolbar: var(--figma-color-bg-inverse); */
-
-	/* Special */
-	/* --black1: rgba(0, 0, 0, 0.1);
-	--blue3: rgba(24, 145, 251, 0.3);
-	--purple4: var(--figma-color-text-component-secondary);
-	--hover-fill: var(--figma-color-bg-hover);
-	--selection-a: var(--figma-color-bg-selected);
-	--selection-b: var(--figma-color-bg-selected-secondary);
-	--white2: var(--figma-color-text-onbrand-tertiary); */
-
 	/* SHIM */
 	/* to update */
 	--text-highlight: rgba(13, 153, 255, 0.4);

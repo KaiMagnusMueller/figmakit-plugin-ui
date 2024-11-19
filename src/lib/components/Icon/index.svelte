@@ -5,8 +5,8 @@
 
 	type Props = {
 		icon: string;
-		color?: string;
 		iconText?: string;
+		color?: string;
 		disabled?: boolean;
 		destructive?: boolean;
 		rounded?: boolean;
@@ -20,10 +20,10 @@
 	};
 
 	let {
-		color = '--figma-color-icon',
 		icon,
 		iconText,
 		spin,
+		color,
 		size = 32,
 		selected,
 		disabled,
@@ -31,7 +31,9 @@
 		rounded,
 		class: className,
 		tabindex = 0,
-		style,
+		style = !!color
+			? `color: ${color}; fill: currentColor; width: {size}px; height: {size}px`
+			: 'color: currentColor; fill: currentColor; width: {size}px; height: {size}px',
 		children,
 		...props
 	}: Props = $props();
@@ -41,12 +43,7 @@
 	// 	.querySelector('svg');
 </script>
 
-<div
-	{...props}
-	class:spin
-	class="icon-component {className}"
-	style="color: currentColor; fill: currentColor; width: {size}px; height: {size}px"
->
+<div {...props} class:spin class="icon-component {className}" {style}>
 	{#if iconText}
 		{iconText}
 	{:else}

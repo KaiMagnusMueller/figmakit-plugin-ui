@@ -166,11 +166,8 @@
 
 	.icon {
 		position: absolute;
-		top: -1px;
 		left: 0;
 		z-index: 1;
-		width: var(--size-medium);
-		height: var(--size-medium);
 	}
 
 	.error {
