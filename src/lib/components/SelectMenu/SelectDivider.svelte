@@ -18,7 +18,7 @@
 		color: var(--color-text-menu-secondary);
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-small);
-		line-height: var(--line-height);
+		line-height: var(--font-line-height);
 		letter-spacing: var(--font-letter-spacing-neg-small);
 	}
 	.label:first-child {

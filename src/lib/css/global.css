@@ -42,9 +42,9 @@
 	--font-weight-bold: 600;
 
 	/* Lineheight */
-	--font-line-height: 1em;
+	--font-line-height: 150%;
 	/* Use For xsmall, small font sizes */
-	--font-line-height-large: 1.5em;
+	--font-line-height-large: 160%;
 	/* Use For large, xlarge font sizes */
 
 	/* Letterspacing */
