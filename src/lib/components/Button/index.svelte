@@ -24,6 +24,7 @@
 		onclick,
 		onsubmit,
 		icon,
+		type = 'button',
 		spin,
 		variant = 'primary',
 		disabled,
@@ -48,6 +49,7 @@
 		// @ts-ignore
 		props.onsubmit?.(e);
 	}}
+	{type}
 	{disabled}
 	class:destructive
 	class:rounded

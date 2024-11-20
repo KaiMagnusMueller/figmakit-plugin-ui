@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { HTMLInputAttributes } from 'svelte/elements';
+	import type { HTMLInputAttributes, HTMLInputTypeAttribute } from 'svelte/elements';
 	import Icon from './../Icon/index.svelte';
 
 	type Props = {
@@ -10,6 +10,7 @@
 		onblur?: (e: Event) => void;
 		id?: string;
 		value?: string;
+		type?: HTMLInputTypeAttribute;
 		name?: string;
 		icon?: string;
 		iconText?: string;
@@ -31,6 +32,7 @@
 		onfocus,
 		onblur,
 		id,
+		type = 'text',
 		value = $bindable(''),
 		name,
 		icon,
@@ -58,7 +60,7 @@
 	<!-- svelte-ignore a11y_autofocus -->
 	<input
 		{...props}
-		type="input"
+		{type}
 		{oninput}
 		{onchange}
 		{onkeydown}
