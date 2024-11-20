@@ -6,16 +6,16 @@
 	import { Icon } from '$lib/index.js';
 
 	type Props = {
-		onclick?: (arg: string) => void;
-		onsubmit?: (arg: string) => void;
-		icon?: string;
-		spin?: boolean;
-		variant?: 'primary' | 'secondary' | 'tertiary';
-		disabled?: boolean;
-		destructive?: boolean;
-		rounded?: boolean;
+		onclick?: (e: MouseEvent) => void;
+		onsubmit?: (e: MouseEvent) => void;
 		class?: string;
+		destructive?: boolean;
+		disabled?: boolean;
+		icon?: string;
+		rounded?: boolean;
+		spin?: boolean;
 		style?: string;
+		variant?: 'primary' | 'secondary' | 'tertiary';
 		children?: Snippet;
 		[key: string]: unknown;
 	} & HTMLButtonAttributes;
@@ -23,14 +23,15 @@
 	let {
 		onclick,
 		onsubmit,
-		icon,
-		spin,
-		variant = 'primary',
-		disabled,
-		destructive,
-		rounded,
 		class: className,
+		destructive,
+		disabled,
+		icon,
+		rounded,
+		spin,
 		style,
+		type = 'button',
+		variant = 'primary',
 		children,
 		...props
 	}: Props = $props();
@@ -48,6 +49,7 @@
 		// @ts-ignore
 		props.onsubmit?.(e);
 	}}
+	{type}
 	{disabled}
 	class:destructive
 	class:rounded

@@ -10,20 +10,21 @@
 	import { SvelteMap } from 'svelte/reactivity';
 
 	interface Props {
-		disclosures?: SvelteMap<string, Disclosure>;
-		children?: import('svelte').Snippet;
 		class?: string;
+		disclosures?: SvelteMap<string, Disclosure>;
 		multiple?: boolean;
+		children?: import('svelte').Snippet;
 		[key: string]: unknown;
 	}
 
 	let {
+		class: className = '',
 		disclosures = $bindable(new SvelteMap()),
 		multiple = false,
 		children,
-		class: className = '',
 		...props
 	}: Props = $props();
+
 	let disclosureWrapper = $state();
 
 	function handleDisclosures(id: string, expanded: boolean) {

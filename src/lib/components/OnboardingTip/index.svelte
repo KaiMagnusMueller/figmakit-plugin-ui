@@ -2,10 +2,10 @@
 	import { Icon } from '$lib/index.js';
 
 	interface Props {
-		spin?: boolean;
+		class?: string;
 		color?: string;
 		icon?: string;
-		class?: string;
+		spin?: boolean;
 		children?: import('svelte').Snippet;
 	}
 

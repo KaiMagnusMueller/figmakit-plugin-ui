@@ -7,13 +7,13 @@
 		onkeydown?: (e: Event) => void;
 		onfocus?: (e: Event) => void;
 		onblur?: (e: Event) => void;
-		id?: string;
-		value?: string;
-		rows?: number;
-		name?: any;
-		disabled?: boolean;
-		placeholder?: string;
 		class?: string;
+		disabled?: boolean;
+		id?: string;
+		name?: any;
+		placeholder?: string;
+		rows?: number;
+		value?: string;
 		[key: string]: unknown;
 	} & HTMLTextareaAttributes;
 
@@ -23,13 +23,13 @@
 		onkeydown,
 		onfocus,
 		onblur,
-		id,
-		value = $bindable(''),
-		rows = 2,
-		name,
-		disabled,
-		placeholder = 'Input something here...',
 		class: className = '',
+		disabled,
+		id,
+		name,
+		placeholder = 'Input something here...',
+		rows = 2,
+		value = $bindable(''),
 		...props
 	}: Props = $props();
 </script>

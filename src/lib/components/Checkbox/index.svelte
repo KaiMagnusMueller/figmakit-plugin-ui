@@ -6,11 +6,11 @@
 		onchange?: (e: Event) => void;
 		onfocus?: (e: Event) => void;
 		onblur?: (e: Event) => void;
-		id?: string;
 		checked?: boolean;
-		disabled?: boolean;
-		tabindex?: number;
 		class?: string;
+		disabled?: boolean;
+		id?: string;
+		tabindex?: number;
 		value?: string;
 		children?: import('svelte').Snippet;
 		[key: string]: unknown;
@@ -20,11 +20,11 @@
 		onchange,
 		onfocus,
 		onblur,
-		id = 'fk-' + Math.random().toString(36),
 		checked = $bindable(false),
-		disabled = false,
-		tabindex = 0,
 		class: className = '',
+		disabled = false,
+		id = 'fk-' + Math.random().toString(36),
+		tabindex = 0,
 		value,
 		children,
 		...props

@@ -4,39 +4,49 @@
 	//pass svg data into icon by importing an svg in parent
 
 	type Props = {
+		class?: string;
+		color?: string;
+		destructive?: boolean;
+		disabled?: boolean;
 		icon: string;
 		iconText?: string;
-		color?: string;
-		disabled?: boolean;
-		destructive?: boolean;
 		rounded?: boolean;
-		class?: string;
-		tabindex?: number;
-		style?: string;
 		size?: number;
 		spin?: boolean;
+		style?: string;
+		tabindex?: number;
 		children?: Snippet;
 		[key: string]: unknown;
 	};
 
 	let {
+		class: className,
+		color,
+		destructive,
+		disabled,
 		icon,
 		iconText,
-		spin,
-		color,
-		size = 32,
-		selected,
-		disabled,
-		destructive,
 		rounded,
-		class: className,
+		selected,
+		size = 32,
+		spin,
+		style,
 		tabindex = 0,
-		style = !!color
-			? `color: ${color}; fill: currentColor; width: {size}px; height: {size}px`
-			: 'color: currentColor; fill: currentColor; width: {size}px; height: {size}px',
 		children,
 		...props
 	}: Props = $props();
+
+	console.log(color);
+
+	$effect(() => {
+		style = computeStyle(color);
+	});
+
+	function computeStyle(color: string = '') {
+		return !!color
+			? `color: var(${color}); fill: currentColor; width: ${size}px; height: ${size}px`
+			: `color: currentColor; fill: currentColor; width: ${size}px; height: ${size}px`;
+	}
 
 	// let svg: SVGSVGElement | null = new DOMParser()
 	// 	.parseFromString(icon, 'image/svg+xml')

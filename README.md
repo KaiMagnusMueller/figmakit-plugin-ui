@@ -1,4 +1,4 @@
-# Figma Plugin UI Kit
+# FigmaKit Plugin UI Svelte
 
 A component library for Svelte 5 based Figma plugins. It provides a set of reusable components and utilities to help you build Figma plugin interfaces quickly and efficiently with Svelte 5.
 

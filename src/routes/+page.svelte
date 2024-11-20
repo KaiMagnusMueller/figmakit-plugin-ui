@@ -459,7 +459,7 @@
 		>
 		<Label>This is a label</Label>
 
-		<Type>This is a somple text component.</Type>
+		<Type>This is a sample text component.</Type>
 		<div style="padding: 2rem; background-color: var(--figma-color-bg-inverse)">
 			<Type inverse>It supports inverse styling.</Type>
 		</div>
