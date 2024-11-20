@@ -8,20 +8,21 @@
 		onkeydown?: (e: Event) => void;
 		onfocus?: (e: Event) => void;
 		onblur?: (e: Event) => void;
-		id?: string;
-		value?: string;
-		type?: HTMLInputTypeAttribute;
-		name?: string;
+		autofocus?: boolean;
+		borders?: boolean;
+		class?: string;
+		color?: string;
+		disabled?: boolean;
+		errorMessage?: string;
 		icon?: string;
 		iconText?: string;
-		borders?: boolean;
-		disabled?: boolean;
-		spin?: boolean;
+		id?: string;
 		invalid?: boolean;
-		errorMessage?: string;
+		name?: string;
 		placeholder?: string;
-		autofocus?: boolean;
-		class?: string;
+		spin?: boolean;
+		type?: HTMLInputTypeAttribute;
+		value?: string;
 		[key: string]: unknown;
 	} & HTMLInputAttributes;
 
@@ -31,20 +32,21 @@
 		onkeydown,
 		onfocus,
 		onblur,
-		id,
-		type = 'text',
-		value = $bindable(''),
-		name,
+		autofocus,
+		borders = true,
+		class: className = '',
+		color,
+		disabled = false,
+		errorMessage = 'Error message',
 		icon,
 		iconText,
-		borders = true,
-		disabled = false,
-		spin,
+		id,
 		invalid,
-		errorMessage = 'Error message',
+		name,
 		placeholder = 'Input something here...',
-		autofocus,
-		class: className = '',
+		spin,
+		type = 'text',
+		value = $bindable(''),
 		...props
 	}: Props = $props();
 
@@ -54,7 +56,7 @@
 <div class="input {className}">
 	{#if icon}
 		<div class="icon">
-			<Icon {icon} {iconText} {spin} color="--figma-color-icon" />
+			<Icon {icon} {iconText} {spin} color={'--figma-color-icon'} />
 		</div>
 	{/if}
 	<!-- svelte-ignore a11y_autofocus -->

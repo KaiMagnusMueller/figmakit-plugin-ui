@@ -27,18 +27,18 @@
 		onchange?: (e: IOption[]) => void;
 		onfocus?: (e: Event) => void;
 		onblur?: (e: Event) => void;
+		blink?: boolean;
+		class?: string;
+		disabled?: boolean;
 		icon?: string;
 		iconText?: string;
-		disabled?: boolean;
-		blink?: boolean;
+		multiselect?: boolean;
+		open?: boolean;
 		optGroups?: Group[]; //pass data in via this prop to generate menu items
 		placeholder?: string;
-		value?: IOption[]; //stores the current selection, note, the value will be an object from your array
-		open?: boolean;
-		multiselect?: boolean;
-		showGroupLabels?: boolean; //default prop, true will show option group labels
 		rounded?: boolean;
-		class?: string;
+		showGroupLabels?: boolean; //default prop, true will show option group labels
+		value?: IOption[]; //stores the current selection, note, the value will be an object from your array
 		[key: string]: unknown;
 	};
 
@@ -46,20 +46,20 @@
 		onchange,
 		onblur,
 		onfocus,
+		blink,
+		class: className = '',
+		disabled = $bindable(false),
 		icon,
 		iconText,
-		disabled = $bindable(false),
+		multiselect = $bindable(false),
+		open = $bindable(false),
 		optGroups = [],
 		placeholder = optGroups.length <= 0
 			? 'There are no items to select'
 			: 'Please make a selection',
-		value = $bindable([]),
-		multiselect = $bindable(false),
-		open = $bindable(false),
-		showGroupLabels,
-		blink,
 		rounded,
-		class: className = '',
+		showGroupLabels,
+		value = $bindable([]),
 		...props
 	}: Props = $props();
 
@@ -92,6 +92,8 @@
 	function menuClick(event: MouseEvent) {
 		// console.log('menuClick', event);
 		open = !open;
+
+		// TODO: Menu positioning at the y pos of the currently selected item
 
 		// if (!event.target) {
 		// 	menuList.classList.add('hidden');

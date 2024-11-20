@@ -6,17 +6,17 @@
 	import Icon from './../Icon/index.svelte';
 
 	type Props = {
-		onclick?: (arg: string) => void;
-		onsubmit?: (arg: string) => void;
-		icon?: string;
-		iconText?: string;
-		disabled?: boolean;
-		destructive?: boolean;
-		rounded?: boolean;
+		onclick?: (e: MouseEvent) => void;
+		onsubmit?: (e: MouseEvent) => void;
 		class?: string;
-		tabindex?: number;
-		style?: string;
+		destructive?: boolean;
+		disabled?: boolean;
+		icon: string;
+		iconText?: string;
+		rounded?: boolean;
 		spin?: boolean;
+		style?: string;
+		tabindex?: number;
 		children?: Snippet;
 		[key: string]: unknown;
 	} & HTMLButtonAttributes;
@@ -24,16 +24,16 @@
 	let {
 		onclick,
 		onsubmit,
+		class: className,
+		destructive,
+		disabled,
 		icon,
 		iconText,
-		spin,
-		selected,
-		disabled,
-		destructive,
 		rounded,
-		class: className,
-		tabindex = 0,
+		selected,
+		spin,
 		style,
+		tabindex = 0,
 		children,
 		...props
 	}: Props = $props();

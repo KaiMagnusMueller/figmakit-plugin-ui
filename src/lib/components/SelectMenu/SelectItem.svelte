@@ -4,24 +4,24 @@
 	interface Props {
 		onmouseenter?: (e: MouseEvent) => void;
 		onclick?: (e: MouseEvent) => void;
-		itemId: any;
-		selected?: boolean;
-		rounded?: boolean;
-		disabled?: boolean;
-		class?: string;
 		blink?: boolean;
+		class?: string;
+		disabled?: boolean;
+		itemId: any;
+		rounded?: boolean;
+		selected?: boolean;
 		children?: import('svelte').Snippet;
 	}
 
 	let {
 		onmouseenter,
 		onclick,
-		itemId,
-		selected = $bindable(false),
-		rounded = false,
-		disabled = false,
-		class: className = '',
 		blink = false,
+		class: className = '',
+		disabled = false,
+		itemId,
+		rounded = false,
+		selected = $bindable(false),
 		children
 	}: Props = $props();
 </script>

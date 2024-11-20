@@ -1,25 +1,25 @@
 <script lang="ts">
 	interface Props {
-		size?: string;
-		weight?: string;
-		inverse?: boolean; //this prop uses different letterspacing values for inversed type (light on dark)
+		class?: string;
 		color?: string;
 		inline?: boolean;
-		class?: string;
+		inverse?: boolean; //this prop uses different letterspacing values for inversed type (light on dark)
+		size?: string;
 		style?: string;
+		weight?: string;
 		children?: import('svelte').Snippet;
 	}
 
 	let {
-		size = 'xsmall',
-		weight = 'normal',
-		inverse = false,
+		class: className = '',
 		color = '--figma-color-text',
 		inline = false,
-		class: className = '',
+		inverse = false,
+		size = 'xsmall',
 		style = color === '--figma-color-text' && inverse
 			? 'color: var(--figma-color-text-oninverse)'
 			: `color: ${color}`,
+		weight = 'normal',
 		children
 	}: Props = $props();
 </script>

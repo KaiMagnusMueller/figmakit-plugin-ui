@@ -4,10 +4,10 @@
 	import type { Disclosure } from './index.svelte';
 
 	interface Props {
-		id?: string;
-		title?: string;
 		expanded?: boolean;
+		id?: string;
 		section?: boolean;
+		title?: string;
 		children?: import('svelte').Snippet;
 		[key: string]: unknown;
 	}
@@ -18,10 +18,10 @@
 	}>('disclosure');
 
 	let {
-		id = 'fk-' + Math.random().toString(36),
-		title = '',
 		expanded = $bindable(false),
+		id = 'fk-' + Math.random().toString(36),
 		section = false,
+		title = '',
 		children,
 		...props
 	}: Props = $props();
