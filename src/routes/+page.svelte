@@ -282,7 +282,7 @@
 		<Button variant="secondary" onclick={() => console.log('Button 2 clicked')}>Button 2</Button
 		>
 		<Button variant="tertiary" onclick={() => console.log('Button 3 clicked')}>Button 3</Button>
-		<Button destructive onclick={() => console.log('Button 4 clicked')}>Button 4</Button>
+		<Button destructive onclick={() => console.log('Button 4 clicked')}>Danger button</Button>
 		<Button disabled onclick={() => console.log('Button 5 clicked')}>Button 5</Button>
 		<Button disabled destructive onclick={() => console.log('Button 6 clicked')}
 			>Button 6</Button

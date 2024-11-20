@@ -1,26 +1,26 @@
 <script>
-    export { className as class };
+	export { className as class };
 
-    let className = '';
+	let className = '';
 </script>
 
 <div class={className}>
-    <slot />
+	<slot />
 </div>
 
 <style>
-    div {
-        font-size: var(--font-size-xsmall);
-        font-weight: var(--font-weight-bold);
-        letter-spacing: var(--font-letter-spacing-pos-xsmall);
-        line-height: var(--line-height);
-        color: var(--figma-color-text);
-        height: var(--size-medium);
-        width: 100%;
-        display: flex;
-        align-items: center;
-        cursor: default;
-        user-select: none;
-        padding: 0 calc(var(--size-xxsmall) / 2) 0 var(--size-xxsmall);
-    }
+	div {
+		display: flex;
+		align-items: center;
+		cursor: default;
+		padding: 0 calc(var(--size-xxsmall) / 2) 0 var(--size-xxsmall);
+		width: 100%;
+		height: var(--size-medium);
+		color: var(--figma-color-text);
+		font-weight: var(--font-weight-bold);
+		font-size: var(--font-size-xsmall);
+		line-height: var(--font-line-height);
+		letter-spacing: var(--font-letter-spacing-pos-xsmall);
+		user-select: none;
+	}
 </style>

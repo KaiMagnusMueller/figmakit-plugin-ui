@@ -74,7 +74,7 @@
 		color: var(--figma-color-text);
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-xsmall);
-		line-height: var(--line-height);
+		line-height: var(--font-line-height);
 		font-family: var(--font-stack);
 		letter-spacing: var(--font-letter-spacing-neg-xsmall);
 	}

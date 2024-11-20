@@ -5,12 +5,18 @@ html {
 	width: 100%;
 	color: var(--figma-color-text);
 	font-size: 1rem;
-	line-height: 1.4;
+	line-height: 128%;
 	font-family: var(--font-stack);
 	font-feature-settings:
 		'liga' on,
 		'calt' on;
 	letter-spacing: calc(0.005px + var(--text-tracking-pos, 0) * 11px);
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }
 
 *,
@@ -52,8 +58,8 @@ h1,
 h2,
 h3,
 h4 {
-	font-weight: normal;
-	line-height: 1.2;
+	font-weight: var(--font-weight-bold);
+	line-height: 1.4;
 	text-wrap: balance;
 }
 
