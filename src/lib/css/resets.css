@@ -5,7 +5,7 @@ html {
 	width: 100%;
 	color: var(--figma-color-text);
 	font-size: 1rem;
-	line-height: 128%;
+	line-height: 100%;
 	font-family: var(--font-stack);
 	font-feature-settings:
 		'liga' on,
