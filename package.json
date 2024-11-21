@@ -1,6 +1,6 @@
 {
 	"name": "figmakit-plugin-ui-svelte",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A component library for building Svelte 5 based Figma plugins",
 	"keywords": [
 		"figma",
