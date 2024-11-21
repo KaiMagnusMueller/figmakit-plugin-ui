@@ -24,7 +24,7 @@ Inside '/routes' is a demo page with all the components and usage examples. Afte
 
 ### Styles
 
-There are additional global styles needed for the components to work correctly. For example in your main index.svelte file, you could do something like this:
+There are additional global styles needed for the components to work correctly. Import them in your main .svelte file like this and your bundler will grab add them to your plugin.
 
 ```javascript
 <script lang="ts">
@@ -33,7 +33,15 @@ There are additional global styles needed for the components to work correctly. 
 	...
 ```
 
-Your bundler will then grab those styles and add them to your plugin.
+The components use the built-in Figma color tokens whenever possible, so they don't need to be included in your plugin. If you are using VS Code, you install an extension like [CSS Variable Autocomplete](https://marketplace.visualstudio.com/items?itemName=vunguyentuan.vscode-css-variables) to get autocomplete suggestions. To set this up, add the files to `.vscode/settings.json`:
+
+```javascript
+	"cssVariables.lookupFiles": [
+		"node_modules/figmakit-plugin-ui-svelte/dist/css/global.css",
+		"node_modules/figmakit-plugin-ui-svelte/dist/css/reset.css",
+		"node_modules/figmakit-plugin-ui-svelte/dist/css/figma-styles-for-testing.css"
+	]
+```
 
 ## Contributing
 
