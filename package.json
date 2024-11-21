@@ -1,6 +1,6 @@
 {
 	"name": "figma-kit-plugin-ui",
-	"version": "1.0.0-rc2",
+	"version": "1.0.0-rc3",
 	"description": "A component library for Svelte 5 based Figma plugins",
 	"keywords": [
 		"figma",
