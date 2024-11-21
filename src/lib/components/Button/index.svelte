@@ -81,8 +81,7 @@
 		padding: 0 0.75rem;
 		height: 2rem;
 		color: var(--figma-color-text-onbrand);
-		font-weight: var(--font-weight-medium);
-
+		font-weight: var(--font-weight-bold);
 		line-height: 1rem;
 		user-select: none;
 		text-decoration: none;
