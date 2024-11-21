@@ -10,7 +10,4 @@
 </div>
 
 <style>
-	div {
-		margin: 1rem;
-	}
 </style>

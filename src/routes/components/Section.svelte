@@ -9,11 +9,11 @@
 	}: { title?: string; style?: string; children?: Snippet; [key: string]: unknown } = $props();
 </script>
 
-<section {...props}>
+<section {...props} {style}>
 	<header>
 		<h2>{title}</h2>
 	</header>
-	<div {style}>
+	<div>
 		{#if children}
 			{@render children?.()}
 		{:else}
@@ -27,9 +27,17 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--size-xsmall);
-		border: 1px solid var(--figma-color-border);
+		container-type: inline-size;
+		border: 1px solid var(--figma-color-border-brand);
 		border-radius: var(--border-radius-large);
+		background-color: var(--figma-color-bg);
 		padding: var(--size-xsmall);
+	}
+
+	@media (max-width: 764px) {
+		section {
+			grid-column: 1 / -1;
+		}
 	}
 
 	section > div {
