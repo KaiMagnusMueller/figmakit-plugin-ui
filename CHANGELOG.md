@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.1.0
+
+- Improve README.md
+- Include Figma color tokens CSS for autocomplete
+
+## 1.0.1
+
+- Improve demo page responsive CSS and styling
+
+## 1.0.0
+
+- Improve README.md
+- Fix line height definitions
+- Rename library
+
 ## 1.0.0-rc3
 
 - Updated line height ([#19](https://github.com/KaiMagnusMueller/figmakit-plugin-ui/issues/19))
