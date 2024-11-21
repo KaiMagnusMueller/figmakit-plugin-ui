@@ -36,17 +36,11 @@
 		...props
 	}: Props = $props();
 
-	console.log(color);
-
 	$effect(() => {
-		style = computeStyle(color);
-	});
-
-	function computeStyle(color: string = '') {
-		return !!color
+		style = !!color
 			? `color: var(${color}); fill: currentColor; width: ${size}px; height: ${size}px`
 			: `color: currentColor; fill: currentColor; width: ${size}px; height: ${size}px`;
-	}
+	});
 
 	// let svg: SVGSVGElement | null = new DOMParser()
 	// 	.parseFromString(icon, 'image/svg+xml')
