@@ -6,6 +6,7 @@
 	// Global styles
 	import '$lib/css/global.css';
 	import '$lib/css/resets.css';
+	import '$lib/css/figma-styles-for-testing.css';
 
 	// Imports for demo components
 	import {
