@@ -262,7 +262,7 @@
 		background-color: var(--figma-color-bg);
 		padding-inline: var(--size-xxsmall) var(--size-xxsmall);
 		width: 100%;
-		height: calc(2rem - 2px);
+		height: 2rem;
 		overflow-y: hidden;
 	}
 	button:hover,
