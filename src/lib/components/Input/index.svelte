@@ -94,14 +94,14 @@
 	input {
 		display: flex;
 		align-items: center;
-		margin: 1px 0 1px 0;
+		margin: 0;
 		outline: none;
 		border: 1px solid transparent;
 		border-radius: var(--border-radius-small);
 		background-color: var(--figma-color-bg);
 		padding: var(--size-xxsmall) var(--size-xxxsmall) var(--size-xxsmall) var(--size-xxsmall);
 		width: 100%;
-		height: 30px;
+		height: 2rem;
 		overflow: visible;
 		color: var(--figma-color-text);
 		font-weight: var(--font-weight-normal);

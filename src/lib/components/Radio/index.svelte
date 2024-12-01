@@ -53,7 +53,7 @@
 <style>
 	label {
 		display: flex;
-		display: flex;
+
 		position: relative;
 		align-items: center;
 		gap: 0.5rem;
@@ -67,6 +67,7 @@
 		position: relative;
 		appearance: none;
 		margin: 0;
+		margin-block: 0.5625rem; /* 9px */
 		padding: 0;
 		width: var(--radio-diameter);
 		height: var(--radio-diameter);
