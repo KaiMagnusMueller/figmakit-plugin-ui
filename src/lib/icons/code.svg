@@ -1,0 +1,12 @@
+<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <g clip-path="url(#fpl-icon-24-ready-for-dev-small-a)">
+        <path fill="var(--color-icon)" fill-rule="evenodd"
+            d="M15.18 15.384a.5.5 0 0 0 .704-.064l2.5-3a.5.5 0 0 0 0-.64l-2.5-3a.5.5 0 1 0-.768.64L17.349 12l-2.233 2.68a.5.5 0 0 0 .064.704M8.82 8.616a.5.5 0 0 0-.704.064l-2.5 3a.5.5 0 0 0 0 .64l2.5 3a.5.5 0 1 0 .768-.64L6.651 12l2.233-2.68a.5.5 0 0 0-.064-.704m4.654.542a.5.5 0 1 0-.948-.316l-2 6a.5.5 0 1 0 .948.316z"
+            clip-rule="evenodd"></path>
+    </g>
+    <defs>
+        <clipPath id="fpl-icon-24-ready-for-dev-small-a">
+            <path fill="#fff" d="M0 0h24v24H0z"></path>
+        </clipPath>
+    </defs>
+</svg>
