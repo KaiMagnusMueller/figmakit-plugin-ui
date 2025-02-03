@@ -3,7 +3,7 @@
 
 	interface Props {
 		onmouseenter?: (e: MouseEvent) => void;
-		onclick?: (e: MouseEvent) => void;
+		onclick?: (e: string) => void;
 		blink?: boolean;
 		class?: string;
 		disabled?: boolean;
@@ -38,7 +38,7 @@
 	class:disabled
 	{onmouseenter}
 	onblinkDone={(e) => {
-		onclick?.(e);
+		onclick?.(itemId);
 	}}
 	use:blinkEffect={blink}
 >
