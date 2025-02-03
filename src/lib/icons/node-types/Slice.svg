@@ -1,3 +1,5 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M10 3H6V4H10V3ZM4 4V3H3V4H4ZM3 6H4V10H3V6ZM12 6H13V10H12V6ZM13 4H12V3H13V4ZM6 12H10V13H6V12ZM4 12H3V13H4V12ZM12 13V12H13V13H12Z" fill="black"/>
+<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path fill="var(--color-icon)" fill-rule="evenodd"
+        d="M17.166 7.78a.96.96 0 0 0-1.375-.02L12 11.55v2.711l5.146-5.146a.96.96 0 0 0 .02-1.334m-5.175 7.905 5.862-5.862a1.958 1.958 0 0 0-2.77-2.77l-3.937 3.937-6.156 6.156a.5.5 0 0 0 .354.854h4.125a2.53 2.53 0 0 0 2.522-2.315M11 12.55 6.55 17h2.92c.845 0 1.531-.686 1.531-1.531z"
+        clip-rule="evenodd"></path>
 </svg>
