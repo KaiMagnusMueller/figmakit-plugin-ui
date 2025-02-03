@@ -19,7 +19,7 @@ export function blurOnEvent(node: HTMLElement): void {
  * @param node Element that triggered this action (set by Svelte)
  * @param [ignore] Optional element to ignore, clickOutside is not fired when event.target is equal to the ignored element
  */
-export function clickOutside(node: HTMLElement, ignore?: HTMLElement) {
+export function clickOutside(node: HTMLElement, ignore: HTMLElement | null = null) {
 	const handleClick = (event: Event) => {
 		const target = event.target as HTMLElement;
 

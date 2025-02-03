@@ -281,7 +281,7 @@
 		IconNodeText
 	];
 
-	import type { Option, Group } from '$lib/components/SelectMenu/index.svelte';
+	import type { Option, Group } from '$lib/components/MenuFlyout/index.svelte';
 
 	let buttonCounter = $state(0);
 	let checked = $state(true);
