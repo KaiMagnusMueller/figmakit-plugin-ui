@@ -526,6 +526,67 @@
 							]
 						},
 						{
+							name: "text",
+							label: "Text",
+							children: [
+								
+								{
+									label: "Bold",
+									action: "bold"
+								},
+								{
+									label: "Italic",
+									action: "italic"
+								},
+								{
+									label: "Underline",
+									action: "underline"
+								},
+								{
+									name: "alignment",
+									label: "Alignment",
+									children: [
+										{
+											label: "Left",
+											action: "align-left"
+										},
+										{
+											label: "Center",
+											action: "align-center"
+										},
+										{
+											label: "Right",
+											action: "align-right"
+										},
+										{
+											label: "Justify",
+											action: "align-justify"
+										}
+									]
+								},
+								{
+									name: "case",
+									label: "Case",
+									children: [
+										{
+											label: "Uppercase",
+											action: "uppercase"
+										},
+										{
+											label: "Lowercase",
+											action: "lowercase"
+										},
+										{
+											label: "Title case",
+											action: "titlecase"
+										}
+									]
+								}
+							
+							]
+						},
+					
+						{
 							name: 'edit',
 							label: 'Edit',
 							children: [

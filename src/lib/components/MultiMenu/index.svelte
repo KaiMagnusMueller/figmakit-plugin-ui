@@ -3,70 +3,71 @@
 	import { type Snippet } from 'svelte';
 
 	type Value = { [key: string]: string | string[] };
-
 	type Props = {
-		onmouseenter?: (event: MouseEvent) => void;
-		onclick?: (action: string) => void;
-		onchange: (value: Value) => void;
 		groups: MenuGroup[];
+		onchange: (value: Value) => void;
+		onclick?: (action: string) => void;
+		onmouseenter?: (event: MouseEvent) => void;
 		blink?: boolean;
-		item?: any;
 		rounded?: boolean;
 		value?: Value;
+		item?: any;
 		children?: Snippet;
 		[propName: string]: any;
 	};
 
+	// Component props
 	let {
-		onmouseenter,
-		onclick,
-		onchange,
 		groups = [],
-		blink = false,
-		item,
+		onchange,
+		onclick,
+		onmouseenter,
 		rounded = false,
 		value = $bindable({}),
-		children,
 		...props
 	}: Props = $props();
 
+	// DOM references and anchors
+	let menuContainerElem: HTMLElement;
+	let originalAnchor = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
+
+	// Helper functions
 	function collectSelectedOptions(groups: MenuGroup[]): Value {
 		const result: Value = {};
 
-		function processGroup(group: MenuGroup) {
-			if (!group.children) return;
+		for (const group of groups) {
+			if (!group.children) continue;
 
-			const selectedValues: string[] = [];
-
-			group.children.forEach((child) => {
-				if ('children' in child) {
-					Object.assign(result, collectSelectedOptions([child]));
-				} else if ('selected' in child && child.selected && 'value' in child) {
-					selectedValues.push(child.value);
-				}
-			});
+			const selectedValues = group.children
+				.filter((child): child is MenuOption => !('children' in child))
+				.filter((option) => 'selected' in option && option.selected && 'value' in option)
+				.map((option) => option.value);
 
 			if (selectedValues.length > 0) {
 				result[group.name] = group.mode === 'single' ? selectedValues[0] : selectedValues;
 			}
+
+			// Process nested groups
+			group.children
+				.filter((child): child is MenuGroup => 'children' in child)
+				.forEach((childGroup) => {
+					Object.assign(result, collectSelectedOptions([childGroup]));
+				});
 		}
 
-		groups.forEach(processGroup);
 		return result;
 	}
 
+	// Event handlers
 	function handleOptionClick(option: MenuOption, group: MenuGroup) {
 		if ('action' in option) {
-			console.log('Action:', option.action);
 			onclick?.(option.action);
 			return;
 		}
 
 		if (group.mode === 'single') {
 			group.children.forEach((child) => {
-				if ('selected' in child) {
-					child.selected = false;
-				}
+				if ('selected' in child) child.selected = false;
 			});
 			option.selected = true;
 		} else if (group.mode === 'multi') {
@@ -74,18 +75,21 @@
 		}
 
 		value = collectSelectedOptions(groups);
-
-		console.log('Selected options:', value);
 		onchange?.(value);
 	}
 
-	let menuContainerElem: HTMLElement;
-	let originalAnchor = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
+	function hideOtherPopovers(exceptId: string) {
+		menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
+			if (popover.id !== exceptId && popover.id !== originalAnchor) {
+				(popover as HTMLElement).hidePopover();
+			}
+		});
+	}
 </script>
 
-<div class="multi-menu-container" bind:this={menuContainerElem}>
-	<button popovertarget={originalAnchor} style={`anchor-name: ${originalAnchor};`}
-		>Trigger button
+<div class="menu-container" bind:this={menuContainerElem}>
+	<button popovertarget={originalAnchor} style={`anchor-name: ${originalAnchor};`}>
+		Trigger button
 	</button>
 
 	{@render popoverContainer(groups, originalAnchor)}
@@ -93,24 +97,14 @@
 
 {#snippet popoverContainer(groups: MenuGroup[], anchorName?: string)}
 	<div
+		role="menu"
+		tabindex="0"
 		popover=""
 		id={anchorName}
 		style={`position-anchor: ${anchorName};`}
-		ontoggle={(e) => {
-			if (e.newState === 'open') {
-				const button = (e.target as HTMLElement)?.querySelector('button');
-				button?.focus();
-			}
-		}}
-		onmouseleave={() => {
-			menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
-				if (popover.id !== originalAnchor) {
-					(popover as HTMLElement).hidePopover();
-				}
-			});
-		}}
+		onmouseleave={() => hideOtherPopovers(originalAnchor)}
 	>
-		<div class="popover-inner-wrapper">
+		<div class="popover-content">
 			{#each groups as group}
 				{@render multiMenuGroup(group, anchorName)}
 			{/each}
@@ -119,21 +113,19 @@
 {/snippet}
 
 {#snippet multiMenuGroup(group: MenuGroup, parentAnchor?: string)}
-	<div class="multi-menu" class:rounded>
-		{#if !group.children}
-			<p>No options in this group</p>
-		{:else}
+	<div class="menu" class:rounded>
+		{#if group.children}
 			<div>
-				{#each group.children as optionOrGroup}
-					{#if 'children' in optionOrGroup && (!('action' in optionOrGroup) || !('value' in optionOrGroup))}
-						{@const group = optionOrGroup as MenuGroup}
-						{@render menuGroupExpandable(group)}
+				{#each group.children as item}
+					{#if 'children' in item}
+						{@render menuGroupExpandable(item)}
 					{:else}
-						{@const option = optionOrGroup as MenuOption}
-						{@render menuOption(option, group, parentAnchor)}
+						{@render menuOption(item, group, parentAnchor)}
 					{/if}
 				{/each}
 			</div>
+		{:else}
+			<p>No options in this group</p>
 		{/if}
 	</div>
 {/snippet}
@@ -141,18 +133,12 @@
 {#snippet menuGroupExpandable(group: MenuGroup)}
 	{@const anchorName = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`}
 	<button
-		class="menu-item menu-group"
+		class="menu-item group"
 		popovertarget={anchorName}
 		style={`anchor-name: ${anchorName};`}
 		onmouseenter={() => {
-			menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
-				if (popover.id !== anchorName && popover.id !== originalAnchor) {
-					(popover as HTMLElement).hidePopover();
-				}
-			});
-
-			const popover = document.getElementById(anchorName);
-			popover?.showPopover();
+			hideOtherPopovers(anchorName);
+			document.getElementById(anchorName)?.showPopover();
 		}}
 	>
 		<span>{group.label}</span>
@@ -164,16 +150,9 @@
 {#snippet menuOption(option: MenuOption, group: MenuGroup, parentAnchor?: string)}
 	<button
 		class="menu-item"
-		onclick={() => {
-			handleOptionClick(option, group);
-		}}
-		onmouseenter={() => {
-			menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
-				if (popover.id !== parentAnchor && popover.id !== originalAnchor) {
-					(popover as HTMLElement).hidePopover();
-				}
-			});
-		}}
+		class:disabled={option.disabled}
+		onclick={() => handleOptionClick(option, group)}
+		onmouseenter={() => hideOtherPopovers(parentAnchor || '')}
 	>
 		<span>{option.label}</span>
 		{#if 'action' in option}
@@ -183,13 +162,17 @@
 {/snippet}
 
 <style>
-	.multi-menu {
+	.menu-container {
+		outline: none;
+	}
+
+	.menu {
 		border: 1px solid var(--figma-color-border);
 		background: var(--figma-color-bg);
 		min-width: 180px;
 	}
 
-	.rounded {
+	.menu.rounded {
 		border-radius: var(--border-radius-large);
 	}
 
@@ -197,78 +180,38 @@
 		display: flex;
 		align-items: center;
 		cursor: default;
+		border: none;
+		background: none;
 		padding: var(--size-xxsmall) var(--size-xsmall);
 		width: 100%;
 		user-select: none;
-	}
-
-	.menu-group {
-		display: flex;
-		justify-content: space-between;
 	}
 
 	.menu-item:hover:not(.disabled) {
 		background: var(--figma-color-bg-hover);
 	}
 
-	div[popover] {
-		position-area: x-end span-y-end;
-		margin: 0;
-		margin-inline-start: 4px;
-		border: none;
-		padding: 0 4px;
-		overflow: visible;
+	.menu-item.group {
+		justify-content: space-between;
 	}
 
-	.popover-inner-wrapper {
-		box-shadow: 0 7px 20px #0000001f;
-		border: 1px solid var(--figma-color-border);
-		border-radius: var(--border-radius-medium);
-		background: var(--figma-color-bg);
-	}
-
-	button.menu-item {
-		border: none;
-		background: none;
-	}
-
-	/* button:focus-visible,
-	button:focus {
-		outline: 2px solid var(--figma-color-border-selected);
-	} */
-
-	.menu-item.selected {
-		background: var(--figma-color-bg-selected);
-	}
 	.menu-item.disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
 
-	.label {
-		flex: 1;
+	div[popover] {
+		position-area: x-end span-y-end;
+		margin: 0 0 0 4px;
+		border: none;
+		padding: 0 4px;
+		overflow: visible;
 	}
 
-	.chevron {
-		margin-left: var(--size-xsmall);
-		font-size: 14px;
-	}
-
-	.nested {
-		margin-left: var(--size-xsmall);
-		border-left: 1px solid var(--figma-color-border);
-	}
-
-	.has-children {
-		font-weight: var(--font-weight-medium);
-	}
-
-	.menu-item.focused {
-		outline: none;
-		background: var(--figma-color-bg-hover);
-	}
-
-	.multi-menu-container {
-		outline: none;
+	.popover-content {
+		box-shadow: 0 7px 20px #0000001f;
+		border: 1px solid var(--figma-color-border);
+		border-radius: var(--border-radius-medium);
+		background: var(--figma-color-bg);
 	}
 </style>
