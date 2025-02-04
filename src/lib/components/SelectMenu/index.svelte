@@ -45,10 +45,7 @@
 	let menuWrapper = $state();
 	let menuButton: HTMLButtonElement | null = $state(null);
 	let menuList: HTMLUListElement | null = $state(null);
-
-	function hideMenu() {
-		open = false;
-	}
+	let anchorName = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
 </script>
 
 <div
@@ -61,11 +58,11 @@
 >
 	<button
 		bind:this={menuButton}
-		onclick={(e) => {
-			open = !open;
-		}}
+		onclick={(e) => {}}
 		{disabled}
 		class:selected={open}
+		popovertarget={anchorName}
+		style={`anchor-name: ${anchorName};`}
 	>
 		{#if icon}
 			<span class="icon"><Icon {icon} /></span>
@@ -100,20 +97,17 @@
 	</button>
 
 	<MenuFlyout
-		onhidemenu={hideMenu}
 		{menuButton}
 		{optGroups}
-		onchange={(e) => {
-			value = e;
-			open = false;
-			onchange?.(e);
+		onchange={(item, _value) => {
+			value = _value;
+			onchange?.(value);
 		}}
-		{value}
+		{anchorName}
 		{showGroupLabels}
 		{rounded}
 		{multiselect}
 		{blink}
-		{open}
 	></MenuFlyout>
 </div>
 

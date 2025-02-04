@@ -1,45 +1,38 @@
 <script module lang="ts">
-	export type Group = IGroup;
-	export type Option = IOption;
-
-	interface IGroup {
+	export type Group = {
 		label?: string;
-		items: IOption[];
-	}
+		items: Option[];
+	};
 
-	interface IOption {
+	export type Option = {
 		value: string;
 		label: string;
 		selected?: boolean;
 		hidden?: boolean;
 		id?: string;
-	}
+	};
 </script>
 
 <script lang="ts">
-	import { clickOutside } from '$lib/helpers.svelte.js';
-
 	import MenuDivider from './MenuDivider.svelte';
 	import MenuItem from './MenuItem.svelte';
 
 	type Props = {
 		onclick?: (e: MouseEvent) => void;
-		onchange?: (e: Option[]) => void;
+		onchange?: (item: Option, value: Option[]) => void;
 		onfocus?: (e: Event) => void;
 		onblur?: (e: Event) => void;
-		onhidemenu?: () => void;
+		anchorName: string;
 		blink?: boolean;
 		class?: string;
 		disabled?: boolean;
 		icon?: string;
 		iconText?: string;
+		menuButton: HTMLButtonElement | null;
 		multiselect?: boolean;
-		open?: boolean;
 		optGroups?: Group[]; //pass data in via this prop to generate menu items
 		placeholder?: string;
 		rounded?: boolean;
-		menuButton: HTMLButtonElement | null;
-
 		showGroupLabels?: boolean; //default prop, true will show option group labels
 		value?: Option[]; //stores the current selection, note, the value will be an object from your array
 		[key: string]: unknown;
@@ -51,19 +44,19 @@
 		onblur,
 		onfocus,
 		onhidemenu,
+		anchorName,
 		blink,
 		class: className = '',
 		disabled = false,
 		icon,
 		iconText,
+		menuButton = null,
 		multiselect = false,
-		open = false,
 		optGroups = [],
 		placeholder = optGroups.length <= 0
 			? 'There are no items to select'
 			: 'Please make a selection',
 		rounded,
-		menuButton = null,
 		showGroupLabels,
 		value = [],
 		...props
@@ -71,12 +64,31 @@
 
 	let menuList: HTMLUListElement | null = $state(null);
 
-	let internalGroups: Group[] = updateSelectedAndIds(optGroups);
+	let internalGroups: Group[] = $derived(validateAndUpdateGroups(optGroups));
 
 	//FUNCTIONS
+	function validateUniqueValues(groups: Group[]): boolean {
+		const values = new Set<string>();
+		for (const group of groups) {
+			for (const item of group.items) {
+				if (values.has(item.value)) {
+					console.error(`Duplicate value found: ${item.value}`);
+					return false;
+				}
+				values.add(item.value);
+			}
+		}
+		return true;
+	}
 
-	// this function runs everytime the optGroups array os updated
-	// it will auto assign ids and keep the value var updated
+	function validateAndUpdateGroups(groups: Group[]): Group[] {
+		if (!validateUniqueValues(groups)) {
+			throw new Error('MenuFlyout: All items must have unique values');
+		}
+		return updateSelectedAndIds(groups);
+	}
+
+	// this function runs everytime the optGroups array is updated
 	function updateSelectedAndIds(groups: Group[]): Group[] {
 		return groups.map((group, groupIndex) => {
 			return {
@@ -91,68 +103,26 @@
 		//Update the value variable, if an element is selected. If not, select the first one.
 	}
 
-	//run for all menu click events
-	//this opens/closes the menu
-	function menuClick(id: string) {
-		open = !open;
-
-		// TODO: Menu positioning at the y pos of the currently selected item
-
-		// if (!event.target) {
-		// 	menuList.classList.add('hidden');
-		// } else if (event.target.contains(menuButton)) {
-		// 	let topPos = 0;
-
-		// 	if (value) {
-		// 		//toggle menu
-		// 		menuList.classList.remove('hidden');
-
-		// 		let id = value.id;
-		// 		let selectedItem = menuList.querySelector('[itemId="' + id + '"]');
-		// 		selectedItem.focus(); //set focus to the currently selected item
-
-		// 		// calculate distance from top so that we can position the dropdown menu
-		// 		let parentTop = menuList.getBoundingClientRect().top;
-		// 		let itemTop = selectedItem.getBoundingClientRect().top;
-		// 		let topPos = itemTop - parentTop - 3;
-		// 		menuList.style.top = -Math.abs(topPos) + 'px';
-
-		// 		//update size and position based on plugin UI
-		// 		resizeAndPosition();
-		// 	} else {
-		// 		menuList.classList.remove('hidden');
-		// 		menuList.style.top = '0px';
-		// 		let firstItem = menuList.querySelector('[itemId="0"]');
-		// 		firstItem.focus();
-
-		// 		//update size and position based on plugin UI
-		// 		resizeAndPosition();
-		// 	}
-		// } else if (menuList.contains(event.target)) {
-		//find selected item in array
-
-		// Make this depth independent
-		function getOptionById(id: string, groups: Group[]): Option | null {
-			for (const group of groups) {
-				for (const item of group.items) {
-					if (item.id === id) {
-						return item;
-					}
+	// TODO: Make this depth independent
+	function getOptionById(id: string, groups: Group[]): Option | null {
+		for (const group of groups) {
+			for (const item of group.items) {
+				if (item.id === id) {
+					return item;
 				}
 			}
-			return null;
 		}
+		return null;
+	}
 
-		if (!id) {
-			return;
-		}
+	//run for all menu click events
+	//this opens/closes the menu
+	function menuClick(item: Option) {
+		const id = item.id;
+		if (!id) return;
 
 		const selectedItem = getOptionById(id, internalGroups);
-
-		if (!selectedItem) {
-			return;
-		}
-
+		if (!selectedItem) return;
 		selectedItem.selected = !selectedItem.selected;
 
 		if (multiselect) {
@@ -167,20 +137,24 @@
 			value = [selectedItem];
 		}
 
-		onchange?.(value);
-		open = false;
+		onchange?.(item, value);
+
+		if (!multiselect) {
+			menuList?.hidePopover();
+		}
 	}
 </script>
 
-{#if open}
-	<ul
-		{...props}
-		class="menu"
-		class:rounded
-		bind:this={menuList}
-		use:clickOutside={menuButton}
-		onclickOutside={() => onhidemenu?.()}
-	>
+<ul
+	{...props}
+	class="menu"
+	class:rounded
+	bind:this={menuList}
+	popover=""
+	id={anchorName}
+	style={`position-anchor: ${anchorName};`}
+>
+	{#key value}
 		{#if internalGroups && internalGroups.length > 0}
 			{#each internalGroups as group, i}
 				{#if internalGroups.length > 1 && i > 0}
@@ -189,32 +163,33 @@
 				{#if group.label && internalGroups.length > 1 && showGroupLabels}
 					<MenuDivider label>{group.label}</MenuDivider>
 				{/if}
-				{#each group.items as item}
+				{#each group.items as item (item.id)}
 					<MenuItem
 						{blink}
-						selected={item.selected}
-						onclick={(e) => menuClick(e)}
-						itemId={item.id}
-						disabled={item.hidden}
-						{rounded}>{item.label}</MenuItem
+						onclick={(e) => {
+							console.log(e.id, 'clicked');
+							menuClick(e);
+						}}
+						{item}
+						{rounded}
 					>
+						{item.label}
+					</MenuItem>
 				{/each}
 			{/each}
 		{/if}
-	</ul>
-{/if}
+	{/key}
+</ul>
 
 <style>
 	.menu {
-		position: absolute;
-		top: 32px;
-		left: 0;
-		z-index: 50;
+		position-area: y-end span-x-end;
 		margin: 0;
 		box-shadow: var(--shadow-hud);
 		border-radius: var(--border-radius-small);
 		background-color: var(--color-bg-menu);
 		padding: var(--size-xxsmall) 0 var(--size-xxsmall) 0;
+		min-width: anchor-size(width);
 		overflow-x: overlay;
 		overflow-y: auto;
 	}
