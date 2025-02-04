@@ -10,10 +10,12 @@ import Label from './components/Label/index.svelte';
 import OnboardingTip from './components/OnboardingTip/index.svelte';
 import Radio from './components/Radio/index.svelte';
 import SelectMenu from './components/SelectMenu/index.svelte';
+import DropdownMenu from './components/DropdownMenu/index.svelte';
 import MenuFlyout from './components/MenuFlyout/index.svelte';
 import Switch from './components/Switch/index.svelte';
 import Textarea from './components/Textarea/index.svelte';
 import Type from './components/Type/index.svelte';
+import MultiMenu from '$lib/components/MultiMenu/index.svelte';
 
 //Icons
 
@@ -155,10 +157,12 @@ export {
 	OnboardingTip,
 	Radio,
 	SelectMenu,
+	DropdownMenu,
 	MenuFlyout,
 	Switch,
 	Textarea,
 	Type,
+	MultiMenu,
 	IconAdjust,
 	IconAlert,
 	IconAlignHorizontalCenters,
