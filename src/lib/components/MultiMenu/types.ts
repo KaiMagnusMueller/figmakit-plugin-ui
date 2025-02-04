@@ -1,6 +1,7 @@
 export type SelectionMode = 'single' | 'multi' | 'button';
 
 export type MenuGroup = {
+	id?: number;
 	children: MenuOption[] | MenuGroup[]; // Options directly in this group
 	label: string;
 	mode?: SelectionMode;
@@ -11,6 +12,7 @@ export type MenuGroup = {
 export type MenuOption = SelectableMenuOption | ClickableMenuOption;
 
 export type SelectableMenuOption = {
+	id: number;
 	disabled?: boolean;
 	label: string;
 	selected?: boolean | undefined;
@@ -18,10 +20,11 @@ export type SelectableMenuOption = {
 };
 
 export type ClickableMenuOption = {
+	id: number;
 	action: string;
 	disabled?: boolean;
 	label: string;
-	selected: never;
+	selected?: never;
 };
 
 export type MenuChangeEvent = {

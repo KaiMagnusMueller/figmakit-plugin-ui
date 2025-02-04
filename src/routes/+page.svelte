@@ -526,66 +526,64 @@
 							]
 						},
 						{
-							name: "text",
-							label: "Text",
+							name: 'text',
+							label: 'Text',
 							children: [
-								
 								{
-									label: "Bold",
-									action: "bold"
+									label: 'Bold',
+									action: 'bold'
 								},
 								{
-									label: "Italic",
-									action: "italic"
+									label: 'Italic',
+									action: 'italic'
 								},
 								{
-									label: "Underline",
-									action: "underline"
+									label: 'Underline',
+									action: 'underline'
 								},
 								{
-									name: "alignment",
-									label: "Alignment",
+									name: 'alignment',
+									label: 'Alignment',
 									children: [
 										{
-											label: "Left",
-											action: "align-left"
+											label: 'Left',
+											action: 'align-left'
 										},
 										{
-											label: "Center",
-											action: "align-center"
+											label: 'Center',
+											action: 'align-center'
 										},
 										{
-											label: "Right",
-											action: "align-right"
+											label: 'Right',
+											action: 'align-right'
 										},
 										{
-											label: "Justify",
-											action: "align-justify"
+											label: 'Justify',
+											action: 'align-justify'
 										}
 									]
 								},
 								{
-									name: "case",
-									label: "Case",
+									name: 'case',
+									label: 'Case',
 									children: [
 										{
-											label: "Uppercase",
-											action: "uppercase"
+											label: 'Uppercase',
+											action: 'uppercase'
 										},
 										{
-											label: "Lowercase",
-											action: "lowercase"
+											label: 'Lowercase',
+											action: 'lowercase'
 										},
 										{
-											label: "Title case",
-											action: "titlecase"
+											label: 'Title case',
+											action: 'titlecase'
 										}
 									]
 								}
-							
 							]
 						},
-					
+
 						{
 							name: 'edit',
 							label: 'Edit',

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { MenuGroup, MenuOption } from './types.ts';
 	import { type Snippet } from 'svelte';
+	import { IconCheck, Icon } from '$lib/index.js';
 
 	type Value = { [key: string]: string | string[] };
 	type Props = {
@@ -31,11 +32,13 @@
 	let menuContainerElem: HTMLElement;
 	let originalAnchor = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
 
+	let internalGroups: MenuGroup[] = $state(groups);
+
 	// Helper functions
-	function collectSelectedOptions(groups: MenuGroup[]): Value {
+	function collectSelectedOptions(_groups: MenuGroup[]): Value {
 		const result: Value = {};
 
-		for (const group of groups) {
+		for (const group of _groups) {
 			if (!group.children) continue;
 
 			const selectedValues = group.children
@@ -54,12 +57,14 @@
 					Object.assign(result, collectSelectedOptions([childGroup]));
 				});
 		}
-
 		return result;
 	}
 
 	// Event handlers
 	function handleOptionClick(option: MenuOption, group: MenuGroup) {
+		// console.log('option', option);
+		// console.log('group', group);
+
 		if ('action' in option) {
 			onclick?.(option.action);
 			return;
@@ -74,7 +79,7 @@
 			option.selected = !option.selected;
 		}
 
-		value = collectSelectedOptions(groups);
+		value = collectSelectedOptions(internalGroups);
 		onchange?.(value);
 	}
 
@@ -92,10 +97,13 @@
 		Trigger button
 	</button>
 
-	{@render popoverContainer(groups, originalAnchor)}
+	{@render popoverContainer(internalGroups, originalAnchor)}
 </div>
 
-{#snippet popoverContainer(groups: MenuGroup[], anchorName?: string)}
+{#snippet popoverContainer(_groups: MenuGroup[], anchorName?: string)}
+	{@const hasSelectableOptions = _groups.some(
+		(elem) => elem.mode === 'single' || elem.mode === 'multi'
+	)}
 	<div
 		role="menu"
 		tabindex="0"
@@ -105,23 +113,23 @@
 		onmouseleave={() => hideOtherPopovers(originalAnchor)}
 	>
 		<div class="popover-content">
-			{#each groups as group}
-				{@render multiMenuGroup(group, anchorName)}
+			{#each _groups as group}
+				{@render multiMenuGroup(group, anchorName, hasSelectableOptions)}
 			{/each}
 		</div>
 		<div class="hover-helper"></div>
 	</div>
 {/snippet}
 
-{#snippet multiMenuGroup(group: MenuGroup, parentAnchor?: string)}
+{#snippet multiMenuGroup(group: MenuGroup, parentAnchor?: string, hasSelectableOptions?: boolean)}
 	<div class="menu" class:rounded>
 		{#if group.children}
 			<div>
-				{#each group.children as item}
-					{#if 'children' in item}
-						{@render menuGroupExpandable(item)}
+				{#each group.children as option}
+					{#if 'children' in option}
+						{@render menuGroupExpandable(option, hasSelectableOptions)}
 					{:else}
-						{@render menuOption(item, group, parentAnchor)}
+						{@render menuOption(option, group, parentAnchor, hasSelectableOptions)}
 					{/if}
 				{/each}
 			</div>
@@ -131,7 +139,7 @@
 	</div>
 {/snippet}
 
-{#snippet menuGroupExpandable(group: MenuGroup)}
+{#snippet menuGroupExpandable(group: MenuGroup, hasSelectableOptions?: boolean)}
 	{@const anchorName = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`}
 	<button
 		class="menu-item group"
@@ -142,20 +150,39 @@
 			document.getElementById(anchorName)?.showPopover();
 		}}
 	>
-		<span>{group.label}</span>
+		<span>
+			{#if hasSelectableOptions}
+				<!-- <p>selectable</p> -->
+				<div class="icon-placeholder"></div>
+			{/if}
+			<span>{group.label}</span>
+		</span>
 		<span>{'>'}</span>
 	</button>
 	{@render popoverContainer([group], anchorName)}
 {/snippet}
 
-{#snippet menuOption(option: MenuOption, group: MenuGroup, parentAnchor?: string)}
+{#snippet menuOption(
+	option: MenuOption,
+	group: MenuGroup,
+	parentAnchor?: string,
+	hasSelectableOptions?: boolean
+)}
 	<button
 		class="menu-item"
 		class:disabled={option.disabled}
 		onclick={() => handleOptionClick(option, group)}
 		onmouseenter={() => hideOtherPopovers(parentAnchor || '')}
 	>
-		<span>{option.label}</span>
+		<span class="left-group">
+			{#if !!option.selected}
+				<Icon icon={IconCheck} size={16}></Icon>
+			{:else if hasSelectableOptions}
+				<!-- <p>selectable</p> -->
+				<div class="icon-placeholder"></div>
+			{/if}
+			<span>{option.label}</span>
+		</span>
 	</button>
 {/snippet}
 
@@ -177,6 +204,7 @@
 	.menu-item {
 		display: flex;
 		align-items: center;
+		gap: 4px;
 		cursor: default;
 		border: none;
 		border-radius: var(--border-radius-medium);
@@ -196,9 +224,18 @@
 		justify-content: space-between;
 	}
 
+	.menu-item span {
+		display: inherit;
+		gap: inherit;
+	}
+
 	.menu-item.disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
+	}
+
+	.menu-container > div[popover] {
+		padding: 0;
 	}
 
 	div[popover] {
@@ -229,5 +266,10 @@
 		/* background: red; */
 		width: 80px;
 		height: 100%;
+	}
+
+	.icon-placeholder {
+		width: 16px;
+		height: 16px;
 	}
 </style>
