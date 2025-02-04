@@ -79,24 +79,46 @@
 		onchange?.(value);
 	}
 
-	let anchorName = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
+	let menuContainerElem: HTMLElement;
+	let originalAnchor = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
 </script>
 
-<button popovertarget={anchorName} style={`anchor-name: ${anchorName};`}>Trigger button </button>
+<div class="multi-menu-container" bind:this={menuContainerElem}>
+	<button popovertarget={originalAnchor} style={`anchor-name: ${originalAnchor};`}
+		>Trigger button
+	</button>
 
-{@render popoverContainer(groups, anchorName)}
+	{@render popoverContainer(groups, originalAnchor)}
+</div>
 
 {#snippet popoverContainer(groups: MenuGroup[], anchorName?: string)}
-	<div popover="" id={anchorName} style={`position-anchor: ${anchorName};`}>
+	<div
+		popover=""
+		id={anchorName}
+		style={`position-anchor: ${anchorName};`}
+		ontoggle={(e) => {
+			if (e.newState === 'open') {
+				const button = (e.target as HTMLElement)?.querySelector('button');
+				button?.focus();
+			}
+		}}
+		onmouseleave={() => {
+			menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
+				if (popover.id !== originalAnchor) {
+					(popover as HTMLElement).hidePopover();
+				}
+			});
+		}}
+	>
 		<div class="popover-inner-wrapper">
 			{#each groups as group}
-				{@render multiMenuGroup(group)}
+				{@render multiMenuGroup(group, anchorName)}
 			{/each}
 		</div>
 	</div>
 {/snippet}
 
-{#snippet multiMenuGroup(group: MenuGroup)}
+{#snippet multiMenuGroup(group: MenuGroup, parentAnchor?: string)}
 	<div class="multi-menu" class:rounded>
 		{#if !group.children}
 			<p>No options in this group</p>
@@ -108,7 +130,7 @@
 						{@render menuGroupExpandable(group)}
 					{:else}
 						{@const option = optionOrGroup as MenuOption}
-						{@render menuOption(option, group)}
+						{@render menuOption(option, group, parentAnchor)}
 					{/if}
 				{/each}
 			</div>
@@ -122,6 +144,16 @@
 		class="menu-item menu-group"
 		popovertarget={anchorName}
 		style={`anchor-name: ${anchorName};`}
+		onmouseenter={() => {
+			menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
+				if (popover.id !== anchorName && popover.id !== originalAnchor) {
+					(popover as HTMLElement).hidePopover();
+				}
+			});
+
+			const popover = document.getElementById(anchorName);
+			popover?.showPopover();
+		}}
 	>
 		<span>{group.label}</span>
 		<span>{'>'}</span>
@@ -129,11 +161,18 @@
 	{@render popoverContainer([group], anchorName)}
 {/snippet}
 
-{#snippet menuOption(option: MenuOption, group: MenuGroup)}
+{#snippet menuOption(option: MenuOption, group: MenuGroup, parentAnchor?: string)}
 	<button
 		class="menu-item"
 		onclick={() => {
 			handleOptionClick(option, group);
+		}}
+		onmouseenter={() => {
+			menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
+				if (popover.id !== parentAnchor && popover.id !== originalAnchor) {
+					(popover as HTMLElement).hidePopover();
+				}
+			});
 		}}
 	>
 		<span>{option.label}</span>
@@ -193,6 +232,11 @@
 		background: none;
 	}
 
+	/* button:focus-visible,
+	button:focus {
+		outline: 2px solid var(--figma-color-border-selected);
+	} */
+
 	.menu-item.selected {
 		background: var(--figma-color-bg-selected);
 	}
@@ -217,5 +261,14 @@
 
 	.has-children {
 		font-weight: var(--font-weight-medium);
+	}
+
+	.menu-item.focused {
+		outline: none;
+		background: var(--figma-color-bg-hover);
+	}
+
+	.multi-menu-container {
+		outline: none;
 	}
 </style>
