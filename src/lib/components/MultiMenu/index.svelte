@@ -1,96 +1,82 @@
 <script lang="ts">
-	import type {
-		MenuGroup,
-		BaseMenuOption,
-		MenuChangeEvent,
-		MenuClickEvent,
-		MenuOption
-	} from './types.ts';
-	import { createEventDispatcher, type Snippet } from 'svelte';
+	import type { MenuGroup, MenuOption } from './types.ts';
+	import { type Snippet } from 'svelte';
+
+	type Value = { [key: string]: string | string[] };
 
 	type Props = {
 		onmouseenter?: (event: MouseEvent) => void;
 		onclick?: (action: string) => void;
+		onchange: (value: Value) => void;
 		groups: MenuGroup[];
 		blink?: boolean;
 		item?: any;
 		rounded?: boolean;
+		value?: Value;
 		children?: Snippet;
 		[propName: string]: any;
 	};
-	import MenuDivider from '../MenuFlyout/MenuDivider.svelte';
 
 	let {
 		onmouseenter,
 		onclick,
+		onchange,
 		groups = [],
 		blink = false,
 		item,
 		rounded = false,
+		value = $bindable({}),
 		children,
 		...props
 	}: Props = $props();
 
-	const dispatch = createEventDispatcher<{
-		change: MenuChangeEvent;
-		click: MenuClickEvent;
-	}>();
+	function collectSelectedOptions(groups: MenuGroup[]): Value {
+		const result: Value = {};
 
-	// function handleOptionClick(option: MenuOption, path: string[]) {
-	// 	if (option.groups) {
-	// 		// Handle submenu opening
-	// 		return;
-	// 	}
+		function processGroup(group: MenuGroup) {
+			if (!group.children) return;
 
-	// 	// Find the parent group
-	// 	const group = findGroupByPath(groups, path);
-	// 	if (!group) return;
+			const selectedValues: string[] = [];
 
-	// 	if (group.mode === 'button') {
-	// 		dispatch('click', {
-	// 			optionId: option.id,
-	// 			value: option.value,
-	// 			path
-	// 		});
-	// 	} else {
-	// 		const groupOptions = group.options || [];
+			group.children.forEach((child) => {
+				if ('children' in child) {
+					Object.assign(result, collectSelectedOptions([child]));
+				} else if ('selected' in child && child.selected && 'value' in child) {
+					selectedValues.push(child.value);
+				}
+			});
 
-	// 		if (group.mode === 'single') {
-	// 			groupOptions.forEach((o) => (o.selected = false));
-	// 			option.selected = true;
-	// 		} else {
-	// 			option.selected = !option.selected;
-	// 		}
+			if (selectedValues.length > 0) {
+				result[group.name] = group.mode === 'single' ? selectedValues[0] : selectedValues;
+			}
+		}
 
-	// 		const selectedValues = groupOptions.filter((o) => o.selected).map((o) => o.value);
+		groups.forEach(processGroup);
+		return result;
+	}
 
-	// 		group.value = selectedValues;
-	// 		dispatch('change', {
-	// 			groupId: group.id,
-	// 			value: selectedValues,
-	// 			path
-	// 		});
-	// 	}
-	// }
-
-	// function findGroupByPath(group: MenuGroup, path: string[]): MenuGroup | null {
-	// 	if (path.length === 0) return group;
-	// 	const [currentId, ...rest] = path;
-
-	// 	const nextGroup = (group.groups || []).find((g) => g.id === currentId);
-	// 	if (!nextGroup) return null;
-
-	// 	return findGroupByPath(nextGroup, rest);
-	// }
-
-	function handleOptionClick(option: MenuOption) {
-		console.log('Option:', option);
-
+	function handleOptionClick(option: MenuOption, group: MenuGroup) {
 		if ('action' in option) {
 			console.log('Action:', option.action);
-		} else {
-			console.log('Selected:', option.value);
+			onclick?.(option.action);
+			return;
 		}
+
+		if (group.mode === 'single') {
+			group.children.forEach((child) => {
+				if ('selected' in child) {
+					child.selected = false;
+				}
+			});
+			option.selected = true;
+		} else if (group.mode === 'multi') {
+			option.selected = !option.selected;
+		}
+
+		value = collectSelectedOptions(groups);
+
+		console.log('Selected options:', value);
+		onchange?.(value);
 	}
 
 	let anchorName = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
@@ -119,12 +105,10 @@
 				{#each group.children as optionOrGroup}
 					{#if 'children' in optionOrGroup && (!('action' in optionOrGroup) || !('value' in optionOrGroup))}
 						{@const group = optionOrGroup as MenuGroup}
-
 						{@render menuGroupExpandable(group)}
 					{:else}
 						{@const option = optionOrGroup as MenuOption}
-
-						{@render menuOption(option)}
+						{@render menuOption(option, group)}
 					{/if}
 				{/each}
 			</div>
@@ -145,11 +129,11 @@
 	{@render popoverContainer([group], anchorName)}
 {/snippet}
 
-{#snippet menuOption(option: MenuOption)}
+{#snippet menuOption(option: MenuOption, group: MenuGroup)}
 	<button
 		class="menu-item"
 		onclick={() => {
-			handleOptionClick(option);
+			handleOptionClick(option, group);
 		}}
 	>
 		<span>{option.label}</span>
@@ -212,7 +196,6 @@
 	.menu-item.selected {
 		background: var(--figma-color-bg-selected);
 	}
-
 	.menu-item.disabled {
 		opacity: 0.5;
 		cursor: not-allowed;

@@ -1,38 +1,37 @@
 export type SelectionMode = 'single' | 'multi' | 'button';
 
 export type MenuGroup = {
-	name: string;
+	children: MenuOption[] | MenuGroup[]; // Options directly in this group
 	label: string;
 	mode?: SelectionMode;
+	name: string;
 	value?: string[];
-	children: MenuOption[] | MenuGroup[]; // Options directly in this group
 };
 
 export type MenuOption = SelectableMenuOption | ClickableMenuOption;
 
-export type SelectableMenuOption = BaseMenuOption & {
-	id?: string;
-	selected: boolean | undefined;
+export type SelectableMenuOption = {
+	disabled?: boolean;
+	label: string;
+	selected?: boolean | undefined;
 	value: string;
 };
 
-export type ClickableMenuOption = BaseMenuOption & {
+export type ClickableMenuOption = {
 	action: string;
-};
-
-export type BaseMenuOption = {
-	label: string;
 	disabled?: boolean;
+	label: string;
+	selected: never;
 };
 
 export type MenuChangeEvent = {
 	groupId: string;
-	value: string[];
 	path: string[]; // Array of group IDs representing the path to the changed group
+	value: string[];
 };
 
 export type MenuClickEvent = {
 	optionId: string;
-	value: string;
 	path: string[]; // Array of group IDs representing the path to the clicked option
+	value: string;
 };
