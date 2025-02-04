@@ -23,7 +23,9 @@
 		OnboardingTip,
 		Label,
 		Type,
-		Icon
+		Icon,
+		DropdownMenu,
+		MultiMenu
 	} from '$lib/index.js';
 
 	import {
@@ -482,6 +484,7 @@
 					{optGroups}
 					bind:value={selectedOpt1}
 					onchange={(e) => {
+						e.map((o) => o.label).join(', ');
 						// console.log('Option selected;', e[0].label);
 					}}
 					placeholder="Single select menu"
@@ -496,6 +499,116 @@
 					placeholder="Single select menu"
 				></SelectMenu>
 				<SelectMenu {optGroups} blink placeholder="Blinking select menu"></SelectMenu>
+			</Section>
+			<Section title="Dropdown Menu">
+				<!-- <DropdownMenu {optGroups} onchange={(value) => console.log(value)}
+					>Menu</DropdownMenu
+				> -->
+
+				<MultiMenu
+					groups={[
+						{
+							name: 'file',
+							label: 'File',
+							children: [
+								{
+									label: 'New',
+									action: 'new-file'
+								},
+								{
+									label: 'Open',
+									action: 'open-file'
+								},
+								{
+									label: 'Save',
+									action: 'save-file'
+								}
+							]
+						},
+						{
+							name: 'edit',
+							label: 'Edit',
+							children: [
+								{
+									label: 'Undo',
+									action: 'undo'
+								},
+								{
+									label: 'Redo',
+									action: 'redo'
+								},
+								{
+									label: 'Cut',
+									action: 'cut'
+								},
+								{
+									label: 'Copy',
+									action: 'copy'
+								},
+								{
+									label: 'Paste',
+									action: 'paste'
+								}
+							]
+						},
+						{
+							name: 'view',
+							label: 'View',
+							children: [
+								{
+									name: 'View options',
+									label: 'View options',
+									mode: 'single',
+									children: [
+										{
+											label: 'Wireframe',
+											value: 'wireframe',
+											selected: false
+										},
+										{
+											label: 'Shaded',
+											value: 'shaded',
+											selected: false
+										},
+										{
+											label: 'Textured',
+											value: 'textured',
+											selected: false
+										}
+									]
+								}
+							]
+						},
+
+						{
+							name: 'ui-elements',
+							label: 'UI Elements',
+							mode: 'multi',
+							children: [
+								{
+									label: 'Grid',
+									value: 'grid',
+									selected: false
+								},
+								{
+									label: 'Guides',
+									value: 'guides',
+									selected: false
+								},
+								{
+									label: 'Rulers',
+									value: 'rulers',
+									selected: false
+								},
+								{
+									label: 'Layers',
+									value: 'layers',
+									selected: false
+								}
+							]
+						}
+					]}
+				></MultiMenu>
 			</Section>
 			<Section title="Disclosure">
 				<Disclosure>
