@@ -109,6 +109,7 @@
 				{@render multiMenuGroup(group, anchorName)}
 			{/each}
 		</div>
+		<div class="hover-helper"></div>
 	</div>
 {/snippet}
 
@@ -155,9 +156,6 @@
 		onmouseenter={() => hideOtherPopovers(parentAnchor || '')}
 	>
 		<span>{option.label}</span>
-		{#if 'action' in option}
-			<span>{option.action}</span>
-		{/if}
 	</button>
 {/snippet}
 
@@ -167,8 +165,8 @@
 	}
 
 	.menu {
-		border: 1px solid var(--figma-color-border);
-		background: var(--figma-color-bg);
+		border: none;
+		/* background: var(--figma-color-bg); */
 		min-width: 180px;
 	}
 
@@ -181,14 +179,17 @@
 		align-items: center;
 		cursor: default;
 		border: none;
+		border-radius: var(--border-radius-medium);
 		background: none;
-		padding: var(--size-xxsmall) var(--size-xsmall);
+		padding: 0 8px;
 		width: 100%;
+		min-height: 25px;
+		color: var(--color-text-menu-text);
 		user-select: none;
 	}
 
 	.menu-item:hover:not(.disabled) {
-		background: var(--figma-color-bg-hover);
+		background: var(--figma-color-bg-brand-hover);
 	}
 
 	.menu-item.group {
@@ -202,16 +203,31 @@
 
 	div[popover] {
 		position-area: x-end span-y-end;
-		margin: 0 0 0 4px;
+		margin: 0 0 0 0;
+		inset-block-start: -8px;
+		inset-inline-start: 8px;
 		border: none;
-		padding: 0 4px;
+		background: none;
+		padding: 0 4px 0 8px;
 		overflow: visible;
 	}
 
 	.popover-content {
 		box-shadow: 0 7px 20px #0000001f;
-		border: 1px solid var(--figma-color-border);
-		border-radius: var(--border-radius-medium);
-		background: var(--figma-color-bg);
+		border-radius: var(--border-radius-large);
+		background: var(--color-bg-menu);
+		padding: 8px;
+		color: var(--color-text-menu-text);
+	}
+
+	.hover-helper {
+		position: absolute;
+		z-index: -1;
+		clip-path: polygon(0 32px, 48% 32px, 48px 8px, 100% 0, 100% 100%, 16px 40px);
+		inset: 0;
+		inset-inline-start: -64px;
+		/* background: red; */
+		width: 80px;
+		height: 100%;
 	}
 </style>
