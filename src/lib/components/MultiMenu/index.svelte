@@ -30,7 +30,7 @@
 
 	// DOM references and anchors
 	let menuContainerElem: HTMLElement;
-	let originalAnchor = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
+	let menuContainerAnchor = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
 
 	let internalGroups: MenuGroup[] = $state(groups);
 
@@ -85,7 +85,7 @@
 
 	function hideOtherPopovers(exceptId: string) {
 		menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
-			if (popover.id !== exceptId && popover.id !== originalAnchor) {
+			if (popover.id !== exceptId && popover.id !== menuContainerAnchor) {
 				(popover as HTMLElement).hidePopover();
 			}
 		});
@@ -93,11 +93,11 @@
 </script>
 
 <div class="menu-container" bind:this={menuContainerElem}>
-	<button popovertarget={originalAnchor} style={`anchor-name: ${originalAnchor};`}>
+	<button popovertarget={menuContainerAnchor} style={`anchor-name: ${menuContainerAnchor};`}>
 		Trigger button
 	</button>
 
-	{@render popoverContainer(internalGroups, originalAnchor)}
+	{@render popoverContainer(internalGroups, menuContainerAnchor)}
 </div>
 
 {#snippet popoverContainer(_groups: MenuGroup[], anchorName?: string)}
@@ -110,10 +110,13 @@
 		popover=""
 		id={anchorName}
 		style={`position-anchor: ${anchorName};`}
-		onmouseleave={() => hideOtherPopovers(originalAnchor)}
+		onmouseleave={() => hideOtherPopovers(menuContainerAnchor)}
 	>
 		<div class="popover-content">
-			{#each _groups as group}
+			{#each _groups as group, i}
+				{#if i > 0}
+					<hr />
+				{/if}
 				{@render multiMenuGroup(group, anchorName, hasSelectableOptions)}
 			{/each}
 		</div>
@@ -126,11 +129,7 @@
 		{#if group.children}
 			<div>
 				{#each group.children as option}
-					{#if 'children' in option}
-						{@render menuGroupExpandable(option, hasSelectableOptions)}
-					{:else}
-						{@render menuOption(option, group, parentAnchor, hasSelectableOptions)}
-					{/if}
+					{@render menuElement(option, group, parentAnchor, hasSelectableOptions)}
 				{/each}
 			</div>
 		{:else}
@@ -139,51 +138,49 @@
 	</div>
 {/snippet}
 
-{#snippet menuGroupExpandable(group: MenuGroup, hasSelectableOptions?: boolean)}
-	{@const anchorName = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`}
-	<button
-		class="menu-item group"
-		popovertarget={anchorName}
-		style={`anchor-name: ${anchorName};`}
-		onmouseenter={() => {
-			hideOtherPopovers(anchorName);
-			document.getElementById(anchorName)?.showPopover();
-		}}
-	>
-		<span>
-			{#if hasSelectableOptions}
-				<!-- <p>selectable</p> -->
-				<div class="icon-placeholder"></div>
-			{/if}
-			<span>{group.label}</span>
-		</span>
-		<span>{'>'}</span>
-	</button>
-	{@render popoverContainer([group], anchorName)}
-{/snippet}
-
-{#snippet menuOption(
-	option: MenuOption,
+{#snippet menuElement(
+	option: MenuOption | MenuGroup,
 	group: MenuGroup,
 	parentAnchor?: string,
 	hasSelectableOptions?: boolean
 )}
-	<button
-		class="menu-item"
-		class:disabled={option.disabled}
-		onclick={() => handleOptionClick(option, group)}
-		onmouseenter={() => hideOtherPopovers(parentAnchor || '')}
-	>
-		<span class="left-group">
-			{#if !!option.selected}
-				<Icon icon={IconCheck} size={16}></Icon>
-			{:else if hasSelectableOptions}
-				<!-- <p>selectable</p> -->
-				<div class="icon-placeholder"></div>
-			{/if}
-			<span>{option.label}</span>
-		</span>
-	</button>
+	{#if 'children' in option}
+		{@const anchorName = `--fk-${crypto.getRandomValues(new Uint32Array(1))[0]}`}
+		<button
+			class="menu-item group"
+			popovertarget={anchorName}
+			style={`anchor-name: ${anchorName};`}
+			onmouseenter={() => {
+				hideOtherPopovers(anchorName);
+				document.getElementById(anchorName)?.showPopover();
+			}}
+		>
+			<span class="left-group">
+				{#if hasSelectableOptions}
+					<div class="icon-placeholder"></div>
+				{/if}
+				<span>{option.label}</span>
+			</span>
+			<span>{'>'}</span>
+		</button>
+		{@render popoverContainer([option], anchorName)}
+	{:else}
+		<button
+			class="menu-item"
+			class:disabled={option.disabled}
+			onclick={() => handleOptionClick(option, group)}
+			onmouseenter={() => hideOtherPopovers(parentAnchor || '')}
+		>
+			<span class="left-group">
+				{#if !!option.selected}
+					<Icon icon={IconCheck} size={16}></Icon>
+				{:else if hasSelectableOptions}
+					<div class="icon-placeholder"></div>
+				{/if}
+				<span>{option.label}</span>
+			</span>
+		</button>
+	{/if}
 {/snippet}
 
 <style>
@@ -214,24 +211,24 @@
 		min-height: 25px;
 		color: var(--color-text-menu-text);
 		user-select: none;
-	}
 
-	.menu-item:hover:not(.disabled) {
-		background: var(--figma-color-bg-brand-hover);
-	}
+		&:hover:not(.disabled) {
+			background: var(--figma-color-bg-brand-hover);
+		}
 
-	.menu-item.group {
-		justify-content: space-between;
-	}
+		&.group {
+			justify-content: space-between;
+		}
 
-	.menu-item span {
-		display: inherit;
-		gap: inherit;
-	}
+		span {
+			display: inherit;
+			gap: inherit;
+		}
 
-	.menu-item.disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+		&.disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
 	}
 
 	.menu-container > div[popover] {
@@ -255,6 +252,12 @@
 		background: var(--color-bg-menu);
 		padding: 8px;
 		color: var(--color-text-menu-text);
+
+		hr {
+			border: none;
+			border-top: 1px solid var(--color-border-menu);
+			background: none;
+		}
 	}
 
 	.hover-helper {
