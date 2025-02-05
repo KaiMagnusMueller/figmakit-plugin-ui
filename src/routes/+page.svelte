@@ -24,7 +24,6 @@
 		Label,
 		Type,
 		Icon,
-		DropdownMenu,
 		MultiMenu
 	} from '$lib/index.js';
 
@@ -501,10 +500,6 @@
 				<SelectMenu {optGroups} blink placeholder="Blinking select menu"></SelectMenu>
 			</Section>
 			<Section title="Dropdown Menu">
-				<!-- <DropdownMenu {optGroups} onchange={(value) => console.log(value)}
-					>Menu</DropdownMenu
-				> -->
-
 				<MultiMenu
 					groups={[
 						{

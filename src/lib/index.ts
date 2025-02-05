@@ -10,7 +10,6 @@ import Label from './components/Label/index.svelte';
 import OnboardingTip from './components/OnboardingTip/index.svelte';
 import Radio from './components/Radio/index.svelte';
 import SelectMenu from './components/SelectMenu/index.svelte';
-import DropdownMenu from './components/DropdownMenu/index.svelte';
 import MenuFlyout from './components/MenuFlyout/index.svelte';
 import Switch from './components/Switch/index.svelte';
 import Textarea from './components/Textarea/index.svelte';
@@ -157,7 +156,6 @@ export {
 	OnboardingTip,
 	Radio,
 	SelectMenu,
-	DropdownMenu,
 	MenuFlyout,
 	Switch,
 	Textarea,
