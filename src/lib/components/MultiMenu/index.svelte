@@ -335,7 +335,8 @@
 				background-color: var(--figma-color-bg-pressed);
 			}
 
-			& {
+			/* Ugly but elegant from a certain point of view */
+			&:has(+ div[popover]:popover-open) {
 				background-color: var(--figma-color-bg-selected);
 				color: var(--figma-color-text-onselected);
 
