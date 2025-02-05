@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { MenuGroup, MenuOption, SelectableMenuOption } from './types.ts';
 	import { type Snippet } from 'svelte';
-	import { IconCheck, Icon } from '$lib/index.js';
 	import { IconCheck, Icon, IconChevronRight } from '$lib/index.js';
 
 	type Value = Record<string, string | string[]>;
