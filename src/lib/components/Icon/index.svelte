@@ -20,7 +20,7 @@
 	};
 
 	let {
-		class: className,
+		class: className = '',
 		color,
 		destructive,
 		disabled,
@@ -36,18 +36,12 @@
 		...props
 	}: Props = $props();
 
-	$effect(() => {
-		style = !!color
-			? `color: var(${color}); fill: currentColor; width: ${size}px; height: ${size}px`
-			: `color: currentColor; fill: currentColor; width: ${size}px; height: ${size}px`;
-	});
-
-	// let svg: SVGSVGElement | null = new DOMParser()
-	// 	.parseFromString(icon, 'image/svg+xml')
-	// 	.querySelector('svg');
+	const _style = !!color
+		? `color: var(${color}); fill: currentColor; width: ${size}px; height: ${size}px`
+		: `color: currentColor; fill: currentColor; width: ${size}px; height: ${size}px`;
 </script>
 
-<div {...props} class:spin class="icon-component {className}" {style}>
+<div {...props} class={[spin, className]} style={_style}>
 	{#if iconText}
 		{iconText}
 	{:else}
@@ -56,7 +50,7 @@
 </div>
 
 <style>
-	.icon-component {
+	div {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -80,10 +74,5 @@
 		to {
 			transform: rotate(360deg);
 		}
-	}
-
-	:global(.icon-component *) {
-		fill: inherit;
-		color: inherit;
 	}
 </style>
