@@ -18,7 +18,11 @@
 		onclick?: (action: string) => void;
 		onmouseenter?: (event: MouseEvent) => void;
 		blink?: boolean;
+		triggerType?: 'button' | 'select';
+		icon?: string;
 		rounded?: boolean;
+		style?: string;
+		triggerStyle?: string;
 		children?: Snippet;
 		[propName: string]: any;
 	}
@@ -28,9 +32,13 @@
 		value = $bindable({}),
 		onchange,
 		onclick,
+		icon,
+		triggerType = 'button',
 		onmouseenter,
 		rounded = false,
 		children,
+		style,
+		triggerStyle,
 		...props
 	}: Props = $props();
 
@@ -98,7 +106,7 @@
 		onchange?.(value);
 	}
 
-	function hidePopovers(exceptId?: string = '', includeContainer?: boolean = false) {
+	function hidePopovers(exceptId: string = '', includeContainer: boolean = false) {
 		menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
 			if (
 				popover.id !== exceptId &&
@@ -110,17 +118,18 @@
 	}
 </script>
 
-<div class="menu-container" bind:this={menuContainerElem}>
+<div class="menu-container" bind:this={menuContainerElem} {style}>
 	<button
+		{...props}
+		class={['menu-trigger', triggerType === 'button' ? 'button' : 'select']}
 		popovertarget={menuContainerAnchor}
-		style={`anchor-name: ${menuContainerAnchor};`}
+		style={`anchor-name: ${menuContainerAnchor}; ${triggerStyle}`}
 		aria-haspopup="true"
 	>
 		{#if children}
-			{@render children?.()}
-		{:else}
-			<Icon icon={IconChevronDown}></Icon>
+			<span>{@render children?.()}</span>
 		{/if}
+		<Icon icon={IconChevronDown}></Icon>
 	</button>
 
 	{@render popoverContainer(internalGroups, menuContainerAnchor)}
@@ -259,6 +268,10 @@
 	}
 
 	.menu-item-content {
+		--color-icon: var(--color-icon-menu);
+		--color-icon-secondary: var(--figma-color-icon-secondary);
+		--color-icon-tertiary: var(--figma-color-icon-tertiary);
+
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -290,84 +303,120 @@
 	.menu-container {
 		--popover-gap-left: 4px;
 		--popover-paddding: 8px;
+		display: contents;
 		outline: none;
 
 		& > div[popover] {
 			inset-inline-start: 0;
 		}
+	}
 
-		& > button {
-			--button-height: 24px;
-			--border-width: 1px;
+	.menu-trigger {
+		--button-height: 24px;
+		--border-width: 1px;
 
-			display: flex;
-			position: relative;
-			flex-shrink: 0;
-			justify-content: center;
-			align-items: center;
+		display: flex;
+		position: relative;
+		flex-shrink: 0;
+		justify-content: center;
+		align-items: center;
+
+		&.button {
+			outline: var(--border-width) solid transparent;
+			outline-offset: calc(var(--border-width) * -1);
 			border: 0;
 			border-radius: var(--border-radius-medium);
 			background-color: transparent;
-			padding: 0 8px;
+
 			min-width: var(--button-height);
 			min-height: var(--button-height);
 			color: var(--figma-color-text);
-			fill: var(--figma-color-icon);
-			outline: var(--border-width) solid transparent;
-			outline-offset: calc(var(--border-width) * -1);
 			font-weight: var(--font-weight-default);
 			line-height: 16px;
 			user-select: none;
+		}
 
-			:global(&:has(svg)) {
-				padding: 0;
-			}
-
-			&:focus-visible {
-				outline-color: var(--figma-color-border-selected);
-			}
+		&.select {
+			display: flex;
+			flex-grow: 1;
+			justify-content: space-between;
+			outline: 1px solid var(--figma-color-border);
+			outline-offset: -1px;
+			border: none;
+			border-radius: var(--border-radius-medium);
+			background-color: var(--figma-color-bg);
+			min-width: var(--button-height);
+			min-height: var(--button-height);
+			color: var(--figma-color-text);
+			font-weight: var(--font-weight-normal);
+			font-size: var(--font-size-xsmall);
+			line-height: var(--font-line-height);
+			letter-spacing: var(--font-letter-spacing-neg-xsmall);
 
 			&:hover {
-				background-color: var(--figma-color-bg-hover);
+				background-image: none;
+				color: var(--figma-color-text-hover);
+			}
+		}
+
+		:global(&:has(svg)) {
+			padding: 0;
+		}
+
+		&:has(> span) {
+			padding-inline: 8px 0;
+		}
+
+		&:focus-visible {
+			outline-color: var(--figma-color-border-selected);
+		}
+
+		&:hover {
+			background-color: var(--figma-color-bg-hover);
+		}
+
+		&:active {
+			background-color: var(--figma-color-bg-pressed);
+		}
+
+		/* Ugly but elegant from a certain point of view */
+		&:has(+ div[popover]:popover-open):not(.select) {
+			--color-icon: var(--figma-color-icon-selected);
+			--color-icon-secondary: var(--figma-color-icon-selected-secondary);
+			--color-icon-tertiary: var(--figma-color-icon-selected-tertiary);
+
+			background-color: var(--figma-color-bg-selected);
+			color: var(--figma-color-text-selected);
+
+			&:hover {
+				background-color: var(--figma-color-bg-selected-secondary);
 			}
 
 			&:active {
-				background-color: var(--figma-color-bg-pressed);
+				background-color: var(--figma-color-bg-selected-pressed);
 			}
+		}
 
-			/* Ugly but elegant from a certain point of view */
-			&:has(+ div[popover]:popover-open) {
-				background-color: var(--figma-color-bg-selected);
-				color: var(--figma-color-text-onselected);
+		&:disabled {
+			color: var(--figma-color-text-disabled);
+		}
 
-				:global(svg) {
-					fill: var(--figma-color-icon-selected);
-					pointer-events: none;
-				}
-
-				&:hover {
-					background-color: var(--figma-color-bg-selected-secondary);
-				}
-
-				&:active {
-					background-color: var(--figma-color-bg-selected-pressed);
-				}
-			}
-
-			&:disabled {
-				color: var(--figma-color-text-disabled);
-			}
+		span {
+			padding-block-start: 1px;
 		}
 	}
 
 	div[popover] {
-		position-area: x-end span-y-end;
+		position: relative;
+		position-area: right span-bottom;
+		position-try: flip-block, flip-inline;
+
 		margin: 0;
 		inset-block-start: -8px;
 		border: none;
 		background: none;
 		padding-inline: 4px var(--popover-gap-left);
-		overflow: visible;
+		padding-block: 0;
 
 		.popover-content {
 			box-shadow: 0 7px 20px rgb(0 0 0 / 0.12);

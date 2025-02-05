@@ -94,8 +94,8 @@
 			background-color: var(--figma-color-bg-selected);
 			color: var(--figma-color-text-selected);
 
-			:global(svg) {
-				fill: var(--figma-color-icon-selected);
+			:global(.icon-color-helper) {
+				--color-icon: var(--figma-color-icon-selected);
 			}
 
 			&:hover {

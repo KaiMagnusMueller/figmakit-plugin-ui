@@ -61,9 +61,10 @@
 		position: relative;
 		align-items: center;
 		margin: 1px 0 1px 0;
-		outline: none;
-		border: 1px solid var(--figma-color-border);
-		border-radius: var(--border-radius-small);
+		outline: 1px solid var(--figma-color-border);
+		outline-offset: -1px;
+		border: none;
+		border-radius: var(--border-radius-medium);
 		background-color: var(--figma-color-bg);
 		padding: 7px 4px 9px 7px;
 		width: 100%;
@@ -80,7 +81,9 @@
 	}
 	textarea:hover,
 	textarea:placeholder-shown:hover {
-		border: 1px solid var(--figma-color-border);
+		outline: 1px solid var(--figma-color-border);
+		outline-offset: -1px;
+		border: none;
 		background-image: none;
 		color: var(--figma-color-text);
 	}
@@ -89,19 +92,21 @@
 		color: var(--figma-color-text);
 	}
 	textarea::placeholder {
-		border: 1px solid transparent;
+		outline: 1px solid transparent;
+		outline-offset: -1px;
+		border: none;
 		color: var(--figma-color-text-tertiary);
 	}
 	textarea:focus:placeholder-shown {
 		outline: 1px solid var(--figma-color-border-selected);
 		outline-offset: -2px;
-		border: 1px solid var(--figma-color-border-selected);
+		border: none;
 	}
 
 	textarea:focus {
 		outline: 1px solid var(--figma-color-border-selected);
 		outline-offset: -2px;
-		border: 1px solid var(--figma-color-border-selected);
+		border: none;
 	}
 	textarea:disabled,
 	textarea:disabled:hover {
