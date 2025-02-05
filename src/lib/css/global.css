@@ -23,6 +23,8 @@
 	--color-bg-menu: #1e1e1e;
 	--color-bg-menu-selected: #0c8ce9;
 	--color-border-menu: #383838;
+	--color-icon: #000;
+	--color-icon-tertiary: #afafaf;
 
 	/* TYPOGRAPHY */
 	/* Pos = positive applications (black on white) */
