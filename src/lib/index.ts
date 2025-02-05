@@ -15,6 +15,7 @@ import Switch from './components/Switch/index.svelte';
 import Textarea from './components/Textarea/index.svelte';
 import Type from './components/Type/index.svelte';
 import MultiMenu from '$lib/components/MultiMenu/index.svelte';
+import ToggleButton from '$lib/components/ToggleButton/index.svelte';
 
 //Icons
 
@@ -161,6 +162,7 @@ export {
 	Textarea,
 	Type,
 	MultiMenu,
+	ToggleButton,
 	IconAdjust,
 	IconAlert,
 	IconAlignHorizontalCenters,

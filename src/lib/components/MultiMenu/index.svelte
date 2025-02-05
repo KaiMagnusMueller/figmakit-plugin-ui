@@ -1,7 +1,13 @@
 <script lang="ts">
 	import type { MenuGroup, MenuOption, SelectableMenuOption } from './types.ts';
 	import { type Snippet } from 'svelte';
-	import { IconCheck, Icon, IconChevronRight } from '$lib/index.js';
+	import {
+		IconCheck,
+		Icon,
+		IconChevronRight,
+		ToggleButton,
+		IconChevronDown
+	} from '$lib/index.js';
 
 	type Value = Record<string, string | string[]>;
 
@@ -75,6 +81,7 @@
 	function handleOptionClick(option: MenuOption, group: MenuGroup) {
 		if ('action' in option) {
 			onclick?.(option.action);
+			hidePopovers('', true);
 			return;
 		}
 
@@ -91,9 +98,12 @@
 		onchange?.(value);
 	}
 
-	function hideOtherPopovers(exceptId: string) {
+	function hidePopovers(exceptId?: string = '', includeContainer?: boolean = false) {
 		menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
-			if (popover.id !== exceptId && popover.id !== menuContainerAnchor) {
+			if (
+				popover.id !== exceptId &&
+				(popover.id !== menuContainerAnchor || includeContainer)
+			) {
 				(popover as HTMLElement).hidePopover();
 			}
 		});
@@ -109,7 +119,7 @@
 		{#if children}
 			{@render children?.()}
 		{:else}
-			<span>Menu</span>
+			<Icon icon={IconChevronDown}></Icon>
 		{/if}
 	</button>
 
@@ -126,7 +136,7 @@
 		popover=""
 		id={anchorName}
 		style={`position-anchor: ${anchorName};`}
-		onmouseleave={() => hideOtherPopovers(menuContainerAnchor)}
+		onmouseleave={() => hidePopovers(menuContainerAnchor)}
 		aria-orientation="vertical"
 	>
 		<div class="popover-content">
@@ -142,13 +152,13 @@
 {/snippet}
 
 {#snippet multiMenuGroup(group: MenuGroup, parentAnchor?: string, hasSelectableOptions?: boolean)}
-	<div class="menu" class:rounded role="group" aria-label={group.name}>
+	<div class="menu-group" class:rounded role="group" aria-label={group.name}>
 		{#if group.children}
 			{#each group.children as option}
 				{@render menuElement(option, group, parentAnchor, hasSelectableOptions)}
 			{/each}
 		{:else}
-			<p class="empty-state">No options in this group</p>
+			<p class="menu-empty">No options in this group</p>
 		{/if}
 	</div>
 {/snippet}
@@ -166,18 +176,20 @@
 			popovertarget={anchorName}
 			style={`anchor-name: ${anchorName};`}
 			onmouseenter={() => {
-				hideOtherPopovers(anchorName);
+				hidePopovers(anchorName);
 				document.getElementById(anchorName)?.showPopover();
 			}}
 			aria-haspopup="true"
 		>
-			<span class="left-group">
-				{#if hasSelectableOptions}
-					<div class="icon-placeholder" aria-hidden="true"></div>
-				{/if}
-				<span>{option.label}</span>
-			</span>
-			<Icon icon={IconChevronRight} size={16} aria-hidden="true" />
+			<div class="menu-item-content">
+				<span class="left-group">
+					{#if hasSelectableOptions}
+						<div class="icon-placeholder" aria-hidden="true"></div>
+					{/if}
+					<span>{option.label}</span>
+				</span>
+				<Icon icon={IconChevronRight} size={16} aria-hidden="true" />
+			</div>
 		</button>
 		{@render popoverContainer([option], anchorName)}
 	{:else}
@@ -185,7 +197,7 @@
 			class="menu-item"
 			class:disabled={option.disabled}
 			onclick={() => handleOptionClick(option, group)}
-			onmouseenter={() => hideOtherPopovers(parentAnchor || '')}
+			onmouseenter={() => hidePopovers(parentAnchor || '')}
 			role={group.mode === 'single'
 				? 'menuitemradio'
 				: group.mode === 'multi'
@@ -193,48 +205,39 @@
 					: 'menuitem'}
 			disabled={option.disabled}
 		>
-			<span class="left-group">
-				{#if option.selected}
-					<Icon icon={IconCheck} size={16} aria-hidden="true" />
-				{:else if hasSelectableOptions}
-					<div class="icon-placeholder" aria-hidden="true"></div>
-				{/if}
-				<span>{option.label}</span>
-			</span>
+			<div class="menu-item-content">
+				<span class="left-group">
+					{#if option.selected}
+						<Icon icon={IconCheck} size={16} aria-hidden="true" />
+					{:else if hasSelectableOptions}
+						<div class="icon-placeholder" aria-hidden="true"></div>
+					{/if}
+					<span>{option.label}</span>
+				</span>
+			</div>
 		</button>
 	{/if}
 {/snippet}
 
 <style lang="scss">
-	.menu-container {
-		outline: none;
-	}
-
-	.menu {
+	.menu-group {
 		border: none;
+		padding-block: var(--popover-paddding);
 		min-width: 180px;
-
-		&.rounded {
-			border-radius: var(--border-radius-large);
-		}
 	}
 
 	.menu-item {
 		--menu-item-padding-left: 8px;
 		--menu-item-padding-right: 0;
 		--menu-item-height: 24px;
-
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		gap: 4px;
 		cursor: default;
 		border: none;
-		border-radius: var(--border-radius-medium);
 		background: none;
-		padding: 0 var(--menu-item-padding-right) 0 var(--menu-item-padding-left);
+
 		width: 100%;
-		min-height: var(--menu-item-height);
 		color: var(--color-text-menu-text);
 		user-select: none;
 
@@ -244,57 +247,39 @@
 		}
 
 		&:hover:not(.disabled) {
-			background: var(--figma-color-bg-brand-hover);
+			.menu-item-content {
+				background: var(--figma-color-bg-brand-hover);
+			}
 		}
 
 		&.disabled {
 			opacity: 0.5;
 			cursor: not-allowed;
 		}
-
-		.left-group {
-			display: flex;
-			align-items: center;
-			gap: 4px;
-		}
 	}
 
-	div[popover] {
-		--popover-gap-left: 8px;
-		--popover-paddding: 8px;
-
-		position-area: x-end span-y-end;
-		margin: 0;
-		inset-block-start: -8px;
-		inset-inline-start: var(--popover-gap-left);
-		border: none;
-		background: none;
-		padding: 0 4px 0 8px;
-		overflow: visible;
-
-		.popover-content {
-			box-shadow: 0 7px 20px rgb(0 0 0 / 0.12);
-			border-radius: var(--border-radius-large);
-			background: var(--color-bg-menu);
-			padding: var(--popover-paddding);
-			color: var(--color-text-menu-text);
-
-			hr {
-				margin: 4px 0;
-				border: none;
-				border-top: 1px solid var(--color-border-menu);
-			}
-		}
+	.menu-item-content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 4px;
+		margin: 0 var(--popover-paddding);
+		border-radius: var(--border-radius-medium);
+		padding: 0 var(--menu-item-padding-right) 0 var(--menu-item-padding-left);
+		width: 100%;
+		min-height: var(--menu-item-height);
 	}
 
-	.hover-helper {
-		position: absolute;
-		z-index: -1;
-		clip-path: polygon(0 32px, 48% 32px, 48px 8px, 100% 0, 100% 100%, 16px 40px);
-		inset: 0;
-		inset-inline-start: -64px;
-		width: 80px;
-		height: 100%;
+	.menu-empty {
+		padding: 0 var(--menu-item-padding);
+		color: var(--color-text-menu-text-disabled, #999);
+		font-style: italic;
+	}
+
+	.left-group {
+		display: flex;
+		align-items: center;
+		gap: 4px;
 	}
 
 	.icon-placeholder {
@@ -302,9 +287,110 @@
 		height: 16px;
 	}
 
-	.empty-state {
-		padding: 0 var(--menu-item-padding);
-		color: var(--color-text-menu-text-disabled, #999);
-		font-style: italic;
+	.menu-container {
+		--popover-gap-left: 4px;
+		--popover-paddding: 8px;
+		outline: none;
+
+		& > div[popover] {
+			inset-inline-start: 0;
+		}
+
+		& > button {
+			--button-height: 24px;
+			--border-width: 1px;
+
+			display: flex;
+			position: relative;
+			flex-shrink: 0;
+			justify-content: center;
+			align-items: center;
+			border: 0;
+			border-radius: var(--border-radius-medium);
+			background-color: transparent;
+			padding: 0 8px;
+			min-width: var(--button-height);
+			min-height: var(--button-height);
+			color: var(--figma-color-text);
+			fill: var(--figma-color-icon);
+			outline: var(--border-width) solid transparent;
+			outline-offset: calc(var(--border-width) * -1);
+			font-weight: var(--font-weight-default);
+			line-height: 16px;
+			user-select: none;
+
+			:global(&:has(svg)) {
+				padding: 0;
+			}
+
+			&:focus-visible {
+				outline-color: var(--figma-color-border-selected);
+			}
+
+			&:hover {
+				background-color: var(--figma-color-bg-hover);
+			}
+
+			&:active {
+				background-color: var(--figma-color-bg-pressed);
+			}
+
+			/* Ugly but elegant from a certain point of view */
+			&:has(+ div[popover]:popover-open) {
+				background-color: var(--figma-color-bg-selected);
+				color: var(--figma-color-text-onselected);
+
+				:global(svg) {
+					fill: var(--figma-color-icon-selected);
+					pointer-events: none;
+				}
+
+				&:hover {
+					background-color: var(--figma-color-bg-selected-secondary);
+				}
+
+				&:active {
+					background-color: var(--figma-color-bg-selected-pressed);
+				}
+			}
+
+			&:disabled {
+				color: var(--figma-color-text-disabled);
+			}
+		}
+	}
+
+	div[popover] {
+		position-area: x-end span-y-end;
+		margin: 0;
+		inset-block-start: -8px;
+		border: none;
+		background: none;
+		padding-inline: 4px var(--popover-gap-left);
+		overflow: visible;
+
+		.popover-content {
+			box-shadow: 0 7px 20px rgb(0 0 0 / 0.12);
+			border-radius: var(--border-radius-large);
+			background: var(--color-bg-menu);
+			padding: 0;
+			color: var(--color-text-menu-text);
+		}
+
+		hr {
+			margin: 0 var(--popover-paddding);
+			border: none;
+			border-top: 1px solid var(--color-border-menu);
+		}
+	}
+
+	.hover-helper {
+		position: absolute;
+		z-index: -1;
+		clip-path: polygon(0px 32px, 26px 32px, 32px 26px, 32px 8px, 100% 0, 100% 100%, 8px 64px);
+		inset: 0;
+		inset-inline-start: -32px;
+		width: 48px;
+		height: 100%;
 	}
 </style>

@@ -41,6 +41,8 @@
 	--font-weight-normal: 400;
 	--font-weight-medium: 500;
 	--font-weight-bold: 600;
+	--font-weight-default: 450;
+	--font-weight-strong: 550;
 
 	/* Lineheight */
 	--font-line-height: 150%;
@@ -80,31 +82,22 @@
 }
 
 /*  FONTS */
+/* Update in component library */
 @font-face {
 	font-style: normal;
-	font-weight: 400;
-	src:
-		url('https://static.figma.com/webfont/1/Inter-Regular.woff2') format('woff2'),
-		url('https://static.figma.com/webfont/1/Inter-Regular.woff') format('woff');
+	font-weight: 100 900;
 	font-family: 'Inter';
+	font-named-instance: 'Regular';
+	src: url(https://static.figma.com/uploads/2cca21a49f7dad1daa612d73d50357644671964a);
 }
 
 @font-face {
-	font-style: normal;
-	font-weight: 500;
-	src:
-		url('https://static.figma.com/webfont/1/Inter-Medium.woff2') format('woff2'),
-		url('https://static.figma.com/webfont/1/Inter-Medium.woff') format('woff');
+	font-style: italic;
+	font-weight: 100 900;
 	font-family: 'Inter';
-}
-
-@font-face {
-	font-style: normal;
-	font-weight: 600;
-	src:
-		url('https://static.figma.com/webfont/1/Inter-SemiBold.woff2') format('woff2'),
-		url('https://static.figma.com/webfont/1/Inter-SemiBold.woff') format('woff');
-	font-family: 'Inter';
+	font-named-instance: 'Italic';
+	src: url(https://static.figma.com/uploads/43d730c59dee2754d29e0d946ba8cb8339656979)
+		format('woff2');
 }
 
 /* Hyperlink styling */
