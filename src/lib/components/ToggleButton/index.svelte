@@ -45,6 +45,8 @@
 >
 	{#if children}
 		{@render children?.()}
+	{:else}
+		<p>Buttons require content</p>
 	{/if}
 </button>
 
