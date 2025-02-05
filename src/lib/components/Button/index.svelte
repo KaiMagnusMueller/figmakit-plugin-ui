@@ -54,15 +54,12 @@
 
 <style>
 	button {
-		--button-height: 24px;
-		--border-width: 1px;
-
 		display: flex;
 		flex-shrink: 0;
 		justify-content: center;
 		align-items: center;
-		outline: var(--border-width) solid transparent;
-		outline-offset: calc(var(--border-width) * -1);
+		outline: 1px solid transparent;
+		outline-offset: -1px;
 		border: none;
 		border-radius: var(--border-radius-medium);
 		padding: 0 12px;
@@ -73,14 +70,10 @@
 		text-decoration: none;
 
 		&.large {
-			padding: 0 12px;
 			min-height: 32px;
 		}
 
-		&.default {
-		}
-
-		:global(&:has(svg)) {
+		&:global(:has(svg)) {
 			padding-inline-start: 4px;
 		}
 
@@ -93,7 +86,8 @@
 					background-color: var(--figma-color-bg-brand-pressed);
 				}
 				&:focus-visible {
-					border: 2px solid var(--figma-color-border-brand-strong);
+					outline: 1px solid var(--figma-color-border-brand-strong);
+					outline-offset: -1px;
 				}
 			}
 
@@ -104,12 +98,15 @@
 			&.destructive {
 				background-color: var(--figma-color-bg-danger);
 
-				&:active {
-					background-color: var(--figma-color-bg-danger-pressed);
+				&:enabled {
+					&:active {
+						background-color: var(--figma-color-bg-danger-pressed);
+					}
+					&:focus-visible {
+						outline: 1px solid var(--figma-color-border-danger-strong);
+					}
 				}
-				&:focus-visible {
-					border: 2px solid var(--figma-color-border-disabled-strong);
-				}
+
 				&:disabled {
 					background-color: var(--figma-color-bg-disabled);
 				}
@@ -119,7 +116,6 @@
 		&.secondary {
 			outline: 1px solid var(--figma-color-border);
 			background-color: transparent;
-
 			color: var(--figma-color-text);
 			letter-spacing: var(--font-letter-spacing-pos-small);
 
@@ -128,27 +124,19 @@
 					background-color: var(--figma-color-bg-hover);
 				}
 				&:focus-visible {
-					outline: 2px solid #2c2c2c;
-					outline-offset: -2px;
+					outline: 1px solid var(--figma-color-border-selected);
+					outline-offset: -1px;
 				}
 			}
 
 			&:disabled {
-				border: 1px solid var(--figma-color-border-disabled-strong);
+				outline: 1px solid var(--figma-color-border-disabled);
 				color: var(--figma-color-text-disabled);
 			}
 
 			&.destructive {
-				border-color: var(--figma-color-border-danger-strong);
-				color: var (--figma-color-text-danger);
-
-				&:enabled {
-					&:active,
-					&:focus-visible {
-						border: 2px solid var(--figma-color-border-danger-strong);
-						padding: 0 12px;
-					}
-				}
+				outline-color: var(--figma-color-border-danger-strong);
+				color: var(--figma-color-text-danger);
 
 				&:disabled {
 					opacity: 0.4;
@@ -158,8 +146,7 @@
 
 		&.tertiary {
 			cursor: pointer;
-			border: 1px solid transparent;
-			background: initial;
+			background: none;
 			padding: 0;
 			color: var(--figma-color-text-brand);
 			font-weight: var(--font-weight-normal);
@@ -170,15 +157,11 @@
 			}
 
 			&:disabled {
-				color: var(--figma-color-text-disabled);
+				color: var (--figma-color-text-disabled);
 			}
 
 			&.destructive {
 				color: var(--figma-color-text-danger);
-
-				&:enabled:focus-visible {
-					text-decoration: underline;
-				}
 
 				&:disabled {
 					opacity: 0.4;
