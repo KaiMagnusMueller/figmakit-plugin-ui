@@ -14,6 +14,7 @@ import MenuFlyout from './components/MenuFlyout/index.svelte';
 import Switch from './components/Switch/index.svelte';
 import Textarea from './components/Textarea/index.svelte';
 import Type from './components/Type/index.svelte';
+import MultiMenu from '$lib/components/MultiMenu/index.svelte';
 
 //Icons
 
@@ -159,6 +160,7 @@ export {
 	Switch,
 	Textarea,
 	Type,
+	MultiMenu,
 	IconAdjust,
 	IconAlert,
 	IconAlignHorizontalCenters,

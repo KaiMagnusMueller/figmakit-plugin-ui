@@ -1,48 +1,46 @@
 <script lang="ts">
 	import { blinkEffect } from '$lib/helpers.svelte.js';
+	import type { Snippet } from 'svelte';
+	import type { Option } from './index.svelte';
 
 	interface Props {
 		onmouseenter?: (e: MouseEvent) => void;
-		onclick?: (e: string) => void;
+		onclick?: (item: Option) => void;
 		blink?: boolean;
-		class?: string;
-		disabled?: boolean;
-		itemId: any;
+		item: Option;
 		rounded?: boolean;
-		selected?: boolean;
-		children?: import('svelte').Snippet;
+		children?: Snippet;
+		[key: string]: any;
 	}
 
 	let {
 		onmouseenter,
 		onclick,
 		blink = false,
-		class: className = '',
-		disabled = false,
-		itemId,
+		item,
 		rounded = false,
-		selected = $bindable(false),
-		children
+		children,
+		...props
 	}: Props = $props();
+
+	let selected = $state(item.selected ? true : false);
 </script>
 
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <li
-	data-id={itemId}
-	tabindex={itemId + 1}
-	class:highlight={selected}
-	class={className}
-	class:rounded
-	class:disabled
+	{...props}
+	data-id={item.id}
+	tabindex={1}
+	class={{ highlight: selected, rounded, disabled: item.hidden }}
 	{onmouseenter}
 	onblinkDone={(e) => {
-		onclick?.(itemId);
+		onclick?.(item);
 	}}
 	use:blinkEffect={blink}
 >
-	<div class="icon" class:selected></div>
+	<div class={['icon', selected && 'selected']}></div>
 	<div class="label">{@render children?.()}</div>
 </li>
 

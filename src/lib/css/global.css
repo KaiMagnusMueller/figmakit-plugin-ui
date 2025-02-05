@@ -21,6 +21,7 @@
 	--color-text-menu-text: #ffffff;
 	--color-text-menu-secondary: rgba(255, 255, 255, 0.7);
 	--color-bg-menu: #1e1e1e;
+	--color-bg-menu-selected: #0c8ce9;
 	--color-border-menu: #383838;
 
 	/* TYPOGRAPHY */
@@ -58,9 +59,9 @@
 	--font-letter-spacing-neg-xlarge: -0.001em;
 
 	/* BORDER RADIUS */
-	--border-radius-small: 0.125rem; /* 2px */
-	--border-radius-medium: 0.375rem; /* 6px */
-	--border-radius-large: 0.375rem; /* 6px */
+	--border-radius-small: 2px;
+	--border-radius-medium: 6px;
+	--border-radius-large: 13px;
 
 	/* SHADOWS */
 	--shadow-hud: 0 5px 17px rgba(0, 0, 0, 0.2), 0 2px 7px rgba(0, 0, 0, 0.15);
