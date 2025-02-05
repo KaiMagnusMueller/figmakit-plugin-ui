@@ -28,7 +28,7 @@
 		iconText,
 		rounded,
 		selected,
-		size = 32,
+		size = 24,
 		spin,
 		style,
 		tabindex = 0,
