@@ -148,13 +148,13 @@
 {/snippet}
 
 {#snippet multiMenuGroup(group: MenuGroup, parentAnchor?: string, hasSelectableOptions?: boolean)}
-	<div class="menu" class:rounded role="group" aria-label={group.name}>
+	<div class="menu-group" class:rounded role="group" aria-label={group.name}>
 		{#if group.children}
 			{#each group.children as option}
 				{@render menuElement(option, group, parentAnchor, hasSelectableOptions)}
 			{/each}
 		{:else}
-			<p class="empty-state">No options in this group</p>
+			<p class="menu-empty">No options in this group</p>
 		{/if}
 	</div>
 {/snippet}
@@ -216,15 +216,10 @@
 {/snippet}
 
 <style lang="scss">
-	.menu {
+	.menu-group {
 		border: none;
-
 		padding-block: var(--popover-paddding);
 		min-width: 180px;
-
-		&.rounded {
-			border-radius: var(--border-radius-large);
-		}
 	}
 
 	.menu-item {
@@ -257,60 +252,30 @@
 			opacity: 0.5;
 			cursor: not-allowed;
 		}
-
-		.left-group {
-			display: flex;
-			align-items: center;
-			gap: 4px;
-		}
-
-		.menu-item-content {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			gap: 4px;
-			margin: 0 var(--popover-paddding);
-			border-radius: var(--border-radius-medium);
-			padding: 0 var(--menu-item-padding-right) 0 var(--menu-item-padding-left);
-			width: 100%;
-			min-height: var(--menu-item-height);
-		}
 	}
 
-	div[popover] {
-		position-area: x-end span-y-end;
-		margin: 0;
-		inset-block-start: -8px;
-		border: none;
-		background: none;
-
-		padding-inline: 4px var(--popover-gap-left);
-		overflow: visible;
-
-		.popover-content {
-			box-shadow: 0 7px 20px rgb(0 0 0 / 0.12);
-			border-radius: var(--border-radius-large);
-			background: var(--color-bg-menu);
-			padding: 0;
-			color: var(--color-text-menu-text);
-		}
-
-		hr {
-			margin: 0 var(--popover-paddding);
-			border: none;
-			border-top: 1px solid var(--color-border-menu);
-		}
+	.menu-item-content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 4px;
+		margin: 0 var(--popover-paddding);
+		border-radius: var(--border-radius-medium);
+		padding: 0 var(--menu-item-padding-right) 0 var(--menu-item-padding-left);
+		width: 100%;
+		min-height: var(--menu-item-height);
 	}
 
-	.hover-helper {
-		position: absolute;
-		z-index: -1;
-		clip-path: polygon(0px 32px, 26px 32px, 32px 26px, 32px 8px, 100% 0, 100% 100%, 8px 64px);
-		inset: 0;
-		inset-inline-start: -32px;
-		background: red;
-		width: 48px;
-		height: 100%;
+	.menu-empty {
+		padding: 0 var(--menu-item-padding);
+		color: var(--color-text-menu-text-disabled, #999);
+		font-style: italic;
+	}
+
+	.left-group {
+		display: flex;
+		align-items: center;
+		gap: 4px;
 	}
 
 	.icon-placeholder {
@@ -318,16 +283,9 @@
 		height: 16px;
 	}
 
-	.empty-state {
-		padding: 0 var(--menu-item-padding);
-		color: var(--color-text-menu-text-disabled, #999);
-		font-style: italic;
-	}
-
 	.menu-container {
 		--popover-gap-left: 4px;
 		--popover-paddding: 8px;
-
 		outline: none;
 
 		& > div[popover] {
@@ -343,7 +301,6 @@
 			flex-shrink: 0;
 			justify-content: center;
 			align-items: center;
-			outline: var(--border-width) solid transparent;
 			border: 0;
 			border-radius: var(--border-radius-medium);
 			background-color: transparent;
@@ -351,11 +308,12 @@
 			min-width: var(--button-height);
 			min-height: var(--button-height);
 			color: var(--figma-color-text);
+			fill: var(--figma-color-icon);
+			outline: var(--border-width) solid transparent;
+			outline-offset: calc(var(--border-width) * -1);
 			font-weight: var(--font-weight-default);
 			line-height: 16px;
 			user-select: none;
-			fill: var(--figma-color-icon);
-			outline-offset: calc(var(--border-width) * -1);
 
 			:global(&:has(svg)) {
 				padding: 0;
@@ -395,5 +353,40 @@
 				color: var(--figma-color-text-disabled);
 			}
 		}
+	}
+
+	div[popover] {
+		position-area: x-end span-y-end;
+		margin: 0;
+		inset-block-start: -8px;
+		border: none;
+		background: none;
+		padding-inline: 4px var(--popover-gap-left);
+		overflow: visible;
+
+		.popover-content {
+			box-shadow: 0 7px 20px rgb(0 0 0 / 0.12);
+			border-radius: var(--border-radius-large);
+			background: var(--color-bg-menu);
+			padding: 0;
+			color: var(--color-text-menu-text);
+		}
+
+		hr {
+			margin: 0 var(--popover-paddding);
+			border: none;
+			border-top: 1px solid var(--color-border-menu);
+		}
+	}
+
+	.hover-helper {
+		position: absolute;
+		z-index: -1;
+		clip-path: polygon(0px 32px, 26px 32px, 32px 26px, 32px 8px, 100% 0, 100% 100%, 8px 64px);
+		inset: 0;
+		inset-inline-start: -32px;
+		background: red;
+		width: 48px;
+		height: 100%;
 	}
 </style>

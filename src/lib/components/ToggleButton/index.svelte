@@ -82,17 +82,17 @@
 			outline-color: var(--figma-color-border-selected);
 		}
 
-		&:hover {
+		&:hover:not(:disabled) {
 			background-color: var(--figma-color-bg-hover);
 		}
 
-		&:active {
+		&:active:not(:disabled) {
 			background-color: var(--figma-color-bg-pressed);
 		}
 
 		&.checked {
 			background-color: var(--figma-color-bg-selected);
-			color: var(--figma-color-text-onselected);
+			color: var(--figma-color-text-selected);
 
 			:global(svg) {
 				fill: var(--figma-color-icon-selected);
