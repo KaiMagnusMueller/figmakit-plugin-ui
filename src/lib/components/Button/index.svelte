@@ -11,9 +11,9 @@
 		destructive?: boolean;
 		disabled?: boolean;
 		icon?: string;
-		rounded?: boolean;
 		spin?: boolean;
 		style?: string;
+		size: 'large' | 'default';
 		variant?: 'primary' | 'secondary' | 'tertiary';
 		children?: Snippet;
 	} & HTMLButtonAttributes;
@@ -25,9 +25,9 @@
 		destructive = false,
 		disabled = false,
 		icon,
-		rounded = false,
 		spin = false,
 		style = '',
+		size = 'default',
 		type = 'button',
 		variant = 'primary',
 		children,
@@ -39,52 +39,49 @@
 	{...props}
 	{type}
 	{disabled}
-	class={[
-		variant,
-		className,
-		destructive && 'destructive',
-		rounded && 'rounded',
-		icon && 'icon-button'
-	]}
+	class={[variant, size, className, destructive && 'destructive']}
 	{style}
 	{onclick}
 	{onsubmit}
-	use:blurOnEvent
 >
 	{#if icon}
-		<Icon {icon} {spin} color="currentColor" />
+		<Icon {icon} {spin} />
 	{/if}
 	{#if children}
-		{@render children?.()}
-	{:else}
-		Label
+		<span>{@render children?.()}</span>
 	{/if}
 </button>
 
 <style>
 	button {
+		--button-height: 24px;
+		--border-width: 1px;
+
 		display: flex;
 		flex-shrink: 0;
 		justify-content: center;
 		align-items: center;
-		outline: none;
-		border: 2px solid transparent;
+		outline: var(--border-width) solid transparent;
+		outline-offset: calc(var(--border-width) * -1);
+		border: none;
 		border-radius: var(--border-radius-medium);
 		padding: 0 12px;
-		height: 32px;
-		color: var(--figma-color-text-onbrand);
-		font-weight: var(--font-weight-bold);
+		min-height: 24px;
+		font-weight: var(--font-weight-default);
 		line-height: 16px;
 		user-select: none;
 		text-decoration: none;
-		fill: var(--figma-color-icon);
 
-		&.icon-button {
-			padding-inline-start: 4px;
+		&.large {
+			padding: 0 12px;
+			min-height: 32px;
 		}
 
-		&.rounded {
-			border-radius: var(--border-radius-medium);
+		&.default {
+		}
+
+		:global(&:has(svg)) {
+			padding-inline-start: 4px;
 		}
 
 		&.primary {
@@ -120,7 +117,7 @@
 		}
 
 		&.secondary {
-			border: 1px solid var(--figma-color-border-strong);
+			outline: 1px solid var(--figma-color-border);
 			background-color: transparent;
 
 			color: var(--figma-color-text);
@@ -188,5 +185,9 @@
 				}
 			}
 		}
+	}
+
+	span {
+		padding-block-start: 1px;
 	}
 </style>

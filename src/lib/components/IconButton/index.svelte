@@ -7,13 +7,16 @@
 
 	type Props = {
 		onclick?: (e: MouseEvent) => void;
-		onsubmit?: (e: MouseEvent) => void;
+		onsubmit?: (e: SubmitEvent) => void;
 		class?: string;
 		destructive?: boolean;
 		disabled?: boolean;
 		icon: string;
-		iconText?: string;
-		rounded?: boolean;
+		style?: string;
+		size: 'default';
+		variant?: 'tertiary';
+		label?: string;
+
 		spin?: boolean;
 		style?: string;
 		tabindex?: number;
@@ -28,9 +31,11 @@
 		destructive,
 		disabled,
 		icon,
-		iconText,
-		rounded,
+		label,
+
 		selected,
+		size = 'default',
+		variant = 'tertiary',
 		spin,
 		style,
 		tabindex = 0,
@@ -40,47 +45,44 @@
 </script>
 
 <button
+	aria-label={label}
 	{...props}
-	onclick={(e) => {
-		// @ts-ignore
-		props.onclick?.(e);
-	}}
-	onsubmit={(e) => {
-		e.preventDefault();
-		// @ts-ignore
-		props.onsubmit?.(e);
-	}}
-	class:selected
-	class:disabled
-	class:rounded
-	class={className}
+	{onclick}
+	{onsubmit}
+	class={[variant, size, className, destructive && 'destructive']}
 	{tabindex}
-	use:blurOnEvent
+	{style}
 >
-	<Icon {icon} {iconText} {spin} color="currentColor" />
+	<Icon {icon} {spin} />
 </button>
 
 <style>
 	button {
+		--button-height: 24px;
+		--border-width: 1px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		cursor: pointer;
-		border: 2px solid transparent;
-		border-radius: var(--border-radius-small);
-		width: var(--size-medium);
-		height: var(--size-medium);
-		color: var(--figma-color-icon);
-		fill: var(--figma-color-icon);
+		outline: var(--border-width) solid transparent;
+		outline-offset: calc(var(--border-width) * -1);
+		border: none;
+		border-radius: var(--border-radius-medium);
+
 		background-color: transparent;
+		min-width: 24px;
+		min-height: 24px;
 	}
 	button:hover {
 		background-color: var(--figma-color-bg-hover);
 	}
 
+	button:active {
+		background-color: var(--figma-color-bg-pressed);
+	}
+
 	button:focus-visible {
-		outline: none;
-		border: 2px solid var(--figma-color-border-selected);
+		outline-color: var(--figma-color-border-selected);
 	}
 
 	button:disabled {
@@ -97,10 +99,6 @@
 	}
 	.selected:active,
 	.selected:focus-visible {
-		border: 2px solid var(--figma-color-border);
-	}
-
-	.rounded {
-		border-radius: var(--border-radius-medium);
+		outline-color: var(--figma-color-border);
 	}
 </style>

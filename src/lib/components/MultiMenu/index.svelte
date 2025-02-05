@@ -259,6 +259,10 @@
 	}
 
 	.menu-item-content {
+		--color-icon: var(--color-icon-menu);
+		--color-icon-secondary: var(--figma-color-icon-secondary);
+		--color-icon-tertiary: var(--figma-color-icon-tertiary);
+
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -305,6 +309,9 @@
 			flex-shrink: 0;
 			justify-content: center;
 			align-items: center;
+
+			outline: var(--border-width) solid transparent;
+			outline-offset: calc(var(--border-width) * -1);
 			border: 0;
 			border-radius: var(--border-radius-medium);
 			background-color: transparent;
@@ -312,9 +319,6 @@
 			min-width: var(--button-height);
 			min-height: var(--button-height);
 			color: var(--figma-color-text);
-			fill: var(--figma-color-icon);
-			outline: var(--border-width) solid transparent;
-			outline-offset: calc(var(--border-width) * -1);
 			font-weight: var(--font-weight-default);
 			line-height: 16px;
 			user-select: none;
@@ -337,13 +341,12 @@
 
 			/* Ugly but elegant from a certain point of view */
 			&:has(+ div[popover]:popover-open) {
+				--color-icon: var(--figma-color-icon-selected);
+				--color-icon-secondary: var(--figma-color-icon-selected-secondary);
+				--color-icon-tertiary: var(--figma-color-icon-selected-tertiary);
+
 				background-color: var(--figma-color-bg-selected);
 				color: var(--figma-color-text-onselected);
-
-				:global(svg) {
-					fill: var(--figma-color-icon-selected);
-					pointer-events: none;
-				}
 
 				&:hover {
 					background-color: var(--figma-color-bg-selected-secondary);
@@ -367,6 +370,7 @@
 		border: none;
 		background: none;
 		padding-inline: 4px var(--popover-gap-left);
+		padding-block: 0;
 		overflow: visible;
 
 		.popover-content {

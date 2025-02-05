@@ -28,6 +28,10 @@
 	--color-icon-secondary: var(--figma-color-icon-secondary);
 	--color-icon-tertiary: var(--figma-color-icon-tertiary);
 
+	@media (prefers-color-scheme: dark) {
+		--color-icon-menu: #fff;
+	}
+
 	/* TYPOGRAPHY */
 	/* Pos = positive applications (black on white) */
 	/* Neg = negative applications (white on black) */
@@ -102,6 +106,33 @@
 	font-named-instance: 'Italic';
 	src: url(https://static.figma.com/uploads/43d730c59dee2754d29e0d946ba8cb8339656979)
 		format('woff2');
+}
+
+button {
+	.primary {
+		--color-icon: var(--figma-color-icon-onselected);
+		--color-icon-secondary: var(--figma-color-icon-onselected-secondary);
+		--color-icon-tertiary: var(--figma-color-icon-onselected-tertiary);
+	}
+
+	.secondary {
+		--color-icon: var(--figma-color-icon-secondary);
+		--color-icon-secondary: var(--figma-color-icon-secondary);
+		--color-icon-tertiary: var(--figma-color-icon-tertiary);
+	}
+
+	.destructive {
+		--color-icon: var(--figma-color-icon-ondanger);
+		--color-icon-secondary: var(--figma-color-icon-ondanger-secondary);
+		--color-icon-tertiary: var(--figma-color-icon-ondanger-tertiary);
+	}
+
+	/* Toggle Button */
+	&[role='checkbox'].checked {
+		--color-icon: var(--figma-color-icon-selected);
+		--color-icon-secondary: var(--figma-color-icon-selected-secondary);
+		--color-icon-tertiary: var(--figma-color-icon-selected-tertiary);
+	}
 }
 
 /* Hyperlink styling */

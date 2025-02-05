@@ -333,6 +333,15 @@
 	<div class="content">
 		<LayoutContainer>
 			<Section title="Buttons">
+				<Button size="large" onclick={() => console.log('Button 2 clicked')}
+					>Primary Large</Button
+				>
+				<Button
+					variant="secondary"
+					size="large"
+					onclick={() => console.log('Button 2 clicked')}>Secondary Large</Button
+				>
+
 				<Button
 					onclick={(e) => {
 						console.log('Button 1 clicked'), buttonCounter++;

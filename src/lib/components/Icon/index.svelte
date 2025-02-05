@@ -36,8 +36,9 @@
 		...props
 	}: Props = $props();
 
+	// TODO: Find a more robust way to handle icon colors
 	const _style = !!color
-		? `color: var(${color}); fill: currentColor; width: ${size}px; height: ${size}px`
+		? `--color-icon: var(${color});`
 		: `color: currentColor; fill: currentColor; width: ${size}px; height: ${size}px`;
 </script>
 
@@ -55,11 +56,7 @@
 		justify-content: center;
 		align-items: center;
 		cursor: default;
-		width: var(--size-medium);
-		height: var(--size-medium);
 		pointer-events: none;
-		font-size: var(--font-size-xsmall);
-		font-family: var(--font-stack);
 		user-select: none;
 	}
 
