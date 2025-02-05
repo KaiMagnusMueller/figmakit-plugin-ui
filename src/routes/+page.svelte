@@ -667,6 +667,28 @@
 						}
 					]}
 				></MultiMenu>
+				<MultiMenu
+					groups={[
+						{
+							name: 'file',
+							label: 'File',
+							children: [
+								{
+									label: 'New',
+									action: 'new-file'
+								},
+								{
+									label: 'Open',
+									action: 'open-file'
+								},
+								{
+									label: 'Save',
+									action: 'save-file'
+								}
+							]
+						}
+					]}
+				></MultiMenu>
 			</Section>
 			<Section title="Toggle Button">
 				<ToggleButton

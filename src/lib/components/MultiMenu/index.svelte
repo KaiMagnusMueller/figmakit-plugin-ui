@@ -81,6 +81,7 @@
 	function handleOptionClick(option: MenuOption, group: MenuGroup) {
 		if ('action' in option) {
 			onclick?.(option.action);
+			hidePopovers('', true);
 			return;
 		}
 
@@ -97,9 +98,12 @@
 		onchange?.(value);
 	}
 
-	function hideOtherPopovers(exceptId: string) {
+	function hidePopovers(exceptId?: string = '', includeContainer?: boolean = false) {
 		menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
-			if (popover.id !== exceptId && popover.id !== menuContainerAnchor) {
+			if (
+				popover.id !== exceptId &&
+				(popover.id !== menuContainerAnchor || includeContainer)
+			) {
 				(popover as HTMLElement).hidePopover();
 			}
 		});
@@ -132,7 +136,7 @@
 		popover=""
 		id={anchorName}
 		style={`position-anchor: ${anchorName};`}
-		onmouseleave={() => hideOtherPopovers(menuContainerAnchor)}
+		onmouseleave={() => hidePopovers(menuContainerAnchor)}
 		aria-orientation="vertical"
 	>
 		<div class="popover-content">
@@ -172,7 +176,7 @@
 			popovertarget={anchorName}
 			style={`anchor-name: ${anchorName};`}
 			onmouseenter={() => {
-				hideOtherPopovers(anchorName);
+				hidePopovers(anchorName);
 				document.getElementById(anchorName)?.showPopover();
 			}}
 			aria-haspopup="true"
@@ -193,7 +197,7 @@
 			class="menu-item"
 			class:disabled={option.disabled}
 			onclick={() => handleOptionClick(option, group)}
-			onmouseenter={() => hideOtherPopovers(parentAnchor || '')}
+			onmouseenter={() => hidePopovers(parentAnchor || '')}
 			role={group.mode === 'single'
 				? 'menuitemradio'
 				: group.mode === 'multi'
@@ -385,7 +389,6 @@
 		clip-path: polygon(0px 32px, 26px 32px, 32px 26px, 32px 8px, 100% 0, 100% 100%, 8px 64px);
 		inset: 0;
 		inset-inline-start: -32px;
-		background: red;
 		width: 48px;
 		height: 100%;
 	}
