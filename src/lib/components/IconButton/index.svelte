@@ -13,12 +13,10 @@
 		disabled?: boolean;
 		icon: string;
 		style?: string;
-		size: 'default';
+		size?: 'default';
 		variant?: 'tertiary';
 		label?: string;
-
 		spin?: boolean;
-		style?: string;
 		tabindex?: number;
 		children?: Snippet;
 		[key: string]: unknown;
@@ -32,7 +30,6 @@
 		disabled,
 		icon,
 		label,
-
 		selected,
 		size = 'default',
 		variant = 'tertiary',

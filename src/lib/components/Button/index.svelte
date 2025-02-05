@@ -13,7 +13,7 @@
 		icon?: string;
 		spin?: boolean;
 		style?: string;
-		size: 'large' | 'default';
+		size?: 'large' | 'default';
 		variant?: 'primary' | 'secondary' | 'tertiary';
 		children?: Snippet;
 	} & HTMLButtonAttributes;
