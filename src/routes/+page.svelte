@@ -24,7 +24,8 @@
 		Label,
 		Type,
 		Icon,
-		MultiMenu
+		MultiMenu,
+		ToggleButton
 	} from '$lib/index.js';
 
 	import {
@@ -310,6 +311,9 @@
 
 	let selectedOpt1: Option[] = $state([]);
 	let selectedOpt2: Option[] = $state([]);
+
+	let toggleBtnChecked = $state(false);
+	let toggleBtnCheckedCounter = $state(0);
 </script>
 
 <svelte:head>
@@ -663,6 +667,30 @@
 						}
 					]}
 				></MultiMenu>
+			</Section>
+			<Section title="Toggle Button">
+				<ToggleButton
+					onchange={(checked) => {
+						checked ? toggleBtnCheckedCounter++ : null;
+					}}>Toggled on {toggleBtnCheckedCounter} times</ToggleButton
+				>
+				<Button onclick={() => (toggleBtnChecked = !toggleBtnChecked)}
+					>Manually toggle button 2</Button
+				>
+				<ToggleButton
+					checked={toggleBtnChecked}
+					onchange={() => console.log('Toggle Button 2 clicked')}
+					>Toggle Button 2</ToggleButton
+				>
+				<ToggleButton checked onchange={() => console.log('Toggle Button 3 clicked')}
+					><Icon icon={IconSettings}></Icon></ToggleButton
+				>
+				<ToggleButton
+					disabled
+					icon={IconNodeBooleanOperation}
+					onchange={() => console.log('Toggle Button 4 clicked')}
+					>Toggle Button 4</ToggleButton
+				>
 			</Section>
 			<Section title="Disclosure">
 				<Disclosure>
