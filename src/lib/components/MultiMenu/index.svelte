@@ -410,8 +410,8 @@
 		position: relative;
 		position-area: right span-bottom;
 		position-try: flip-block, flip-inline;
-
 		margin: 0;
+		inset: auto;
 		inset-block-start: -8px;
 		border: none;
 		background: none;
