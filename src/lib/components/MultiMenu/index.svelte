@@ -281,6 +281,7 @@
 		padding: 0 var(--menu-item-padding-right) 0 var(--menu-item-padding-left);
 		width: 100%;
 		min-height: var(--menu-item-height);
+		font-size: var(--font-size-xsmall);
 	}
 
 	.menu-empty {
