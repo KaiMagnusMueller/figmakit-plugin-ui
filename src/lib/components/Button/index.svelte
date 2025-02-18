@@ -65,7 +65,10 @@
 		padding: 0 12px;
 		min-height: 24px;
 		font-weight: var(--font-weight-default);
+		font-size: var(--font-size-xsmall);
+
 		line-height: 16px;
+		letter-spacing: var(--font-letter-spacing-pos-xsmall);
 		user-select: none;
 		text-decoration: none;
 

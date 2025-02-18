@@ -61,6 +61,8 @@
 
 	span {
 		font-weight: var(--font-weight-strong);
+		font-size: var(--font-size-xsmall);
+		letter-spacing: var(--font-letter-spacing-pos-xsmall);
 	}
 
 	textarea {

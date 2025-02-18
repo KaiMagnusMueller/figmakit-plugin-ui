@@ -57,7 +57,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		font-size: var(--font-size-small);
+		font-size: var(--font-size-xsmall);
 		user-select: none;
 	}
 

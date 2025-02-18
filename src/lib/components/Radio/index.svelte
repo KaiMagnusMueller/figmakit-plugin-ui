@@ -53,12 +53,13 @@
 <style>
 	label {
 		display: flex;
-
 		position: relative;
 		align-items: center;
 		gap: 0.5rem;
+
 		cursor: default;
 		color: var(--figma-color-text);
+		font-size: var(--font-size-xsmall);
 		user-select: none;
 	}
 

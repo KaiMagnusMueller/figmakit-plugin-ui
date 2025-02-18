@@ -129,7 +129,7 @@
 		{#if children}
 			<span>{@render children?.()}</span>
 		{/if}
-		<Icon icon={IconChevronDown}></Icon>
+		<Icon icon={icon || IconChevronDown}></Icon>
 	</button>
 
 	{@render popoverContainer(internalGroups, menuContainerAnchor)}
@@ -228,7 +228,7 @@
 	{/if}
 {/snippet}
 
-<style lang="scss">
+<style>
 	.menu-group {
 		border: none;
 		padding-block: var(--popover-paddding);
@@ -320,6 +320,7 @@
 		flex-shrink: 0;
 		justify-content: center;
 		align-items: center;
+		font-size: var(--font-size-xsmall);
 
 		&.button {
 			outline: var(--border-width) solid transparent;
@@ -359,7 +360,7 @@
 			}
 		}
 
-		:global(&:has(svg)) {
+		:global(:has(svg)) {
 			padding: 0;
 		}
 

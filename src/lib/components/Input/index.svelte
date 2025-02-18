@@ -22,9 +22,10 @@
 		hidden?: boolean;
 		label: string;
 		showLabel?: boolean;
+		responsiveFont?: boolean;
 		type?: HTMLInputTypeAttribute;
 		value?: string;
-		[key: string]: unknown;
+		[key: string]: any;
 	} & HTMLInputAttributes;
 
 	let {
@@ -47,6 +48,7 @@
 		hidden,
 		placeholder = 'Input something here...',
 		spin,
+		responsiveFont = false,
 		type = 'text',
 		value = $bindable(''),
 		...props
@@ -56,7 +58,7 @@
 <label {hidden} style={props.style}>
 	<span class:visually-hidden={!showLabel}>{label}</span>
 
-	<div class={['input', !borders && 'no-borders', invalid && 'invalid']}>
+	<div class={['input', !borders && 'no-borders', invalid && 'invalid', className]}>
 		{#if icon}
 			<div class="icon">
 				<Icon {icon} {iconText} {spin} />
@@ -74,7 +76,7 @@
 			{name}
 			{disabled}
 			{placeholder}
-			{autofocus}
+			class={[responsiveFont && 'responsive-font']}
 		/>
 		{#if invalid}
 			<div class="error">
@@ -93,6 +95,8 @@
 
 	span {
 		font-weight: var(--font-weight-strong);
+		font-size: var(--font-size-xsmall);
+		letter-spacing: var(--font-letter-spacing-pos-xsmall);
 	}
 
 	.input {
@@ -177,6 +181,10 @@
 		&:active {
 			outline: none;
 		}
+	}
+
+	.responsive-font {
+		font: inherit;
 	}
 
 	.error {
