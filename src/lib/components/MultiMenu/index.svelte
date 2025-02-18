@@ -139,12 +139,13 @@
 	{@const hasSelectableOptions = _groups.some(
 		(elem) => elem.mode === 'single' || elem.mode === 'multi'
 	)}
+	{@const menuAnchor = `--fk-popover-${crypto.getRandomValues(new Uint32Array(1))[0]}`}
 	<div
 		role="menu"
 		tabindex="0"
 		popover=""
 		id={anchorName}
-		style={`position-anchor: ${anchorName};`}
+		style={`position-anchor: ${anchorName}; anchor-name: ${menuAnchor};`}
 		onmouseleave={() => hidePopovers(menuContainerAnchor)}
 		aria-orientation="vertical"
 	>
@@ -156,7 +157,13 @@
 				{@render multiMenuGroup(group, anchorName, hasSelectableOptions)}
 			{/each}
 		</div>
-		<div class="hover-helper" aria-hidden="true"></div>
+		<div
+			class="hover-helper"
+			aria-hidden="true"
+			style={`--anchorPrev: ${anchorName}; --anchorCurrent: ${menuAnchor}`}
+		>
+			iozguzguizg
+		</div>
 	</div>
 {/snippet}
 
@@ -308,6 +315,10 @@
 
 		& > div[popover] {
 			inset-inline-start: 0;
+
+			.hover-helper {
+				// inset-inline-start: -32px;
+			}
 		}
 	}
 
@@ -359,7 +370,7 @@
 			}
 		}
 
-		:global(&:has(svg)) {
+		:global(:has(svg)) {
 			padding: 0;
 		}
 
@@ -417,6 +428,7 @@
 		background: none;
 		padding-inline: 4px var(--popover-gap-left);
 		padding-block: 0;
+		overflow: visible;
 
 		.popover-content {
 			box-shadow: 0 7px 20px rgb(0 0 0 / 0.12);
@@ -435,11 +447,19 @@
 
 	.hover-helper {
 		position: absolute;
-		z-index: -1;
-		clip-path: polygon(0px 32px, 26px 32px, 32px 26px, 32px 8px, 100% 0, 100% 100%, 8px 64px);
-		inset: 0;
-		inset-inline-start: -32px;
-		width: 48px;
-		height: 100%;
+		// z-index: -1;
+		// clip-path: polygon(0px 32px, 26px 32px, 32px 26px, 32px 8px, 100% 0, 100% 100%, 8px 64px);
+
+		// Attempt to position the hover-helper dynamically between the current item and the nested menu using multiple anchors
+		position-anchor: var(--anchorPrev);
+		position: fixed;
+		/* margin: 0; */
+		/* inset: 0; */
+		top: anchor(var(--anchorPrev) self-start);
+		right: anchor(var(--anchorCurrent) self-end);
+		bottom: anchor(var(--anchorCurrent) end);
+		left: anchor(var(--anchorPrev) self-start);
+		z-index: 1;
+		background: red;
 	}
 </style>
