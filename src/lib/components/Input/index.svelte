@@ -76,6 +76,7 @@
 			{name}
 			{disabled}
 			{placeholder}
+			{autofocus}
 			class={[responsiveFont && 'responsive-font']}
 		/>
 		{#if invalid}

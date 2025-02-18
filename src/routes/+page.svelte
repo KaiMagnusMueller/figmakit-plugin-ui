@@ -201,7 +201,7 @@
 			</Section>
 			<Section title="Input">
 				<Input label="Input" value="Input with value"></Input>
-				<Input label="Input" placeholder="Custom placeholder…"></Input>
+				<Input label="Input" placeholder="Custom placeholder…" autofocus={true}></Input>
 				<Input label="Input label hidden" showLabel={false} placeholder="Label hidden…"
 				></Input>
 				<Input label="Input" value="Disabled with value" disabled />
