@@ -97,3 +97,11 @@ To publish your library to [npm](https://www.npmjs.com):
 ```bash
 npm publish
 ```
+
+Optionally use
+
+```bash
+npm publish --tag beta
+```
+
+To publish to a specific tag (the default tag is "latest"). This is useful for developing on separate branches, for example a new beta version that normal users shouldn't download yet.
