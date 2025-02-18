@@ -76,6 +76,8 @@
 	/* SHADOWS */
 	--shadow-hud: 0 5px 17px rgba(0, 0, 0, 0.2), 0 2px 7px rgba(0, 0, 0, 0.15);
 	--shadow-floating-window: 0 2px 14px rgba(0, 0, 0, 0.15);
+	--shadow-floating-modal: 0px 0px 0.5px rgba(0, 0, 0, 0.08), 0px 10px 24px rgba(0, 0, 0, 0.18),
+		0px 2px 5px rgba(0, 0, 0, 0.15);
 
 	/* SPACING + SIZING */
 	--size-xxxsmall: 0.25rem;
@@ -109,19 +111,19 @@
 }
 
 button {
-	.primary {
-		--color-icon: var(--figma-color-icon-onselected);
-		--color-icon-secondary: var(--figma-color-icon-onselected-secondary);
-		--color-icon-tertiary: var(--figma-color-icon-onselected-tertiary);
+	&.primary {
+		--color-icon: var(--figma-color-icon-onbrand);
+		--color-icon-secondary: var(--figma-color-icon-onbrand-secondary);
+		--color-icon-tertiary: var(--figma-color-icon-onbrand-tertiary);
 	}
 
-	.secondary {
+	&.secondary {
 		--color-icon: var(--figma-color-icon-secondary);
 		--color-icon-secondary: var(--figma-color-icon-secondary);
 		--color-icon-tertiary: var(--figma-color-icon-tertiary);
 	}
 
-	.destructive {
+	&.destructive {
 		--color-icon: var(--figma-color-icon-ondanger);
 		--color-icon-secondary: var(--figma-color-icon-ondanger-secondary);
 		--color-icon-tertiary: var(--figma-color-icon-ondanger-tertiary);
@@ -666,4 +668,16 @@ a:focus {
 
 .align-self-stretch {
 	align-self: stretch;
+}
+
+.visually-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	width: 1px;
+	height: auto;
+	overflow: hidden;
+	white-space: nowrap;
 }

@@ -6,8 +6,6 @@
 		oninput?: (e: Event) => void;
 		onchange?: (e: Event) => void;
 		onkeydown?: (e: Event) => void;
-		onfocus?: (e: Event) => void;
-		onblur?: (e: Event) => void;
 		autofocus?: boolean;
 		borders?: boolean;
 		class?: string;
@@ -21,6 +19,9 @@
 		name?: string;
 		placeholder?: string;
 		spin?: boolean;
+		hidden?: boolean;
+		label: string;
+		showLabel?: boolean;
 		type?: HTMLInputTypeAttribute;
 		value?: string;
 		[key: string]: unknown;
@@ -30,8 +31,8 @@
 		oninput,
 		onchange,
 		onkeydown,
-		onfocus,
-		onblur,
+		label,
+		showLabel = true,
 		autofocus,
 		borders = true,
 		class: className = '',
@@ -43,6 +44,7 @@
 		id,
 		invalid,
 		name,
+		hidden,
 		placeholder = 'Input something here...',
 		spin,
 		type = 'text',
@@ -51,36 +53,48 @@
 	}: Props = $props();
 </script>
 
-<div class={['input', !borders && 'no-borders', invalid && 'invalid']}>
-	{#if icon}
-		<div class="icon">
-			<Icon {icon} {iconText} {spin} />
-		</div>
-	{/if}
-	<!-- svelte-ignore a11y_autofocus -->
-	<input
-		{...props}
-		{type}
-		{oninput}
-		{onchange}
-		{onkeydown}
-		{onfocus}
-		{onblur}
-		bind:value
-		{id}
-		{name}
-		{disabled}
-		{placeholder}
-		{autofocus}
-	/>
-	{#if invalid}
-		<div class="error">
-			{errorMessage}
-		</div>
-	{/if}
-</div>
+<label {hidden} style={props.style}>
+	<span class:visually-hidden={!showLabel}>{label}</span>
+
+	<div class={['input', !borders && 'no-borders', invalid && 'invalid']}>
+		{#if icon}
+			<div class="icon">
+				<Icon {icon} {iconText} {spin} />
+			</div>
+		{/if}
+		<!-- svelte-ignore a11y_autofocus -->
+		<input
+			{...props}
+			{type}
+			{oninput}
+			{onchange}
+			{onkeydown}
+			bind:value
+			{id}
+			{name}
+			{disabled}
+			{placeholder}
+			{autofocus}
+		/>
+		{#if invalid}
+			<div class="error">
+				{errorMessage}
+			</div>
+		{/if}
+	</div>
+</label>
 
 <style>
+	label {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	span {
+		font-weight: var(--font-weight-strong);
+	}
+
 	.input {
 		display: flex;
 		position: relative;
@@ -146,7 +160,7 @@
 		margin-block-end: -1px;
 		border: none;
 		background: unset;
-		padding: 0 12px;
+		padding: 0 7px;
 		width: 100%;
 		height: 100%;
 		color: var(--figma-color-text);

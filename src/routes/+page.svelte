@@ -200,20 +200,35 @@
 				<p>Selected value: {radioValue}</p>
 			</Section>
 			<Section title="Input">
-				<Input value="Input with value"></Input>
-				<Input placeholder="Custom placeholder…"></Input>
-				<Input value="Disabled with value" disabled />
-				<Input placeholder="Input with icon" icon={IconNodeBooleanOperation} />
-				<Input borders={false} value="No border"></Input>
-				<Input borders={false} placeholder="No border"></Input>
+				<Input label="Input" value="Input with value"></Input>
+				<Input label="Input" placeholder="Custom placeholder…"></Input>
+				<Input label="Input label hidden" showLabel={false} placeholder="Label hidden…"
+				></Input>
+				<Input label="Input" value="Disabled with value" disabled />
+				<Input
+					label="Input"
+					placeholder="Input with icon"
+					icon={IconNodeBooleanOperation}
+				/>
+				<Input label="Input without border" borders={false} value="No border"></Input>
+				<Input label="Input without border" borders={false} placeholder="No border"></Input>
 			</Section>
 			<Section title="Textarea">
-				<Textarea value="Textarea with value"></Textarea>
-				<Textarea placeholder="Custom placeholder…"></Textarea>
-				<Textarea value="Disabled with value" disabled></Textarea>
-				<Textarea value="Tall textarea with more rows for longer descriptions" rows={5}
+				<Textarea label="Textarea" value="Textarea with value"></Textarea>
+				<Textarea label="Textarea" placeholder="Custom placeholder…"></Textarea>
+				<Textarea
+					label="Textarea hidden label"
+					showLabel={false}
+					placeholder="Hidden label…"
 				></Textarea>
-				<Textarea disabled placeholder="This textarea is disabled"></Textarea>
+				<Textarea label="Textarea" value="Disabled with value" disabled></Textarea>
+				<Textarea
+					label="Textarea"
+					value="Tall textarea with more rows for longer descriptions"
+					rows={5}
+				></Textarea>
+				<Textarea label="Textarea" disabled placeholder="This textarea is disabled"
+				></Textarea>
 			</Section>
 
 			<Section title="Dropdown Menu">

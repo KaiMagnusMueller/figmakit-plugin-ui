@@ -157,7 +157,7 @@
 			}
 
 			&:disabled {
-				color: var (--figma-color-text-disabled);
+				color: var(--figma-color-text-disabled);
 			}
 
 			&.destructive {
@@ -168,9 +168,5 @@
 				}
 			}
 		}
-	}
-
-	span {
-		padding-block-start: 1px;
 	}
 </style>

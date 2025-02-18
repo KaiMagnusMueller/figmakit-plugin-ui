@@ -5,14 +5,14 @@
 		oninput?: (e: Event) => void;
 		onchange?: (e: Event) => void;
 		onkeydown?: (e: Event) => void;
-		onfocus?: (e: Event) => void;
-		onblur?: (e: Event) => void;
 		class?: string;
 		disabled?: boolean;
 		id?: string;
 		name?: any;
 		placeholder?: string;
 		rows?: number;
+		label: string;
+		showLabel?: boolean;
 		value?: string;
 		[key: string]: unknown;
 	} & HTMLTextareaAttributes;
@@ -21,8 +21,8 @@
 		oninput,
 		onchange,
 		onkeydown,
-		onfocus,
-		onblur,
+		label,
+		showLabel = true,
 		class: className = '',
 		disabled,
 		id,
@@ -35,25 +35,32 @@
 </script>
 
 <div class="textarea {className}">
-	<textarea
-		{...props}
-		{oninput}
-		{onchange}
-		{onkeydown}
-		{onfocus}
-		{onblur}
-		{id}
-		{name}
-		{rows}
-		{disabled}
-		{placeholder}
-		bind:value
-	></textarea>
+	<label>
+		<span class:visually-hidden={!showLabel}>{label}</span>
+		<textarea
+			{...props}
+			{oninput}
+			{onchange}
+			{onkeydown}
+			{id}
+			{name}
+			{rows}
+			{disabled}
+			{placeholder}
+			bind:value
+		></textarea>
+	</label>
 </div>
 
 <style>
-	.textarea {
-		position: relative;
+	label {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	span {
+		font-weight: var(--font-weight-strong);
 	}
 
 	textarea {
@@ -76,7 +83,6 @@
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-xsmall);
 		line-height: var(--font-line-height);
-		font-family: var(--font-stack);
 		letter-spacing: var(--font-letter-spacing-neg-xsmall);
 	}
 	textarea:hover,
