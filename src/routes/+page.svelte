@@ -28,7 +28,8 @@
 		IconNodeBooleanOperation,
 		IconNodeInstance,
 		IconDraft,
-		IconSettings
+		IconSettings,
+		IconAdjust
 	} from '$lib/index.js';
 
 	import { icons, menuGroups, singleMenuGroup, nodeIcons } from './example-data.js';
@@ -212,6 +213,12 @@
 				/>
 				<Input label="Input without border" borders={false} value="No border"></Input>
 				<Input label="Input without border" borders={false} placeholder="No border"></Input>
+				<h2>
+					<Input label="Input" placeholder="Responsive font…" responsiveFont></Input>
+				</h2>
+				<span style="font-size: 1.5rem">
+					<Input label="Input" placeholder="Responsive font…" responsiveFont></Input>
+				</span>
 			</Section>
 			<Section title="Textarea">
 				<Textarea label="Textarea" value="Textarea with value"></Textarea>
@@ -238,6 +245,7 @@
 					>Select File</MultiMenu
 				>
 				<MultiMenu triggerType="select" groups={menuGroups}>Select File</MultiMenu>
+				<MultiMenu groups={menuGroups} icon={IconAdjust}></MultiMenu>
 			</Section>
 			<Section title="Toggle Button">
 				<ToggleButton

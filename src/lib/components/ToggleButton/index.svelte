@@ -69,6 +69,7 @@
 		min-height: var(--button-height);
 		color: var(--figma-color-text);
 		font-weight: var(--font-weight-default);
+		font-size: var(--font-size-xsmall);
 		line-height: 16px;
 		user-select: none;
 		fill: var(--figma-color-icon);

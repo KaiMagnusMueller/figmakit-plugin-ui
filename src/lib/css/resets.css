@@ -20,7 +20,6 @@ body {
 }
 
 * {
-	color: var(--figma-color-text);
 	font-family: var(--font-stack);
 }
 
@@ -79,6 +78,7 @@ button {
 }
 
 p,
+span,
 a,
 li,
 dd,
