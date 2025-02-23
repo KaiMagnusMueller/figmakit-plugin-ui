@@ -21,4 +21,5 @@ export type ClickableMenuOption = {
 	label: string;
 	selected?: never;
 	disabled?: boolean;
+	parameters?: any;
 };

@@ -15,7 +15,7 @@
 		groups: MenuGroup[];
 		value?: Value;
 		onchange?: (value: Value) => void;
-		onclick?: (action: string) => void;
+		onclick?: (action: string, parameters: any) => void;
 		onmouseenter?: (event: MouseEvent) => void;
 		blink?: boolean;
 		triggerType?: 'button' | 'select';
@@ -88,7 +88,7 @@
 
 	function handleOptionClick(option: MenuOption, group: MenuGroup) {
 		if ('action' in option) {
-			onclick?.(option.action);
+			onclick?.(option.action, option?.parameters);
 			hidePopovers('', true);
 			return;
 		}
