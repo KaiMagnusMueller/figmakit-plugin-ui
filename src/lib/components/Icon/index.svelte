@@ -42,7 +42,7 @@
 		: `color: currentColor; fill: currentColor; width: ${size}px; height: ${size}px`;
 </script>
 
-<div {...props} class={[spin, className]} style={_style}>
+<div {...props} class={['icon__wrapper', spin, className]} style={_style}>
 	{#if iconText}
 		{iconText}
 	{:else}
@@ -51,13 +51,16 @@
 </div>
 
 <style>
-	div {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+	.icon__wrapper {
+		display: inline;
 		cursor: default;
 		pointer-events: none;
 		user-select: none;
+
+		:global(svg) {
+			width: 100%;
+			height: 100%;
+		}
 	}
 
 	.spin {

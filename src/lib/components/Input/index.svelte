@@ -55,10 +55,10 @@
 	}: Props = $props();
 </script>
 
-<label {hidden} style={props.style}>
+<label {hidden} class={className}>
 	<span class:visually-hidden={!showLabel}>{label}</span>
 
-	<div class={['input', !borders && 'no-borders', invalid && 'invalid', className]}>
+	<div class={['input', !borders && 'no-borders', invalid && 'invalid']}>
 		{#if icon}
 			<div class="icon">
 				<Icon {icon} {iconText} {spin} />
