@@ -15,7 +15,7 @@
 		groups: MenuGroup[];
 		value?: Value;
 		onchange?: (value: Value) => void;
-		onclick?: (action: string, parameters: any) => void;
+		onclick?: (action: string, parameters: string) => void;
 		onmouseenter?: (event: MouseEvent) => void;
 		blink?: boolean;
 		triggerType?: 'button' | 'select';

@@ -1,3 +1,4 @@
+import type { MenuGroup } from '$lib/components/MultiMenu/types.js';
 import {
 	IconAdjust,
 	IconAlert,
@@ -253,7 +254,7 @@ export let nodeIcons = [
 	IconNodeText
 ];
 
-export const menuGroups = [
+export const menuGroups: MenuGroup[] = [
 	{
 		name: 'file',
 		label: 'File',
@@ -414,7 +415,7 @@ export const menuGroups = [
 ];
 
 // Also add these smaller menu configurations that are used in other examples
-export const singleMenuGroup = [
+export const singleMenuGroup: MenuGroup[] = [
 	{
 		name: 'file',
 		label: 'File',
