@@ -241,13 +241,9 @@
 				></Textarea>
 			</Section>
 			<Section title="Dialog">
-				<Button
-					onclick={() => {
-						exampleDialog.showModal();
-					}}>Open Dialog</Button
-				>
-				<Dialog title="Dialog 1" bind:id={exampleDialogID} bind:dialog={exampleDialog}>
-					<p>This is a dialog</p>
+				<Dialog bind:dialog={exampleDialog} title="Dialog">
+					<p>This is a dialog component.</p>
+					<Button onclick={() => exampleDialog?.close()}>Close</Button>
 				</Dialog>
 			</Section>
 			<Section title="Dropdown Menu">
