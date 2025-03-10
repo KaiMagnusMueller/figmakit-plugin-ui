@@ -79,12 +79,12 @@
 			{autofocus}
 			class={[responsiveFont && 'responsive-font']}
 		/>
-		{#if invalid}
-			<div class="error">
-				{errorMessage}
-			</div>
-		{/if}
 	</div>
+	{#if invalid}
+		<div class="error">
+			{errorMessage}
+		</div>
+	{/if}
 </label>
 
 <style>
@@ -92,11 +92,16 @@
 		display: flex;
 		flex-direction: column;
 		gap: 4px;
+
+		&[hidden] {
+			display: none;
+		}
 	}
 
 	span {
 		font-weight: var(--font-weight-strong);
 		font-size: var(--font-size-xsmall);
+		font-family: var(--font-stack);
 		letter-spacing: var(--font-letter-spacing-pos-xsmall);
 	}
 
@@ -172,6 +177,7 @@
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-xsmall);
 		line-height: var(--font-line-height);
+		font-family: var(--font-stack);
 		letter-spacing: var(--font-letter-spacing-neg-xsmall);
 
 		.icon + & {
@@ -189,8 +195,6 @@
 	}
 
 	.error {
-		padding-top: 4px;
-		padding-left: 8px;
 		color: var(--figma-color-text-danger);
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-xsmall);

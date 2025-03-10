@@ -19,10 +19,6 @@ body {
 	width: 100%;
 }
 
-* {
-	font-family: var(--font-stack);
-}
-
 *,
 *::before,
 *::after {

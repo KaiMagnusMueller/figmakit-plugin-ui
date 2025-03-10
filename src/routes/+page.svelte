@@ -202,7 +202,7 @@
 				>
 				<p>Selected value: {radioValue}</p>
 			</Section>
-			<Section title="Input">
+			<Section title="Input" style="grid-column: 1/-1">
 				<Input label="Input" value="Input with value"></Input>
 				<Input label="Input" placeholder="Custom placeholder…" autofocus={true}></Input>
 				<Input label="Input label hidden" showLabel={false} placeholder="Label hidden…"
@@ -218,11 +218,16 @@
 				<h2>
 					<Input label="Input" placeholder="Responsive font…" responsiveFont></Input>
 				</h2>
-				<span style="font-size: 1.5rem">
+				<span style="font-family: 'Comic Sans MS'">
 					<Input label="Input" placeholder="Responsive font…" responsiveFont></Input>
 				</span>
+				<Input label="Input" value="Invalid input" invalid errorMessage="Invalid input"
+				></Input>
+
+				<span>There is a hidden input here:</span>
+				<Input label="Hidden input" hidden></Input>
 			</Section>
-			<Section title="Textarea">
+			<Section title="Textarea" style="grid-column: 1/-1">
 				<Textarea label="Textarea" value="Textarea with value"></Textarea>
 				<Textarea label="Textarea" placeholder="Custom placeholder…"></Textarea>
 				<Textarea
