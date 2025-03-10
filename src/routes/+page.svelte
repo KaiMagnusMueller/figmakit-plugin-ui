@@ -29,7 +29,8 @@
 		IconNodeInstance,
 		IconDraft,
 		IconSettings,
-		IconAdjust
+		IconAdjust,
+		Dialog
 	} from '$lib/index.js';
 
 	import { icons, menuGroups, singleMenuGroup, nodeIcons } from './example-data.js';
@@ -39,6 +40,7 @@
 	let radioValue = $state('a');
 	let toggleBtnChecked = $state(false);
 	let toggleBtnCheckedCounter = $state(0);
+	let exampleDialog: HTMLDialogElement | undefined = $state();
 </script>
 
 <svelte:head>
@@ -237,7 +239,19 @@
 				<Textarea label="Textarea" disabled placeholder="This textarea is disabled"
 				></Textarea>
 			</Section>
-
+			<Section title="Dialog">
+				<Dialog bind:dialog={exampleDialog} title="Dialog title">
+					{#snippet headerControls()}
+						<IconButton
+							onclick={() => console.log('Custom header control clicked')}
+							icon={IconNodeBooleanOperation}
+							aria-label="Custom header control"
+						></IconButton>
+					{/snippet}
+					<p>This is a dialog component.</p>
+					<Button onclick={() => exampleDialog?.close()}>Close</Button>
+				</Dialog>
+			</Section>
 			<Section title="Dropdown Menu">
 				<MultiMenu groups={menuGroups}></MultiMenu>
 				<MultiMenu groups={singleMenuGroup}></MultiMenu>

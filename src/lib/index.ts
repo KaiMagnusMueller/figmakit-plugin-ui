@@ -4,6 +4,7 @@ import Checkbox from './components/Checkbox/index.svelte';
 import Disclosure from './components/Disclosure/index.svelte';
 import DisclosureItem from './components/Disclosure/DisclosureItem.svelte';
 import Icon from '$lib/components/Icon/index.svelte';
+import Dialog from '$lib/components/Dialog/index.svelte';
 import IconButton from '$lib/components/IconButton/index.svelte';
 import Input from './components/Input/index.svelte';
 import Label from './components/Label/index.svelte';
@@ -148,6 +149,7 @@ export {
 	Checkbox,
 	Disclosure,
 	DisclosureItem,
+	Dialog,
 	Icon,
 	IconButton,
 	Input,
