@@ -9,12 +9,14 @@
 		dialog = $bindable(),
 		onclose,
 		children,
+		headerControls,
 		...props
 	}: {
 		id?: string;
 		title: string;
 		dialog?: HTMLDialogElement;
 		onclose?: (e: Event) => void;
+		headerControls?: Snippet;
 		children: Snippet;
 		[key: string]: any;
 	} = $props();
@@ -37,14 +39,17 @@
 >
 	<div class="header__wrapper">
 		<h1>{title}</h1>
-		<IconButton
-			icon={IconClose}
-			aria-label="Close dialog"
-			onclick={() => {
-				if (!dialog) return;
-				dialog.close();
-			}}
-		/>
+		<div class="group__end">
+			{@render headerControls?.()}
+			<IconButton
+				icon={IconClose}
+				aria-label="Close dialog"
+				onclick={() => {
+					if (!dialog) return;
+					dialog.close();
+				}}
+			/>
+		</div>
 	</div>
 	<div class="content__wrapper">{@render children()}</div>
 </dialog>
@@ -87,43 +92,8 @@
 		letter-spacing: var(--font-letter-spacing-pos-xsmall);
 	}
 
-	[popover] {
-		background: inherit;
-		color: inherit;
-	}
-
-	.popover {
-		box-shadow: var(--elevation-500-modal-window);
-		border: none;
-		border-radius: var(--border-radius-small);
-		padding: 0rem;
-	}
-
-	.popover__wrapper {
+	.group__end {
 		display: flex;
-		flex-direction: column;
-		background: var(--figma-color-bg);
-		height: 100%;
-
-		.popover__content-wrapper {
-			position: relative;
-			width: 100%;
-			height: 100%;
-			overflow-y: scroll;
-		}
-
-		.popover__section > header {
-			position: sticky;
-			top: 0;
-		}
-
-		.popover__section {
-			position: absolute;
-			inset: 0;
-		}
-
-		.popover__section-content {
-			padding: 0.5rem 0.5rem;
-		}
+		align-items: center;
 	}
 </style>

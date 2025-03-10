@@ -41,7 +41,6 @@
 	let toggleBtnChecked = $state(false);
 	let toggleBtnCheckedCounter = $state(0);
 	let exampleDialog: HTMLDialogElement | undefined = $state();
-	let exampleDialogID: string | undefined = $state();
 </script>
 
 <svelte:head>
@@ -241,7 +240,14 @@
 				></Textarea>
 			</Section>
 			<Section title="Dialog">
-				<Dialog bind:dialog={exampleDialog} title="Dialog">
+				<Dialog bind:dialog={exampleDialog} title="Dialog title">
+					{#snippet headerControls()}
+						<IconButton
+							onclick={() => console.log('Custom header control clicked')}
+							icon={IconNodeBooleanOperation}
+							aria-label="Custom header control"
+						></IconButton>
+					{/snippet}
 					<p>This is a dialog component.</p>
 					<Button onclick={() => exampleDialog?.close()}>Close</Button>
 				</Dialog>

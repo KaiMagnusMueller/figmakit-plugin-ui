@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button } from '$lib/index.js';
 	import type { Snippet } from 'svelte';
-	import DialogElem from './DialogElem.svelte';
+	import Dialog from './Dialog.svelte';
 
 	let {
 		id = $bindable(),
@@ -9,6 +9,7 @@
 		dialog = $bindable(),
 		triggerButton,
 		children,
+		headerControls,
 		...props
 	}: {
 		id?: string;
@@ -16,6 +17,7 @@
 		dialog?: HTMLDialogElement;
 		triggerButton?: Snippet<[dialog?: HTMLDialogElement]>;
 		children: Snippet;
+		headerControls?: Snippet;
 		[key: string]: any;
 	} = $props();
 </script>
@@ -29,11 +31,7 @@
 		}}>Open Dialog</Button
 	>
 {/if}
-<Button
-	onclick={() => {
-		dialog?.showModal();
-	}}>Open Dialog</Button
->
-<DialogElem {...props} {title} bind:id bind:dialog>
+
+<Dialog {...props} {title} bind:id bind:dialog {headerControls}>
 	{@render children()}
-</DialogElem>
+</Dialog>
