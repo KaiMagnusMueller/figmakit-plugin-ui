@@ -19,7 +19,7 @@
 		spin?: boolean;
 		tabindex?: number;
 		children?: Snippet;
-		[key: string]: unknown;
+		[key: string]: any;
 	} & HTMLButtonAttributes;
 
 	let {
@@ -42,6 +42,7 @@
 </script>
 
 <button
+	type="button"
 	aria-label={label}
 	{...props}
 	{onclick}

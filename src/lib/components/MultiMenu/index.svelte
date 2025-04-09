@@ -122,6 +122,7 @@
 
 <div class="menu-container" bind:this={menuContainerElem} {style}>
 	<button
+		type="button"
 		{...props}
 		class={['menu-trigger', triggerType === 'button' ? 'button' : 'select']}
 		popovertarget={menuContainerAnchor}
