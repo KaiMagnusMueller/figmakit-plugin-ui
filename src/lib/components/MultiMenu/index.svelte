@@ -14,6 +14,10 @@
 	interface Props {
 		groups: MenuGroup[];
 		value?: Value;
+		id?: string;
+		name?: string;
+		disabled?: boolean;
+		required?: boolean;
 		onchange?: (value: Value) => void;
 		onclick?: (action: string, parameters: string) => void;
 		onmouseenter?: (event: MouseEvent) => void;
@@ -31,6 +35,10 @@
 	let {
 		groups = [],
 		value = $bindable({}),
+		id,
+		name,
+		disabled = !groups.some((group) => group.children.length > 0),
+		required = false,
 		onchange,
 		onclick,
 		icon,
@@ -120,10 +128,17 @@
 	}
 </script>
 
+<!-- NOTE: Be careful when using MultiMenu in forms. Use only a single group with mode:"single", multiple selected options will not be submitted. -->
+<select {name} {id} {required} {disabled} hidden>
+	{#if Object.values(value).flat()[0]}
+		<option value={Object.values(value).flat()[0]}>{Object.values(value).flat()[0]}</option>
+	{/if}
+</select>
+
 <div class="menu-container" bind:this={menuContainerElem} {style}>
 	<button
 		type="button"
-		disabled={!internalGroups.some((group) => group.children.length > 0)}
+		{disabled}
 		{...props}
 		class={['menu-trigger', triggerType === 'button' ? 'button' : 'select']}
 		popovertarget={menuContainerAnchor}
@@ -205,6 +220,7 @@
 	{#if 'children' in option}
 		{@const anchorName = `--fk-popover-${crypto.getRandomValues(new Uint32Array(1))[0]}`}
 		<button
+			type="button"
 			class="menu-item group"
 			popovertarget={anchorName}
 			style={`anchor-name: ${anchorName};`}
@@ -228,6 +244,7 @@
 		{@render popoverContainer([option], anchorName)}
 	{:else}
 		<button
+			type="button"
 			class="menu-item"
 			class:disabled={option.disabled}
 			onclick={() => handleOptionClick(option, group)}

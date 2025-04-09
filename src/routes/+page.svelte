@@ -282,6 +282,33 @@
 				<MultiMenu triggerType="select" showSelectedValues groups={emptyMenuGroupsMini}
 					>Select File</MultiMenu
 				>
+
+				<form
+					onsubmit={(e) => {
+						e.preventDefault();
+						const formData = new FormData(e.currentTarget);
+
+						for (const [key, value] of formData) {
+							console.log(`${key}: ${value}`);
+						}
+					}}
+				>
+					<MultiMenu
+						name="menu"
+						groups={menuGroups}
+						icon={IconDraft}
+						style={'flex-grow: 1;'}
+						triggerType="select"
+						showSelectedValues>Select File</MultiMenu
+					>
+					<Input
+						name="input"
+						label="Input"
+						placeholder="Custom placeholder…"
+						style="margin-block: 1rem;"
+					></Input>
+					<Button type="submit">Submit</Button>
+				</form>
 			</Section>
 			<Section title="Toggle Button">
 				<ToggleButton
