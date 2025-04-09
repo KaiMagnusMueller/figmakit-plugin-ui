@@ -263,7 +263,12 @@
 				<MultiMenu icon={IconDraft} style={'flex-grow: 1;'} groups={singleMenuGroup}
 					>Select File</MultiMenu
 				>
-				<MultiMenu triggerType="select" groups={menuGroups}>Select File</MultiMenu>
+				<MultiMenu triggerType="select" showSelectedValues groups={menuGroups}
+					>Select File</MultiMenu
+				>
+				<MultiMenu triggerType="button" showSelectedValues groups={menuGroups}
+					>Select File</MultiMenu
+				>
 				<MultiMenu groups={menuGroups} icon={IconAdjust}></MultiMenu>
 			</Section>
 			<Section title="Toggle Button">

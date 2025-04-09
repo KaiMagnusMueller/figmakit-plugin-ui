@@ -24,6 +24,7 @@
 		style?: string;
 		triggerStyle?: string;
 		children?: Snippet;
+		showSelectedValues?: boolean;
 		[propName: string]: any;
 	}
 
@@ -39,6 +40,7 @@
 		children,
 		style,
 		triggerStyle,
+		showSelectedValues = false,
 		...props
 	}: Props = $props();
 
@@ -126,7 +128,23 @@
 		style={`anchor-name: ${menuContainerAnchor}; ${triggerStyle}`}
 		aria-haspopup="true"
 	>
-		{#if children}
+		{#if showSelectedValues && Object.values(value).flat().length > 0}
+			<span class="selected-values-wrapper">
+				<span class="selected-values line-clamp">
+					{#each Object.values(value).flat().slice(0, 4) as val, i}
+						{#if i > 0}
+							<span class="separator">, </span>
+						{/if}
+						<span class="value">
+							{val}
+						</span>
+					{/each}
+				</span>
+				{#if Object.values(value).flat().length > 4}
+					<span class="more-values">(+{Object.values(value).flat().length - 4})</span>
+				{/if}
+			</span>
+		{:else if children}
 			<span>{@render children?.()}</span>
 		{/if}
 		<Icon icon={icon || IconChevronDown}></Icon>
@@ -355,6 +373,10 @@
 			line-height: var(--font-line-height);
 			letter-spacing: var(--font-letter-spacing-neg-xsmall);
 
+			.more-values {
+				color: var(--figma-color-text-secondary);
+			}
+
 			&:hover {
 				background-image: none;
 				color: var(--figma-color-text-hover);
@@ -397,6 +419,10 @@
 			&:active {
 				background-color: var(--figma-color-bg-selected-pressed);
 			}
+
+			.more-values {
+				color: var(--figma-color-text-selected-secondary);
+			}
 		}
 
 		&:disabled {
@@ -406,6 +432,26 @@
 		span {
 			padding-block-start: 1px;
 		}
+
+		.more-values {
+			color: var(--figma-color-text-secondary);
+		}
+	}
+
+	.selected-values-wrapper {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 4px;
+	}
+
+	.selected-values {
+		text-align: initial;
+	}
+
+	.value {
+		display: inline;
+		text-transform: capitalize;
+		word-break: break-all;
 	}
 
 	div[popover] {
