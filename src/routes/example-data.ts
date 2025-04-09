@@ -445,43 +445,7 @@ export const emptyMenuGroups: MenuGroup[] = [
 	{
 		name: 'text',
 		label: 'Text',
-		children: [
-			{
-				label: 'Bold',
-				action: 'bold'
-			},
-			{
-				label: 'Italic',
-				action: 'italic'
-			},
-			{
-				label: 'Underline',
-				action: 'underline'
-			},
-			{
-				name: 'alignment',
-				label: 'Alignment',
-				children: []
-			},
-			{
-				name: 'case',
-				label: 'Case',
-				children: [
-					{
-						label: 'Uppercase',
-						action: 'uppercase'
-					},
-					{
-						label: 'Lowercase',
-						action: 'lowercase'
-					},
-					{
-						label: 'Title case',
-						action: 'titlecase'
-					}
-				]
-			}
-		]
+		children: []
 	},
 	{
 		name: 'edit',

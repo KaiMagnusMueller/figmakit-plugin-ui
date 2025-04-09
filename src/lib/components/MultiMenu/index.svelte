@@ -188,7 +188,7 @@
 		<div class="popover-content">
 			{#each _groups as group, i}
 				{#if group.children.length > 0}
-					{#if i > 0}
+					{#if i > 0 && _groups[i - 1].children.length > 0}
 						<hr />
 					{/if}
 					{@render multiMenuGroup(group, anchorName, hasSelectableOptions)}
@@ -498,6 +498,7 @@
 		background: none;
 		padding-inline: 4px var(--popover-gap-left);
 		padding-block: 0;
+		overflow: visible;
 
 		.popover-content {
 			box-shadow: 0 7px 20px rgb(0 0 0 / 0.12);

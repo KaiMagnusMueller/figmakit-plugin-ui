@@ -267,8 +267,64 @@
 			<Section title="Dropdown Menu">
 				<MultiMenu groups={menuGroups}></MultiMenu>
 				<MultiMenu groups={singleMenuGroup}></MultiMenu>
-				<MultiMenu icon={IconDraft} style={'flex-grow: 1;'} groups={singleMenuGroup}
-					>Select File</MultiMenu
+				<MultiMenu
+					icon={IconDraft}
+					style={'flex-grow: 1;'}
+					groups={[
+						{
+							label: 'Assign to property',
+							name: 'assignToProperty',
+							children: []
+						},
+						{
+							label: 'Assign',
+							name: 'assign',
+							children: [
+								{
+									label: 'Remove assignments',
+									name: 'removeAssignment',
+									children: []
+								}
+							]
+						},
+						{
+							label: 'Selection',
+							name: 'select',
+							children: [
+								{
+									label: 'Select nodes',
+									name: 'select',
+									children: []
+								}
+							]
+						},
+						{
+							label: 'Column Menu',
+							name: 'columnMenu',
+							children: [
+								{
+									label: 'Add column left',
+									name: 'addColumnLeft',
+									action: 'addColumnLeft'
+								},
+								{
+									label: 'Add column right',
+									name: 'addColumnRight',
+									action: 'addColumnRight'
+								},
+								{
+									label: 'Delete column',
+									name: 'deleteColumn',
+									action: 'deleteColumn'
+								},
+								{
+									label: 'Rename column',
+									name: 'renameColumn',
+									action: 'renameColumn'
+								}
+							]
+						}
+					]}>Select File</MultiMenu
 				>
 				<MultiMenu triggerType="select" showSelectedValues groups={menuGroups}
 					>Select File</MultiMenu
