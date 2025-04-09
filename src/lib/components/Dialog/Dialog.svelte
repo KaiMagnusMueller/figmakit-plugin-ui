@@ -83,7 +83,7 @@
 	}
 
 	.content__wrapper {
-		padding: 16px;
+		padding: 8px;
 	}
 
 	h1 {

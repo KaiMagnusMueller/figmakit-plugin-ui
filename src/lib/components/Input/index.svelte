@@ -192,6 +192,7 @@
 
 	.responsive-font {
 		font: inherit;
+		letter-spacing: inherit;
 	}
 
 	.error {

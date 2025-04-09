@@ -143,6 +143,7 @@ import IconNodeSection from './icons/node-types/Section.svg?raw';
 import IconNodeSlice from './icons/node-types/Slice.svg?raw';
 import IconNodeStar from './icons/node-types/Star.svg?raw';
 import IconNodeText from './icons/node-types/Text.svg?raw';
+import type { MenuGroup, MenuOption } from './components/MultiMenu/types.js';
 
 export {
 	Button,
@@ -160,6 +161,8 @@ export {
 	Textarea,
 	Type,
 	MultiMenu,
+	type MenuGroup,
+	type MenuOption,
 	ToggleButton,
 	IconAdjust,
 	IconAlert,
