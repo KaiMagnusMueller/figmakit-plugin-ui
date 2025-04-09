@@ -123,6 +123,7 @@
 <div class="menu-container" bind:this={menuContainerElem} {style}>
 	<button
 		type="button"
+		disabled={!internalGroups.some((group) => group.children.length > 0)}
 		{...props}
 		class={['menu-trigger', triggerType === 'button' ? 'button' : 'select']}
 		popovertarget={menuContainerAnchor}
@@ -151,7 +152,9 @@
 		<Icon icon={icon || IconChevronDown}></Icon>
 	</button>
 
-	{@render popoverContainer(internalGroups, menuContainerAnchor)}
+	{#if internalGroups.some((group) => group.children.length > 0)}
+		{@render popoverContainer(internalGroups, menuContainerAnchor)}
+	{/if}
 </div>
 
 {#snippet popoverContainer(_groups: MenuGroup[], anchorName?: string)}
@@ -169,10 +172,12 @@
 	>
 		<div class="popover-content">
 			{#each _groups as group, i}
-				{#if i > 0}
-					<hr />
+				{#if group.children.length > 0}
+					{#if i > 0}
+						<hr />
+					{/if}
+					{@render multiMenuGroup(group, anchorName, hasSelectableOptions)}
 				{/if}
-				{@render multiMenuGroup(group, anchorName, hasSelectableOptions)}
 			{/each}
 		</div>
 		<div class="hover-helper" aria-hidden="true"></div>
@@ -207,6 +212,7 @@
 				hidePopovers(anchorName);
 				document.getElementById(anchorName)?.showPopover();
 			}}
+			disabled={option.disabled || option.children.length === 0}
 			aria-haspopup="true"
 		>
 			<div class="menu-item-content">
@@ -280,9 +286,16 @@
 			}
 		}
 
-		&.disabled {
-			opacity: 0.5;
+		&.disabled,
+		&:disabled {
+			color: var(--color-text-menu-disabled);
+			--color-icon: var(--figma-color-icon-disabled);
 			cursor: not-allowed;
+			pointer-events: none;
+
+			.menu-item-content {
+				--color-icon: var(--color-text-menu-disabled);
+			}
 		}
 	}
 
@@ -427,6 +440,8 @@
 		}
 
 		&:disabled {
+			pointer-events: none;
+			--color-icon: var(--figma-color-icon-disabled);
 			color: var(--figma-color-text-disabled);
 		}
 

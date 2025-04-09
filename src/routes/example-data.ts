@@ -435,3 +435,125 @@ export const singleMenuGroup: MenuGroup[] = [
 		]
 	}
 ];
+
+export const emptyMenuGroups: MenuGroup[] = [
+	{
+		name: 'file',
+		label: 'File',
+		children: []
+	},
+	{
+		name: 'text',
+		label: 'Text',
+		children: [
+			{
+				label: 'Bold',
+				action: 'bold'
+			},
+			{
+				label: 'Italic',
+				action: 'italic'
+			},
+			{
+				label: 'Underline',
+				action: 'underline'
+			},
+			{
+				name: 'alignment',
+				label: 'Alignment',
+				children: []
+			},
+			{
+				name: 'case',
+				label: 'Case',
+				children: [
+					{
+						label: 'Uppercase',
+						action: 'uppercase'
+					},
+					{
+						label: 'Lowercase',
+						action: 'lowercase'
+					},
+					{
+						label: 'Title case',
+						action: 'titlecase'
+					}
+				]
+			}
+		]
+	},
+	{
+		name: 'edit',
+		label: 'Edit',
+		children: [
+			{
+				label: 'Undo',
+				action: 'undo'
+			},
+			{
+				label: 'Redo',
+				action: 'redo'
+			},
+			{
+				label: 'Cut',
+				action: 'cut'
+			},
+			{
+				label: 'Copy',
+				action: 'copy'
+			},
+			{
+				label: 'Paste',
+				action: 'paste'
+			}
+		]
+	},
+	{
+		name: 'view',
+		label: 'View',
+		children: [
+			{
+				name: 'View options',
+				label: 'View options',
+				mode: 'single',
+				children: []
+			}
+		]
+	},
+	{
+		name: 'ui-elements',
+		label: 'UI Elements',
+		mode: 'multi',
+		children: [
+			{
+				label: 'Grid',
+				value: 'grid',
+				selected: false
+			},
+			{
+				label: 'Guides',
+				value: 'guides',
+				selected: false
+			},
+			{
+				label: 'Rulers',
+				value: 'rulers',
+				selected: false
+			},
+			{
+				label: 'Layers',
+				value: 'layers',
+				selected: false
+			}
+		]
+	}
+];
+
+export const emptyMenuGroupsMini: MenuGroup[] = [
+	{
+		name: 'file',
+		label: 'File',
+		children: []
+	}
+];

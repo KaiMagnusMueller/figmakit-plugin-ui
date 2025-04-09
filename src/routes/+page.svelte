@@ -33,7 +33,14 @@
 		Dialog
 	} from '$lib/index.js';
 
-	import { icons, menuGroups, singleMenuGroup, nodeIcons } from './example-data.js';
+	import {
+		icons,
+		menuGroups,
+		singleMenuGroup,
+		emptyMenuGroups,
+		nodeIcons,
+		emptyMenuGroupsMini
+	} from './example-data.js';
 
 	let buttonCounter = $state(0);
 	let checked = $state(true);
@@ -270,6 +277,11 @@
 					>Select File</MultiMenu
 				>
 				<MultiMenu groups={menuGroups} icon={IconAdjust}></MultiMenu>
+				<MultiMenu groups={emptyMenuGroups} icon={IconAdjust}></MultiMenu>
+				<MultiMenu groups={emptyMenuGroupsMini} icon={IconAdjust}></MultiMenu>
+				<MultiMenu triggerType="select" showSelectedValues groups={emptyMenuGroupsMini}
+					>Select File</MultiMenu
+				>
 			</Section>
 			<Section title="Toggle Button">
 				<ToggleButton

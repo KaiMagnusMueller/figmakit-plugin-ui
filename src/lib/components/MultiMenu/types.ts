@@ -5,6 +5,7 @@ export type MenuGroup = {
 	label: string;
 	mode?: SelectionMode;
 	name: string;
+	disabled?: boolean;
 };
 
 export type MenuOption = SelectableMenuOption | ClickableMenuOption;
