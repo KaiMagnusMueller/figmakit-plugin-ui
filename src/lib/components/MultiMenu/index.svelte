@@ -37,7 +37,7 @@
 		value = $bindable({}),
 		id,
 		name,
-		disabled = !groups.some((group) => group.children.length > 0),
+		disabled = false,
 		required = false,
 		onchange,
 		onclick,
@@ -59,6 +59,10 @@
 	// Reactive groups
 	let internalGroups: MenuGroup[] = $state(groups);
 	let selectedValue: SelectedValue = $state(collectSelectedOptions(internalGroups));
+
+	let _disabled = $state(
+		disabled || internalGroups.every((group) => group.children.length === 0)
+	);
 
 	// Type guards
 	function isMenuOption(item: MenuOption | MenuGroup): item is MenuOption {
@@ -145,7 +149,7 @@
 </script>
 
 <!-- NOTE: Be careful when using MultiMenu in forms. Use only a single group with mode:"single", multiple selected options will not be submitted. -->
-<select {name} {id} {required} {disabled} hidden>
+<select {name} {id} {required} disabled={_disabled} hidden>
 	{#if Object.values(value).flat()[0]}
 		<option value={Object.values(value).flat()[0]}>{Object.values(value).flat()[0]}</option>
 	{/if}
@@ -154,7 +158,7 @@
 <div class="menu-container" bind:this={menuContainerElem} {style}>
 	<button
 		type="button"
-		{disabled}
+		disabled={_disabled}
 		{...props}
 		class={['menu-trigger', triggerType === 'button' ? 'button' : 'select']}
 		popovertarget={menuContainerAnchor}
