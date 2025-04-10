@@ -357,6 +357,35 @@ export const menuGroups: MenuGroup[] = [
 			}
 		]
 	},
+	// {
+	// 	name: 'ASD',
+	// 	label: 'ASD',
+
+	// 	children: [
+	// 		{
+	// 			name: 'ASDF',
+	// 			label: 'ASDF',
+	// 			mode: 'multi',
+	// 			children: [
+	// 				{
+	// 					label: '123',
+	// 					value: '123',
+	// 					selected: false
+	// 				},
+	// 				{
+	// 					label: '456',
+	// 					value: '456',
+	// 					selected: false
+	// 				},
+	// 				{
+	// 					label: '789',
+	// 					value: '789',
+	// 					selected: false
+	// 				}
+	// 			]
+	// 		}
+	// 	]
+	// },
 	{
 		name: 'view',
 		label: 'View',
@@ -414,7 +443,6 @@ export const menuGroups: MenuGroup[] = [
 	}
 ];
 
-// Also add these smaller menu configurations that are used in other examples
 export const singleMenuGroup: MenuGroup[] = [
 	{
 		name: 'file',
@@ -431,6 +459,37 @@ export const singleMenuGroup: MenuGroup[] = [
 			{
 				label: 'Save',
 				action: 'save-file'
+			}
+		]
+	}
+];
+
+export const fileList: MenuGroup[] = [
+	{
+		name: 'file',
+		label: 'File',
+		mode: 'single',
+		children: [
+			{
+				value: 'a1b2c3d4e5',
+				label: 'Document1.pdf',
+				selected: true
+			},
+			{
+				value: 'f6g7h8i9j0',
+				label: 'Presentation.pptx'
+			},
+			{
+				value: 'k1l2m3n4o5',
+				label: 'Spreadsheet.xlsx'
+			},
+			{
+				value: 'p6q7r8s9t0',
+				label: 'Photo.jpg'
+			},
+			{
+				value: 'u1v2w3x4y5',
+				label: 'Archive.zip'
 			}
 		]
 	}

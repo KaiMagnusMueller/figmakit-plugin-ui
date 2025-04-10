@@ -24,3 +24,10 @@ export type ClickableMenuOption = {
 	disabled?: boolean;
 	parameters?: any;
 };
+
+export type SelectedOption = {
+	label: string;
+	value: string;
+};
+
+export type SelectedValue = Record<string, SelectedOption | SelectedOption[]>;

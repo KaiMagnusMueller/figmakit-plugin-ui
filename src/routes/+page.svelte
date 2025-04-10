@@ -39,7 +39,8 @@
 		singleMenuGroup,
 		emptyMenuGroups,
 		nodeIcons,
-		emptyMenuGroupsMini
+		emptyMenuGroupsMini,
+		fileList
 	} from './example-data.js';
 
 	let buttonCounter = $state(0);
@@ -267,6 +268,12 @@
 			<Section title="Dropdown Menu">
 				<MultiMenu groups={menuGroups}></MultiMenu>
 				<MultiMenu groups={singleMenuGroup}></MultiMenu>
+				<MultiMenu
+					groups={fileList}
+					icon={IconDraft}
+					triggerType="select"
+					showSelectedValues
+				></MultiMenu>
 				<MultiMenu
 					icon={IconDraft}
 					style={'flex-grow: 1;'}

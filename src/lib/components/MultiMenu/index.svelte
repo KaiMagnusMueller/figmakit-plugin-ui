@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { MenuGroup, MenuOption, SelectableMenuOption } from './types.ts';
+	import type { MenuGroup, MenuOption, SelectableMenuOption, SelectedValue } from './types.ts';
 	import { type Snippet } from 'svelte';
 	import {
 		IconCheck,
@@ -58,6 +58,7 @@
 
 	// Reactive groups
 	let internalGroups: MenuGroup[] = $state(groups);
+	let selectedValue: SelectedValue = $state(collectSelectedOptions(internalGroups));
 
 	// Type guards
 	function isMenuOption(item: MenuOption | MenuGroup): item is MenuOption {
@@ -73,19 +74,21 @@
 	}
 
 	// Helper functions
-	function collectSelectedOptions(_groups: MenuGroup[]): Value {
+	function collectSelectedOptions(_groups: MenuGroup[]): SelectedValue {
 		return _groups.reduce((result, group) => {
 			if (!group.children) return result;
 
-			const selectedValues = group.children
-				.filter((option) => isMenuOption(option) && option.selected)
-				.map((option) =>
-					// Typescript now knows this is a SelectableMenuOption
-					isValueOption(option) ? option.value : ''
-				);
+			const selectedOptions = group.children
+				.filter(
+					(option) => isMenuOption(option) && option.selected && isValueOption(option)
+				)
+				.map((option) => ({
+					label: option.label,
+					value: (option as SelectableMenuOption).value
+				}));
 
-			if (selectedValues.length > 0) {
-				result[group.name] = group.mode === 'single' ? selectedValues[0] : selectedValues;
+			if (selectedOptions.length > 0) {
+				result[group.name] = group.mode === 'single' ? selectedOptions[0] : selectedOptions;
 			}
 
 			group.children.filter(isMenuGroup).forEach((childGroup) => {
@@ -93,6 +96,17 @@
 			});
 
 			return result;
+		}, {} as SelectedValue);
+	}
+
+	function convertToValueStrings(selected: SelectedValue): Value {
+		return Object.entries(selected).reduce((acc, [key, value]) => {
+			if (Array.isArray(value)) {
+				acc[key] = value.map((opt) => opt.value);
+			} else if (value) {
+				acc[key] = value.value;
+			}
+			return acc;
 		}, {} as Value);
 	}
 
@@ -108,11 +122,13 @@
 				if ('selected' in child) child.selected = false;
 			});
 			option.selected = true;
+			hidePopovers('', true);
 		} else if (group.mode === 'multi') {
 			option.selected = !option.selected;
 		}
 
-		value = collectSelectedOptions(internalGroups);
+		selectedValue = collectSelectedOptions(internalGroups);
+		value = convertToValueStrings(selectedValue);
 		onchange?.(value);
 	}
 
@@ -145,20 +161,22 @@
 		style={`anchor-name: ${menuContainerAnchor}; ${triggerStyle}`}
 		aria-haspopup="true"
 	>
-		{#if showSelectedValues && Object.values(value).flat().length > 0}
+		{#if showSelectedValues && Object.values(selectedValue).flat().length > 0}
 			<span class="selected-values-wrapper">
 				<span class="selected-values line-clamp">
-					{#each Object.values(value).flat().slice(0, 4) as val, i}
+					{#each Object.values(selectedValue).flat().slice(0, 4) as opt, i}
 						{#if i > 0}
 							<span class="separator">, </span>
 						{/if}
 						<span class="value">
-							{val}
+							{opt.label}
 						</span>
 					{/each}
 				</span>
-				{#if Object.values(value).flat().length > 4}
-					<span class="more-values">(+{Object.values(value).flat().length - 4})</span>
+				{#if Object.values(selectedValue).flat().length > 4}
+					<span class="more-values"
+						>(+{Object.values(selectedValue).flat().length - 4})</span
+					>
 				{/if}
 			</span>
 		{:else if children}
@@ -483,7 +501,6 @@
 
 	.value {
 		display: inline;
-		text-transform: capitalize;
 		word-break: break-all;
 	}
 
