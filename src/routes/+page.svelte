@@ -40,7 +40,8 @@
 		emptyMenuGroups,
 		nodeIcons,
 		emptyMenuGroupsMini,
-		fileList
+		fileList,
+		teamList
 	} from './example-data.js';
 
 	let buttonCounter = $state(0);
@@ -271,6 +272,13 @@
 				<MultiMenu
 					groups={fileList}
 					icon={IconDraft}
+					triggerType="select"
+					showSelectedValues
+				></MultiMenu>
+				<MultiMenu
+					name="team"
+					required
+					groups={teamList}
 					triggerType="select"
 					showSelectedValues
 				></MultiMenu>

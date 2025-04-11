@@ -121,7 +121,8 @@
 		format('woff2');
 }
 
-button {
+button,
+a {
 	&.primary {
 		--color-icon: var(--figma-color-icon-onbrand);
 		--color-icon-secondary: var(--figma-color-icon-onbrand-secondary);

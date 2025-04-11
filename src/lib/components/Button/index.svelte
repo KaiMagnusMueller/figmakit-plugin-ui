@@ -62,7 +62,7 @@
 		outline-offset: -1px;
 		border: none;
 		border-radius: var(--border-radius-medium);
-		padding: 0 12px;
+		padding: 0 8px;
 		min-height: 24px;
 		font-weight: var(--font-weight-default);
 		font-size: var(--font-size-xsmall);
@@ -76,9 +76,9 @@
 			min-height: 32px;
 		}
 
-		&:global(:has(svg)) {
+		/* &:global(:has(svg)) {
 			padding-inline-start: 4px;
-		}
+		} */
 
 		&.primary {
 			background-color: var(--figma-color-bg-brand);

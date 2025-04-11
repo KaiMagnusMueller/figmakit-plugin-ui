@@ -580,3 +580,28 @@ export const emptyMenuGroupsMini: MenuGroup[] = [
 		children: []
 	}
 ];
+
+export const teamList: MenuGroup[] = [
+	{
+		label: 'Select Team',
+		name: 'team',
+		mode: 'single',
+		children: [
+			{
+				value: '1fhvdup1b41b135',
+				label: 'sdgfsdfgfdg',
+				selected: true
+			},
+			{
+				value: 'ub064yx7du02hr3',
+				label: 'DB Down Test',
+				selected: false
+			},
+			{
+				value: 'u4iw3113ch04380',
+				label: 'Intersections Team',
+				selected: false
+			}
+		]
+	}
+];

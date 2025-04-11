@@ -34,7 +34,7 @@
 
 	let {
 		groups = [],
-		value = $bindable({}),
+		value = $bindable(convertToValueStrings(collectSelectedOptions(groups)) || {}),
 		id,
 		name,
 		disabled = false,
@@ -80,7 +80,7 @@
 	// Helper functions
 	function collectSelectedOptions(_groups: MenuGroup[]): SelectedValue {
 		return _groups.reduce((result, group) => {
-			if (!group.children) return result;
+			if (!group?.children) return result;
 
 			const selectedOptions = group.children
 				.filter(

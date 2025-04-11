@@ -56,11 +56,6 @@
 		cursor: default;
 		pointer-events: none;
 		user-select: none;
-
-		:global(svg) {
-			width: 100%;
-			height: 100%;
-		}
 	}
 
 	.spin {
