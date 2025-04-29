@@ -53,7 +53,7 @@
 	}: Props = $props();
 
 	// State
-	let menuContainerElem: HTMLElement;
+	let dropdownWrapperElem: HTMLElement;
 	let menuContainerAnchor = `--fk-popover-${crypto.getRandomValues(new Uint32Array(1))[0]}`;
 
 	// Reactive groups
@@ -137,7 +137,7 @@
 	}
 
 	function hidePopovers(exceptId: string = '', includeContainer: boolean = false) {
-		menuContainerElem.querySelectorAll('div[popover]').forEach((popover) => {
+		dropdownWrapperElem.querySelectorAll('div[popover]').forEach((popover) => {
 			if (
 				popover.id !== exceptId &&
 				(popover.id !== menuContainerAnchor || includeContainer)
@@ -155,12 +155,12 @@
 	{/if}
 </select>
 
-<div class="menu-container" bind:this={menuContainerElem} {style}>
+<div class="dropdowm__wrapper" bind:this={dropdownWrapperElem} {style}>
 	<button
 		type="button"
 		disabled={_disabled}
 		{...props}
-		class={['menu-trigger', triggerType === 'button' ? 'button' : 'select']}
+		class={['dropdown__trigger', triggerType === 'button' ? 'button' : 'select']}
 		popovertarget={menuContainerAnchor}
 		style={`anchor-name: ${menuContainerAnchor}; ${triggerStyle}`}
 		aria-haspopup="true"
@@ -200,6 +200,7 @@
 	)}
 	<div
 		role="menu"
+		class="dropdown__flyout"
 		tabindex="0"
 		popover=""
 		id={anchorName}
@@ -207,7 +208,7 @@
 		onmouseleave={() => hidePopovers(menuContainerAnchor)}
 		aria-orientation="vertical"
 	>
-		<div class="popover-content">
+		<div class="dropdown__flyout-content">
 			{#each _groups as group, i}
 				{#if group.children.length > 0}
 					{#if i > 0 && _groups[i - 1].children.length > 0}
@@ -222,7 +223,7 @@
 {/snippet}
 
 {#snippet multiMenuGroup(group: MenuGroup, parentAnchor?: string, hasSelectableOptions?: boolean)}
-	<div class="menu-group" class:rounded role="group" aria-label={group.name}>
+	<div class="flyout__group" class:rounded role="group" aria-label={group.name}>
 		{#if group.children}
 			{#each group.children as option}
 				{@render menuElement(option, group, parentAnchor, hasSelectableOptions)}
@@ -243,7 +244,7 @@
 		{@const anchorName = `--fk-popover-${crypto.getRandomValues(new Uint32Array(1))[0]}`}
 		<button
 			type="button"
-			class="menu-item group"
+			class="group__item"
 			popovertarget={anchorName}
 			style={`anchor-name: ${anchorName};`}
 			onmouseenter={() => {
@@ -253,7 +254,7 @@
 			disabled={option.disabled || option.children.length === 0}
 			aria-haspopup="true"
 		>
-			<div class="menu-item-content">
+			<div class="group__item-content">
 				<span class="left-group">
 					{#if hasSelectableOptions}
 						<div class="icon-placeholder" aria-hidden="true"></div>
@@ -267,7 +268,7 @@
 	{:else}
 		<button
 			type="button"
-			class="menu-item"
+			class="group__item"
 			class:disabled={option.disabled}
 			onclick={() => handleOptionClick(option, group)}
 			onmouseenter={() => hidePopovers(parentAnchor || '')}
@@ -278,7 +279,7 @@
 					: 'menuitem'}
 			disabled={option.disabled}
 		>
-			<div class="menu-item-content">
+			<div class="group__item-content">
 				<span class="left-group">
 					{#if option.selected}
 						<Icon icon={IconCheck} size={16} aria-hidden="true" />
@@ -293,16 +294,16 @@
 {/snippet}
 
 <style>
-	.menu-group {
+	.flyout__group {
 		border: none;
 		padding-block: var(--popover-paddding);
 		min-width: 180px;
 	}
 
-	.menu-item {
-		--menu-item-padding-left: 8px;
-		--menu-item-padding-right: 0;
-		--menu-item-height: 24px;
+	.group__item {
+		--group__item-padding-left: 8px;
+		--group__item-padding-right: 0;
+		--group__item-height: 24px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -316,11 +317,11 @@
 
 		&[role='menuitemradio'],
 		&[role='menuitemcheckbox'] {
-			--menu-item-padding-left: 4px;
+			--group__item-padding-left: 4px;
 		}
 
 		&:hover:not(.disabled) {
-			.menu-item-content {
+			.group__item-content {
 				background: var(--figma-color-bg-brand-hover);
 			}
 		}
@@ -332,13 +333,13 @@
 			cursor: not-allowed;
 			pointer-events: none;
 
-			.menu-item-content {
+			.group__item-content {
 				--color-icon: var(--color-text-menu-disabled);
 			}
 		}
 	}
 
-	.menu-item-content {
+	.group__item-content {
 		--color-icon: var(--color-icon-menu);
 		--color-icon-secondary: var(--figma-color-icon-secondary);
 		--color-icon-tertiary: var(--figma-color-icon-tertiary);
@@ -349,14 +350,14 @@
 		gap: 4px;
 		margin: 0 var(--popover-paddding);
 		border-radius: var(--border-radius-medium);
-		padding: 0 var(--menu-item-padding-right) 0 var(--menu-item-padding-left);
+		padding: 0 var(--group__item-padding-right) 0 var(--group__item-padding-left);
 		width: 100%;
-		min-height: var(--menu-item-height);
+		min-height: var(--group__item-height);
 		font-size: var(--font-size-xsmall);
 	}
 
 	.menu-empty {
-		padding: 0 var(--menu-item-padding);
+		padding: 0 var(--group__item-padding);
 		color: var(--color-text-menu-text-disabled, #999);
 		font-style: italic;
 	}
@@ -372,7 +373,7 @@
 		height: 16px;
 	}
 
-	.menu-container {
+	.dropdowm__wrapper {
 		--popover-gap-left: 4px;
 		--popover-paddding: 8px;
 		display: contents;
@@ -383,7 +384,7 @@
 		}
 	}
 
-	.menu-trigger {
+	.dropdown__trigger {
 		--button-height: 24px;
 		--border-width: 1px;
 
@@ -521,7 +522,7 @@
 		padding-block: 0;
 		overflow: visible;
 
-		.popover-content {
+		.dropdown__flyout-content {
 			box-shadow: 0 7px 20px rgb(0 0 0 / 0.12);
 			border-radius: var(--border-radius-large);
 			background: var(--color-bg-menu);
