@@ -267,7 +267,8 @@
 				</Dialog>
 			</Section>
 			<Section title="Dropdown Menu">
-				<MultiMenu groups={menuGroups}></MultiMenu>
+				<MultiMenu groups={menuGroups} ontoggle={(e) => console.log(e.newState)}
+				></MultiMenu>
 				<MultiMenu groups={singleMenuGroup}></MultiMenu>
 				<MultiMenu
 					groups={fileList}

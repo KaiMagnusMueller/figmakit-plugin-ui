@@ -21,6 +21,7 @@
 		onchange?: (value: Value) => void;
 		onclick?: (action: string, parameters: string) => void;
 		onmouseenter?: (event: MouseEvent) => void;
+		ontoggle?: ({ newState }: { newState: 'open' | 'closed' }) => void;
 		blink?: boolean;
 		triggerType?: 'button' | 'select';
 		icon?: string;
@@ -44,6 +45,7 @@
 		icon,
 		triggerType = 'button',
 		onmouseenter,
+		ontoggle,
 		rounded = false,
 		children,
 		style,
@@ -198,6 +200,7 @@
 	{@const hasSelectableOptions = _groups.some(
 		(elem) => elem.mode === 'single' || elem.mode === 'multi'
 	)}
+	{@const isMainContainer = anchorName === menuContainerAnchor}
 	<div
 		role="menu"
 		class="dropdown__flyout"
@@ -207,6 +210,12 @@
 		style={`position-anchor: ${anchorName};`}
 		onmouseleave={() => hidePopovers(menuContainerAnchor)}
 		aria-orientation="vertical"
+		ontoggle={(e) => {
+			if (isMainContainer && ontoggle) {
+				const newState = e.newState === 'open' ? 'open' : 'closed';
+				ontoggle({ newState });
+			}
+		}}
 	>
 		<div class="dropdown__flyout-content">
 			{#each _groups as group, i}
