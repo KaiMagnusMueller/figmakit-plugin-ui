@@ -162,7 +162,10 @@
 		type="button"
 		disabled={_disabled}
 		{...props}
-		class={['dropdown__trigger', triggerType === 'button' ? 'button' : 'select']}
+		class={[
+			'dropdown__trigger',
+			triggerType === 'button' ? 'dropdown__trigger--button' : 'dropdown__trigger--select'
+		]}
 		popovertarget={menuContainerAnchor}
 		style={`anchor-name: ${menuContainerAnchor}; ${triggerStyle}`}
 		aria-haspopup="true"
@@ -393,6 +396,70 @@
 		}
 	}
 
+	.dropdown__trigger--button {
+		justify-content: center;
+		outline: var(--border-width) solid transparent;
+		outline-offset: calc(var(--border-width) * -1);
+		border: 0;
+		border-radius: var(--border-radius-medium);
+		background-color: transparent;
+		min-width: var(--button-height);
+		min-height: var(--button-height);
+		color: var(--figma-color-text);
+		font-weight: var(--font-weight-default);
+		line-height: 16px;
+		user-select: none;
+
+		/* Blue active state for when a menu is open */
+		&:has(+ div[popover]:popover-open) {
+			--color-icon: var(--figma-color-icon-selected);
+			--color-icon-secondary: var(--figma-color-icon-selected-secondary);
+			--color-icon-tertiary: var(--figma-color-icon-selected-tertiary);
+
+			background-color: var(--figma-color-bg-selected);
+			color: var(--figma-color-text-selected);
+
+			&:hover {
+				background-color: var(--figma-color-bg-selected-secondary);
+			}
+
+			&:active {
+				background-color: var(--figma-color-bg-selected-pressed);
+			}
+
+			.more-values {
+				color: var(--figma-color-text-selected-secondary);
+			}
+		}
+	}
+
+	.dropdown__trigger--select {
+		display: flex;
+		flex-grow: 1;
+		justify-content: space-between;
+		outline: 1px solid var(--figma-color-border);
+		outline-offset: -1px;
+		border: none;
+		border-radius: var(--border-radius-medium);
+		background-color: var(--figma-color-bg);
+		min-width: var(--button-height);
+		min-height: var(--button-height);
+		color: var(--figma-color-text);
+		font-weight: var(--font-weight-normal);
+		font-size: var(--font-size-xsmall);
+		line-height: var(--font-line-height);
+		letter-spacing: var(--font-letter-spacing-neg-xsmall);
+
+		.more-values {
+			color: var(--figma-color-text-secondary);
+		}
+
+		&:hover {
+			background-image: none;
+			color: var(--figma-color-text-hover);
+		}
+	}
+
 	.dropdown__trigger {
 		--button-height: 24px;
 		--border-width: 1px;
@@ -400,51 +467,8 @@
 		display: flex;
 		position: relative;
 		flex-shrink: 0;
-		justify-content: center;
 		align-items: center;
 		font-size: var(--font-size-xsmall);
-
-		&.button {
-			outline: var(--border-width) solid transparent;
-			outline-offset: calc(var(--border-width) * -1);
-			border: 0;
-			border-radius: var(--border-radius-medium);
-			background-color: transparent;
-
-			min-width: var(--button-height);
-			min-height: var(--button-height);
-			color: var(--figma-color-text);
-			font-weight: var(--font-weight-default);
-			line-height: 16px;
-			user-select: none;
-		}
-
-		&.select {
-			display: flex;
-			flex-grow: 1;
-			justify-content: space-between;
-			outline: 1px solid var(--figma-color-border);
-			outline-offset: -1px;
-			border: none;
-			border-radius: var(--border-radius-medium);
-			background-color: var(--figma-color-bg);
-			min-width: var(--button-height);
-			min-height: var(--button-height);
-			color: var(--figma-color-text);
-			font-weight: var(--font-weight-normal);
-			font-size: var(--font-size-xsmall);
-			line-height: var(--font-line-height);
-			letter-spacing: var(--font-letter-spacing-neg-xsmall);
-
-			.more-values {
-				color: var(--figma-color-text-secondary);
-			}
-
-			&:hover {
-				background-image: none;
-				color: var(--figma-color-text-hover);
-			}
-		}
 
 		:global(:has(svg)) {
 			padding: 0;
@@ -464,28 +488,6 @@
 
 		&:active {
 			background-color: var(--figma-color-bg-pressed);
-		}
-
-		/* Ugly but elegant from a certain point of view */
-		&:has(+ div[popover]:popover-open):not(.select) {
-			--color-icon: var(--figma-color-icon-selected);
-			--color-icon-secondary: var(--figma-color-icon-selected-secondary);
-			--color-icon-tertiary: var(--figma-color-icon-selected-tertiary);
-
-			background-color: var(--figma-color-bg-selected);
-			color: var(--figma-color-text-selected);
-
-			&:hover {
-				background-color: var(--figma-color-bg-selected-secondary);
-			}
-
-			&:active {
-				background-color: var(--figma-color-bg-selected-pressed);
-			}
-
-			.more-values {
-				color: var(--figma-color-text-selected-secondary);
-			}
 		}
 
 		&:disabled {
