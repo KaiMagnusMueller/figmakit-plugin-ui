@@ -25,20 +25,14 @@
 		Icon,
 		MultiMenu,
 		ToggleButton,
-		IconNodeBooleanOperation,
-		IconNodeInstance,
-		IconDraft,
-		IconSettings,
-		IconAdjust,
-		Dialog
+		Dialog,
+		IconAdjust
 	} from '$lib/index.js';
 
 	import {
-		icons,
 		menuGroups,
 		singleMenuGroup,
 		emptyMenuGroups,
-		nodeIcons,
 		emptyMenuGroupsMini,
 		fileList,
 		teamList
@@ -96,39 +90,23 @@
 				<Button disabled destructive onclick={() => console.log('Button 6 clicked')}
 					>Button 6</Button
 				>
-				<Button
-					icon={IconNodeBooleanOperation}
-					onclick={() => console.log('Button 7 clicked')}>Button 7</Button
-				>
-				<Button
-					icon={IconNodeBooleanOperation}
-					variant="secondary"
-					onclick={() => console.log('Button 8 clicked')}>Button 8</Button
+				<Button onclick={() => console.log('Button 7 clicked')}>Button 7</Button>
+				<Button variant="secondary" onclick={() => console.log('Button 8 clicked')}
+					>Button 8</Button
 				>
 				<Button onclick={() => console.log('Button 9 clicked')}>Button 9</Button>
 			</Section>
 			<Section title="Icon Buttons">
 				<IconButton
-					icon={IconNodeBooleanOperation}
+					icon={IconAdjust}
 					onclick={() => console.log('Icon Button 1 clicked')}
 				/>
 				<IconButton
-					icon={IconNodeInstance}
+					icon={IconAdjust}
 					onclick={() => console.log('Icon Button 2 clicked')}
 				/>
 			</Section>
-			<Section title="Icons" style="grid-column: 1/-1">
-				<div style="display: inherit; flex-wrap: inherit; gap: .5rem;">
-					{#each icons as icon}
-						<Icon {icon}></Icon>
-					{/each}
-				</div>
-				<div style="display: inherit; flex-wrap: inherit; gap: .5rem;">
-					{#each nodeIcons as icon}
-						<Icon {icon}></Icon>
-					{/each}
-				</div>
-			</Section>
+
 			<Section title="Checkbox">
 				<Checkbox
 					onchange={(e) =>
@@ -217,11 +195,7 @@
 				<Input label="Input label hidden" showLabel={false} placeholder="Label hidden…"
 				></Input>
 				<Input label="Input" value="Disabled with value" disabled />
-				<Input
-					label="Input"
-					placeholder="Input with icon"
-					icon={IconNodeBooleanOperation}
-				/>
+				<Input label="Input" placeholder="Input with icon" icon={IconAdjust} />
 				<Input label="Input without border" borders={false} value="No border"></Input>
 				<Input label="Input without border" borders={false} placeholder="No border"></Input>
 				<h2>
@@ -258,7 +232,7 @@
 					{#snippet headerControls()}
 						<IconButton
 							onclick={() => console.log('Custom header control clicked')}
-							icon={IconNodeBooleanOperation}
+							icon={IconAdjust}
 							aria-label="Custom header control"
 						></IconButton>
 					{/snippet}
@@ -272,7 +246,7 @@
 				<MultiMenu groups={singleMenuGroup}></MultiMenu>
 				<MultiMenu
 					groups={fileList}
-					icon={IconDraft}
+					icon={IconAdjust}
 					triggerType="select"
 					showSelectedValues
 				></MultiMenu>
@@ -284,7 +258,7 @@
 					showSelectedValues
 				></MultiMenu>
 				<MultiMenu
-					icon={IconDraft}
+					icon={IconAdjust}
 					style={'flex-grow: 1;'}
 					groups={[
 						{
@@ -368,7 +342,7 @@
 					<MultiMenu
 						name="menu"
 						groups={menuGroups}
-						icon={IconDraft}
+						icon={IconAdjust}
 						style={'flex-grow: 1;'}
 						triggerType="select"
 						showSelectedValues>Select File</MultiMenu
@@ -397,11 +371,11 @@
 					>Toggle Button 2</ToggleButton
 				>
 				<ToggleButton checked onchange={() => console.log('Toggle Button 3 clicked')}
-					><Icon icon={IconSettings}></Icon></ToggleButton
+					><Icon icon={IconAdjust}></Icon></ToggleButton
 				>
 				<ToggleButton
 					disabled
-					icon={IconNodeBooleanOperation}
+					icon={IconAdjust}
 					onchange={() => console.log('Toggle Button 4 clicked')}
 					>Toggle Button 4</ToggleButton
 				>
@@ -421,7 +395,7 @@
 				</Disclosure>
 			</Section>
 			<Section title="Misc">
-				<OnboardingTip icon={IconNodeBooleanOperation}
+				<OnboardingTip icon={IconAdjust}
 					>This is an onboarding tip, like you can sometimes see in the sidebar.</OnboardingTip
 				>
 				<Label>This is a label</Label>

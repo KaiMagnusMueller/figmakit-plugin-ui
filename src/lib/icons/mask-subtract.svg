@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-    <path fill="var(--color-icon-tertiary)" fill-rule="evenodd" d="M10 15v2h7v-7h-2v4a1 1 0 0 1-1 1z"
-        clip-rule="evenodd"></path>
-    <path fill="var(--color-icon)" fill-rule="evenodd"
-        d="M17 17h-7v-2h4a1 1 0 0 0 1-1v-4h2zm-7-3h4V7H7v7zm-3 1h2v2a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-2V7a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1"
-        clip-rule="evenodd"></path>
-</svg>
