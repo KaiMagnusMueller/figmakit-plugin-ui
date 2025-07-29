@@ -1,30 +1,30 @@
 <script lang="ts">
 	import type { HTMLTextareaAttributes } from 'svelte/elements';
 
-	type Props = {
-		oninput?: (e: Event) => void;
-		onchange?: (e: Event) => void;
-		onkeydown?: (e: Event) => void;
-		onfocus?: (e: Event) => void;
-		onblur?: (e: Event) => void;
+	interface Props extends HTMLTextareaAttributes {
+		oninput?: (event: Event) => void;
+		onchange?: (event: Event) => void;
+		onkeydown?: (event: KeyboardEvent) => void;
 		class?: string;
 		disabled?: boolean;
 		id?: string;
-		name?: any;
+		name?: string;
 		placeholder?: string;
 		rows?: number;
+		label: string;
+		showLabel?: boolean;
 		value?: string;
-		[key: string]: unknown;
-	} & HTMLTextareaAttributes;
+		[key: string]: any;
+	}
 
 	let {
 		oninput,
 		onchange,
 		onkeydown,
-		onfocus,
-		onblur,
+		label,
+		showLabel = true,
 		class: className = '',
-		disabled,
+		disabled = false,
 		id,
 		name,
 		placeholder = 'Input something here...',
@@ -35,25 +35,34 @@
 </script>
 
 <div class="textarea {className}">
-	<textarea
-		{...props}
-		{oninput}
-		{onchange}
-		{onkeydown}
-		{onfocus}
-		{onblur}
-		{id}
-		{name}
-		{rows}
-		{disabled}
-		{placeholder}
-		bind:value
-	></textarea>
+	<label>
+		<span class:visually-hidden={!showLabel}>{label}</span>
+		<textarea
+			{...props}
+			{oninput}
+			{onchange}
+			{onkeydown}
+			{id}
+			{name}
+			{rows}
+			{disabled}
+			{placeholder}
+			bind:value
+		></textarea>
+	</label>
 </div>
 
 <style>
-	.textarea {
-		position: relative;
+	label {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	span {
+		font-weight: var(--font-weight-strong);
+		font-size: var(--font-size-xsmall);
+		letter-spacing: var(--font-letter-spacing-pos-xsmall);
 	}
 
 	textarea {
@@ -61,9 +70,10 @@
 		position: relative;
 		align-items: center;
 		margin: 1px 0 1px 0;
-		outline: none;
-		border: 1px solid var(--figma-color-border);
-		border-radius: var(--border-radius-small);
+		outline: 1px solid var(--figma-color-border);
+		outline-offset: -1px;
+		border: none;
+		border-radius: var(--border-radius-medium);
 		background-color: var(--figma-color-bg);
 		padding: 7px 4px 9px 7px;
 		width: 100%;
@@ -80,7 +90,9 @@
 	}
 	textarea:hover,
 	textarea:placeholder-shown:hover {
-		border: 1px solid var(--figma-color-border);
+		outline: 1px solid var(--figma-color-border);
+		outline-offset: -1px;
+		border: none;
 		background-image: none;
 		color: var(--figma-color-text);
 	}
@@ -89,19 +101,21 @@
 		color: var(--figma-color-text);
 	}
 	textarea::placeholder {
-		border: 1px solid transparent;
+		outline: 1px solid transparent;
+		outline-offset: -1px;
+		border: none;
 		color: var(--figma-color-text-tertiary);
 	}
 	textarea:focus:placeholder-shown {
 		outline: 1px solid var(--figma-color-border-selected);
 		outline-offset: -2px;
-		border: 1px solid var(--figma-color-border-selected);
+		border: none;
 	}
 
 	textarea:focus {
 		outline: 1px solid var(--figma-color-border-selected);
 		outline-offset: -2px;
-		border: 1px solid var(--figma-color-border-selected);
+		border: none;
 	}
 	textarea:disabled,
 	textarea:disabled:hover {

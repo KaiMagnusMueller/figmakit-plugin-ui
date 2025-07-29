@@ -12,6 +12,7 @@
 	div {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
+		grid-auto-flow: dense;
 		gap: 1rem;
 	}
 

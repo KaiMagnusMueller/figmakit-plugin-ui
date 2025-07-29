@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.0
+
+- Update components to UI3
+- Add MultiMenu component with nesting, support for groups with radio and multiselect support
+- Add ToggleButton component
+- Add Dialog component
+- Remove SelectMenu (MultiMenu has a very similar prop structure)
+
 ## 1.1.0
 
 - Improve README.md

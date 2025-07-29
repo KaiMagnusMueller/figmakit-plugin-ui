@@ -1,18 +1,19 @@
 <script lang="ts">
 	import type { HTMLInputAttributes } from 'svelte/elements';
+	import type { Snippet } from 'svelte';
 
 	interface Props extends HTMLInputAttributes {
-		onchange?: (e: Event) => void;
-		onfocus?: (e: Event) => void;
-		onblur?: (e: Event) => void;
+		onchange?: (event: Event) => void;
+		onfocus?: (event: FocusEvent) => void;
+		onblur?: (event: FocusEvent) => void;
 		checked?: boolean;
 		class?: string;
 		disabled?: boolean;
 		id?: string;
 		tabindex?: number;
 		value?: string;
-		children?: import('svelte').Snippet;
-		[key: string]: unknown;
+		children?: Snippet;
+		[key: string]: any;
 	}
 
 	let {
@@ -22,12 +23,15 @@
 		checked = $bindable(false),
 		class: className = '',
 		disabled = false,
-		id = 'fk-' + Math.random().toString(36),
+		id,
 		tabindex = 0,
 		value = '',
 		children,
 		...props
 	}: Props = $props();
+
+	const uid = $props.id();
+	id = 'switch-' + uid;
 </script>
 
 <label for={id}>
@@ -53,8 +57,10 @@
 		position: relative;
 		align-items: center;
 		gap: 0.5rem;
+
 		cursor: default;
 		color: var(--figma-color-text);
+		font-size: var(--font-size-xsmall);
 		user-select: none;
 	}
 

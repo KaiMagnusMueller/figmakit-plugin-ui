@@ -1,13 +1,11 @@
 <script lang="ts">
 	import type { HTMLInputAttributes, HTMLInputTypeAttribute } from 'svelte/elements';
-	import Icon from './../Icon/index.svelte';
+	import Icon from '$lib/components/Icon/index.svelte';
 
-	type Props = {
-		oninput?: (e: Event) => void;
-		onchange?: (e: Event) => void;
-		onkeydown?: (e: Event) => void;
-		onfocus?: (e: Event) => void;
-		onblur?: (e: Event) => void;
+	interface Props extends HTMLInputAttributes {
+		oninput?: (event: Event) => void;
+		onchange?: (event: Event) => void;
+		onkeydown?: (event: KeyboardEvent) => void;
 		autofocus?: boolean;
 		borders?: boolean;
 		class?: string;
@@ -21,18 +19,22 @@
 		name?: string;
 		placeholder?: string;
 		spin?: boolean;
+		hidden?: boolean;
+		label: string;
+		showLabel?: boolean;
+		responsiveFont?: boolean;
 		type?: HTMLInputTypeAttribute;
 		value?: string;
-		[key: string]: unknown;
-	} & HTMLInputAttributes;
+		[key: string]: any;
+	}
 
 	let {
 		oninput,
 		onchange,
 		onkeydown,
-		onfocus,
-		onblur,
-		autofocus,
+		label,
+		showLabel = true,
+		autofocus = false,
 		borders = true,
 		class: className = '',
 		color,
@@ -41,146 +43,163 @@
 		icon,
 		iconText,
 		id,
-		invalid,
+		invalid = false,
 		name,
+		hidden = false,
 		placeholder = 'Input something here...',
-		spin,
+		spin = false,
+		responsiveFont = false,
 		type = 'text',
 		value = $bindable(''),
 		...props
 	}: Props = $props();
-
-	let indent: boolean = $derived(icon || iconText ? true : false);
 </script>
 
-<div class="input {className}">
-	{#if icon}
-		<div class="icon">
-			<Icon {icon} {iconText} {spin} color={'--figma-color-icon'} />
-		</div>
-	{/if}
-	<!-- svelte-ignore a11y_autofocus -->
-	<input
-		{...props}
-		{type}
-		{oninput}
-		{onchange}
-		{onkeydown}
-		{onfocus}
-		{onblur}
-		bind:value
-		{id}
-		{name}
-		{disabled}
-		{placeholder}
-		{autofocus}
-		class:indent
-		class:borders
-		class:invalid
-	/>
+<label {hidden} class={className}>
+	<span class:visually-hidden={!showLabel}>{label}</span>
+
+	<div class={['input', !borders && 'no-borders', invalid && 'invalid']}>
+		{#if icon}
+			<div class="icon">
+				<Icon {icon} {iconText} {spin} />
+			</div>
+		{/if}
+		<!-- svelte-ignore a11y_autofocus -->
+		<input
+			{...props}
+			{type}
+			{oninput}
+			{onchange}
+			{onkeydown}
+			bind:value
+			{id}
+			{name}
+			{disabled}
+			{placeholder}
+			{autofocus}
+			class={[responsiveFont && 'responsive-font']}
+		/>
+	</div>
 	{#if invalid}
 		<div class="error">
 			{errorMessage}
 		</div>
 	{/if}
-</div>
+</label>
 
 <style>
+	label {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+
+		&[hidden] {
+			display: none;
+		}
+	}
+
+	span {
+		font-weight: var(--font-weight-strong);
+		font-size: var(--font-size-xsmall);
+		font-family: var(--font-stack);
+		letter-spacing: var(--font-letter-spacing-pos-xsmall);
+	}
+
 	.input {
+		display: flex;
 		position: relative;
+		flex-direction: row;
+		align-items: center;
 		transition: flex 0s 0.2s;
+		outline: 1px solid var(--figma-color-border);
+		outline-offset: -1px;
+		border: none;
+		border-radius: var(--border-radius-medium);
+		background-color: var(--figma-color-bg);
+		height: 24px;
+
+		&:hover,
+		&:placeholder-shown:hover {
+			background-image: none;
+			color: var(--figma-color-text-hover);
+		}
+
+		&::selection {
+			background-color: var(--figma-color-text-selected);
+			color: var(--figma-color-text);
+		}
+
+		&::placeholder {
+			color: var(--figma-color-text-tertiary);
+		}
+
+		&:has(input:active),
+		&:has(input:focus) {
+			outline-color: var(--figma-color-border-selected);
+		}
+
+		&:disabled {
+			cursor: not-allowed;
+			background-image: none;
+			color: var(--figma-color-text-disabled);
+
+			&:active,
+			&:focus {
+				outline: none;
+			}
+		}
+
+		&.no-borders {
+			outline-color: transparent;
+
+			&:disabled {
+				outline: 1px solid var(--figma-color-border-disabled);
+			}
+		}
+
+		&.invalid {
+			outline: 1px solid var(--figma-color-border-danger-strong);
+			outline-offset: -1px;
+			border: none;
+		}
 	}
 
 	input {
-		display: flex;
-		align-items: center;
+		appearance: none;
 		margin: 0;
-		outline: none;
-		border: 1px solid transparent;
-		border-radius: var(--border-radius-small);
-		background-color: var(--figma-color-bg);
-		padding: var(--size-xxsmall) var(--size-xxxsmall) var(--size-xxsmall) var(--size-xxsmall);
+		margin-block-end: -1px;
+		border: none;
+		background: unset;
+		padding: 0 7px;
 		width: 100%;
-		height: 2rem;
-		overflow: visible;
+		height: 100%;
 		color: var(--figma-color-text);
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-xsmall);
 		line-height: var(--font-line-height);
+		font-family: var(--font-stack);
 		letter-spacing: var(--font-letter-spacing-neg-xsmall);
-	}
-	input:hover,
-	input:placeholder-shown:hover {
-		background-image: none;
-		color: var(--figma-color-text-hover);
-	}
-	input::selection {
-		background-color: var(--figma-color-text-selected);
-		color: var(--figma-color-text);
-	}
-	input::placeholder {
-		border: 1px solid transparent;
-		color: var(--figma-color-text-tertiary);
-	}
-	input:placeholder-shown {
-		background-image: none;
-		color: var(--figma-color-text);
-	}
-	input:focus:placeholder-shown,
-	input:active,
-	input:focus {
-		outline: 1px solid var(--figma-color-border-selected);
-		outline-offset: -2px;
-		border: 1px solid var(--figma-color-border-selected);
-		color: var(--figma-color-text);
-	}
-	input:disabled {
-		position: relative;
-		cursor: not-allowed;
-		background-image: none;
-	}
-	input:disabled:active {
-		outline: none;
-		border: 1px solid var(--figma-color-border);
+
+		.icon + & {
+			padding-inline-start: 2px;
+		}
+
+		&:focus,
+		&:active {
+			outline: none;
+		}
 	}
 
-	.borders {
-		border: 1px solid var(--figma-color-border);
-		background-image: none;
-	}
-	.borders:disabled,
-	.borders:disabled:placeholder-shown {
-		background-image: none;
-	}
-	.borders:disabled:placeholder-shown:active {
-		outline: none;
-	}
-
-	.indent {
-		padding-left: 32px;
-	}
-
-	.invalid,
-	.invalid:hover,
-	.invalid:focus {
-		outline: 1px solid var(--figma-color-border-danger-strong);
-		outline-offset: -2px;
-		border: 1px solid var(--figma-color-border-danger-strong);
-	}
-
-	.icon {
-		position: absolute;
-		left: 0;
-		z-index: 1;
+	.responsive-font {
+		font: inherit;
+		letter-spacing: inherit;
 	}
 
 	.error {
-		padding-top: var(--size-xxxsmall);
-		padding-left: var(--size-xxsmall);
 		color: var(--figma-color-text-danger);
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-xsmall);
-		line-height: var(--font-line-height);
+		line-height: var (--font-line-height);
 		letter-spacing: var(--font-letter-spacing-neg-xsmall);
 	}
 </style>

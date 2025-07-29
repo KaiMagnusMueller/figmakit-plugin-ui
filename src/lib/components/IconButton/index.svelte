@@ -1,38 +1,37 @@
 <script lang="ts">
-	import { blurOnEvent } from '$lib/helpers.svelte.js';
-	import type { Snippet } from 'svelte';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import Icon from '$lib/components/Icon/index.svelte';
+	import type { Snippet } from 'svelte';
 
-	import Icon from './../Icon/index.svelte';
-
-	type Props = {
-		onclick?: (e: MouseEvent) => void;
-		onsubmit?: (e: MouseEvent) => void;
+	interface Props extends HTMLButtonAttributes {
+		onclick?: (event: MouseEvent) => void;
+		onsubmit?: (event: SubmitEvent) => void;
 		class?: string;
 		destructive?: boolean;
 		disabled?: boolean;
 		icon: string;
-		iconText?: string;
-		rounded?: boolean;
-		spin?: boolean;
 		style?: string;
+		size?: 'default';
+		variant?: 'tertiary';
+		label?: string;
+		spin?: boolean;
 		tabindex?: number;
 		children?: Snippet;
-		[key: string]: unknown;
-	} & HTMLButtonAttributes;
+		[key: string]: any;
+	}
 
 	let {
 		onclick,
 		onsubmit,
-		class: className,
-		destructive,
-		disabled,
+		class: className = '',
+		destructive = false,
+		disabled = false,
 		icon,
-		iconText,
-		rounded,
-		selected,
-		spin,
-		style,
+		label,
+		size = 'default',
+		variant = 'tertiary',
+		spin = false,
+		style = '',
 		tabindex = 0,
 		children,
 		...props
@@ -40,47 +39,45 @@
 </script>
 
 <button
+	type="button"
+	aria-label={label}
 	{...props}
-	onclick={(e) => {
-		// @ts-ignore
-		props.onclick?.(e);
-	}}
-	onsubmit={(e) => {
-		e.preventDefault();
-		// @ts-ignore
-		props.onsubmit?.(e);
-	}}
-	class:selected
-	class:disabled
-	class:rounded
-	class={className}
+	{onclick}
+	{onsubmit}
+	class={[variant, size, className, destructive && 'destructive']}
 	{tabindex}
-	use:blurOnEvent
+	{style}
 >
-	<Icon {icon} {iconText} {spin} color="currentColor" />
+	<Icon {icon} {spin} />
 </button>
 
 <style>
 	button {
+		--button-height: 24px;
+		--border-width: 1px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		cursor: pointer;
-		border: 2px solid transparent;
-		border-radius: var(--border-radius-small);
-		width: var(--size-medium);
-		height: var(--size-medium);
-		color: var(--figma-color-icon);
-		fill: var(--figma-color-icon);
+		outline: var(--border-width) solid transparent;
+		outline-offset: calc(var(--border-width) * -1);
+		border: none;
+		border-radius: var(--border-radius-medium);
+
 		background-color: transparent;
+		min-width: 24px;
+		min-height: 24px;
 	}
 	button:hover {
 		background-color: var(--figma-color-bg-hover);
 	}
 
+	button:active {
+		background-color: var(--figma-color-bg-pressed);
+	}
+
 	button:focus-visible {
-		outline: none;
-		border: 2px solid var(--figma-color-border-selected);
+		outline-color: var(--figma-color-border-selected);
 	}
 
 	button:disabled {
@@ -97,10 +94,6 @@
 	}
 	.selected:active,
 	.selected:focus-visible {
-		border: 2px solid var(--figma-color-border);
-	}
-
-	.rounded {
-		border-radius: var(--border-radius-medium);
+		outline-color: var(--figma-color-border);
 	}
 </style>

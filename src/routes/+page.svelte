@@ -17,250 +17,33 @@
 		Radio,
 		Input,
 		Textarea,
-		SelectMenu,
 		Disclosure,
 		DisclosureItem,
 		OnboardingTip,
 		Label,
 		Type,
-		Icon
+		Icon,
+		MultiMenu,
+		ToggleButton,
+		Dialog,
+		IconAdjust
 	} from '$lib/index.js';
 
 	import {
-		IconAdjust,
-		IconAlert,
-		IconAlignHorizontalCenters,
-		IconAlignLeft,
-		IconAlignRight,
-		IconAlignTop,
-		IconAlignVerticalCenters,
-		IconAngle,
-		IconArrowLeftRight,
-		IconAutoLayoutHorizontal,
-		IconAutoLayoutVertical,
-		IconBack,
-		IconBlend,
-		IconBlendEmpty,
-		IconBreak,
-		IconCaretDown,
-		IconCaretLeft,
-		IconCaretRight,
-		IconCaretUp,
-		IconCheck,
-		IconClose,
-		IconComponent,
-		IconCornerRadius,
-		IconCorners,
-		IconDistributeHorizontalSpacing,
-		IconDistributeVerticalSpacing,
-		IconDraft,
-		IconEffects,
-		IconEllipses,
-		IconEyedropper,
-		IconForward,
-		IconFrame,
-		IconGroup,
-		IconHidden,
-		IconHorizontalPadding,
-		IconHyperlink,
-		IconImage,
-		IconInstance,
-		IconKey,
-		IconLayoutAlignBottom,
-		IconLayoutGridColumns,
-		IconLayoutGridRows,
-		IconLayoutGridUniform,
-		IconLibrary,
-		IconLinkBroken,
-		IconLinkConnected,
-		IconList,
-		IconListDetailed,
-		IconListTile,
-		IconLockOff,
-		IconLockOn,
-		IconMinus,
-		IconPlay,
-		IconPlus,
-		IconRandom,
-		IconRecent,
-		IconResizeToFit,
-		IconResolve,
-		IconResolveFilled,
-		IconReverse,
-		IconSearch,
-		IconSearchLarge,
-		IconSettings,
-		IconShare,
-		IconSmiley,
-		IconSortAlphaAsc,
-		IconSortAlphaDsc,
-		IconSortTopBottom,
-		IconSpacing,
-		IconSpinner,
-		IconStarOff,
-		IconStarOn,
-		IconStrokeWeight,
-		IconStyles,
-		IconSwap,
-		IconTheme,
-		IconTidyUpGrid,
-		IconTidyUpListHorizontal,
-		IconTidyUpListVertical,
-		IconTimer,
-		IconTrash,
-		IconUpDown,
-		IconVerticalPadding,
-		IconVisible,
-		IconWarning,
-		IconWarningLarge,
-		IconNodeBooleanOperation,
-		IconNodeComponent,
-		IconNodeConnector,
-		IconNodeEllipse,
-		IconNodeFrame,
-		IconNodeGroup,
-		IconNodeImage,
-		IconNodeInstance,
-		IconNodePage,
-		IconNodeSection,
-		IconNodeSlice,
-		IconNodeStar,
-		IconNodeText
-	} from '$lib/index.js';
-
-	let icons = [
-		IconAdjust,
-		IconAlert,
-		IconAlignHorizontalCenters,
-		IconAlignLeft,
-		IconAlignRight,
-		IconAlignTop,
-		IconAlignVerticalCenters,
-		IconAngle,
-		IconArrowLeftRight,
-		IconAutoLayoutHorizontal,
-		IconAutoLayoutVertical,
-		IconBack,
-		IconBlend,
-		IconBlendEmpty,
-		IconBreak,
-		IconCaretDown,
-		IconCaretLeft,
-		IconCaretRight,
-		IconCaretUp,
-		IconCheck,
-		IconClose,
-		IconComponent,
-		IconCornerRadius,
-		IconCorners,
-		IconDistributeHorizontalSpacing,
-		IconDistributeVerticalSpacing,
-		IconDraft,
-		IconEffects,
-		IconEllipses,
-		IconEyedropper,
-		IconForward,
-		IconFrame,
-		IconGroup,
-		IconHidden,
-		IconHorizontalPadding,
-		IconHyperlink,
-		IconImage,
-		IconInstance,
-		IconKey,
-		IconLayoutAlignBottom,
-		IconLayoutGridColumns,
-		IconLayoutGridRows,
-		IconLayoutGridUniform,
-		IconLibrary,
-		IconLinkBroken,
-		IconLinkConnected,
-		IconList,
-		IconListDetailed,
-		IconListTile,
-		IconLockOff,
-		IconLockOn,
-		IconMinus,
-		IconPlay,
-		IconPlus,
-		IconRandom,
-		IconRecent,
-		IconResizeToFit,
-		IconResolve,
-		IconResolveFilled,
-		IconReverse,
-		IconSearch,
-		IconSearchLarge,
-		IconSettings,
-		IconShare,
-		IconSmiley,
-		IconSortAlphaAsc,
-		IconSortAlphaDsc,
-		IconSortTopBottom,
-		IconSpacing,
-		IconSpinner,
-		IconStarOff,
-		IconStarOn,
-		IconStrokeWeight,
-		IconStyles,
-		IconSwap,
-		IconTheme,
-		IconTidyUpGrid,
-		IconTidyUpListHorizontal,
-		IconTidyUpListVertical,
-		IconTimer,
-		IconTrash,
-		IconUpDown,
-		IconVerticalPadding,
-		IconVisible,
-		IconWarning,
-		IconWarningLarge
-	];
-
-	let nodeIcons = [
-		IconNodeBooleanOperation,
-		IconNodeComponent,
-		IconNodeConnector,
-		IconNodeEllipse,
-		IconNodeFrame,
-		IconNodeGroup,
-		IconNodeImage,
-		IconNodeInstance,
-		IconNodePage,
-		IconNodeSection,
-		IconNodeSlice,
-		IconNodeStar,
-		IconNodeText
-	];
-
-	import type { Option, Group } from '$lib/components/SelectMenu/index.svelte';
+		menuGroups,
+		singleMenuGroup,
+		emptyMenuGroups,
+		emptyMenuGroupsMini,
+		fileList,
+		teamList
+	} from './example-data.js';
 
 	let buttonCounter = $state(0);
 	let checked = $state(true);
 	let radioValue = $state('a');
-	let optGroups: Group[] = [
-		{
-			label: 'Group 1',
-			items: [
-				{ value: 'a', label: 'Option A' },
-				{ value: 'b', label: 'Option B' },
-				{ value: 'c', label: 'Option C' },
-				{ value: 'd', label: 'Option D' }
-			]
-		},
-		{
-			label: 'Group 2',
-			items: [
-				{ value: 'e', label: 'Option E' },
-				{ value: 'f', label: 'Option F' },
-				{ value: 'g', label: 'Option G' },
-				{ value: 'h', label: 'Option H' }
-			]
-		}
-	];
-
-	let selectedOpt1: Option[] = $state([]);
-	let selectedOpt2: Option[] = $state([]);
+	let toggleBtnChecked = $state(false);
+	let toggleBtnCheckedCounter = $state(0);
+	let exampleDialog: HTMLDialogElement | undefined = $state();
 </script>
 
 <svelte:head>
@@ -280,6 +63,15 @@
 	<div class="content">
 		<LayoutContainer>
 			<Section title="Buttons">
+				<Button size="large" onclick={() => console.log('Button 2 clicked')}
+					>Primary Large</Button
+				>
+				<Button
+					variant="secondary"
+					size="large"
+					onclick={() => console.log('Button 2 clicked')}>Secondary Large</Button
+				>
+
 				<Button
 					onclick={(e) => {
 						console.log('Button 1 clicked'), buttonCounter++;
@@ -298,39 +90,23 @@
 				<Button disabled destructive onclick={() => console.log('Button 6 clicked')}
 					>Button 6</Button
 				>
-				<Button
-					icon={IconNodeBooleanOperation}
-					onclick={() => console.log('Button 7 clicked')}>Button 7</Button
+				<Button onclick={() => console.log('Button 7 clicked')}>Button 7</Button>
+				<Button variant="secondary" onclick={() => console.log('Button 8 clicked')}
+					>Button 8</Button
 				>
-				<Button
-					icon={IconNodeBooleanOperation}
-					variant="secondary"
-					onclick={() => console.log('Button 8 clicked')}>Button 8</Button
-				>
-				<Button rounded onclick={() => console.log('Button 9 clicked')}>Button 9</Button>
+				<Button onclick={() => console.log('Button 9 clicked')}>Button 9</Button>
 			</Section>
 			<Section title="Icon Buttons">
 				<IconButton
-					icon={IconNodeBooleanOperation}
+					icon={IconAdjust}
 					onclick={() => console.log('Icon Button 1 clicked')}
 				/>
 				<IconButton
-					icon={IconInstance}
+					icon={IconAdjust}
 					onclick={() => console.log('Icon Button 2 clicked')}
 				/>
 			</Section>
-			<Section title="Icons" style="grid-column: 1/-1">
-				<div style="display: inherit; flex-wrap: inherit; gap: .5rem;">
-					{#each icons as icon}
-						<Icon {icon}></Icon>
-					{/each}
-				</div>
-				<div style="display: inherit; flex-wrap: inherit; gap: .5rem;">
-					{#each nodeIcons as icon}
-						<Icon {icon}></Icon>
-					{/each}
-				</div>
-			</Section>
+
 			<Section title="Checkbox">
 				<Checkbox
 					onchange={(e) =>
@@ -413,41 +189,196 @@
 				>
 				<p>Selected value: {radioValue}</p>
 			</Section>
-			<Section title="Input">
-				<Input value="Input with value"></Input>
-				<Input placeholder="Custom placeholder…"></Input>
-				<Input value="Disabled with value" disabled />
-				<Input placeholder="Input with icon" icon={IconNodeBooleanOperation} />
-				<Input borders={false} value="No border"></Input>
-				<Input borders={false} placeholder="No border"></Input>
+			<Section title="Input" style="grid-column: 1/-1">
+				<Input label="Input" value="Input with value"></Input>
+				<Input label="Input" placeholder="Custom placeholder…" autofocus={true}></Input>
+				<Input label="Input label hidden" showLabel={false} placeholder="Label hidden…"
+				></Input>
+				<Input label="Input" value="Disabled with value" disabled />
+				<Input label="Input" placeholder="Input with icon" icon={IconAdjust} />
+				<Input label="Input without border" borders={false} value="No border"></Input>
+				<Input label="Input without border" borders={false} placeholder="No border"></Input>
+				<h2>
+					<Input label="Input" placeholder="Custom font…" responsiveFont></Input>
+				</h2>
+				<span style="font-family: 'Comic Sans MS'">
+					<Input label="Input" placeholder="Custom font…" responsiveFont></Input>
+				</span>
+				<Input label="Input" value="Invalid input" invalid errorMessage="Invalid input"
+				></Input>
+
+				<span>There is a hidden input here:</span>
+				<Input label="Hidden input" hidden></Input>
 			</Section>
-			<Section title="Textarea">
-				<Textarea value="Textarea with value"></Textarea>
-				<Textarea placeholder="Custom placeholder…"></Textarea>
-				<Textarea value="Disabled with value" disabled></Textarea>
-				<Textarea value="Tall textarea with more rows for longer descriptions" rows={5}
+			<Section title="Textarea" style="grid-column: 1/-1">
+				<Textarea label="Textarea" value="Textarea with value"></Textarea>
+				<Textarea label="Textarea" placeholder="Custom placeholder…"></Textarea>
+				<Textarea
+					label="Textarea hidden label"
+					showLabel={false}
+					placeholder="Hidden label…"
 				></Textarea>
-				<Textarea disabled placeholder="This textarea is disabled"></Textarea>
+				<Textarea label="Textarea" value="Disabled with value" disabled></Textarea>
+				<Textarea
+					label="Textarea"
+					value="Tall textarea with more rows for longer descriptions"
+					rows={5}
+				></Textarea>
+				<Textarea label="Textarea" disabled placeholder="This textarea is disabled"
+				></Textarea>
 			</Section>
-			<Section title="Select Menu">
-				<SelectMenu
-					{optGroups}
-					bind:value={selectedOpt1}
-					onchange={(e) => {
-						// console.log('Option selected;', e[0].label);
+			<Section title="Dialog">
+				<Dialog bind:dialog={exampleDialog} title="Dialog title">
+					{#snippet headerControls()}
+						<IconButton
+							onclick={() => console.log('Custom header control clicked')}
+							icon={IconAdjust}
+							aria-label="Custom header control"
+						></IconButton>
+					{/snippet}
+					<p>This is a dialog component.</p>
+					<Button onclick={() => exampleDialog?.close()}>Close</Button>
+				</Dialog>
+			</Section>
+			<Section title="Dropdown Menu">
+				<MultiMenu groups={menuGroups} ontoggle={(e) => console.log(e.newState)}
+				></MultiMenu>
+				<MultiMenu groups={singleMenuGroup}></MultiMenu>
+				<MultiMenu
+					groups={fileList}
+					icon={IconAdjust}
+					triggerType="select"
+					showSelectedValues
+				></MultiMenu>
+				<MultiMenu
+					name="team"
+					required
+					groups={teamList}
+					triggerType="select"
+					showSelectedValues
+				></MultiMenu>
+				<MultiMenu
+					icon={IconAdjust}
+					style={'flex-grow: 1;'}
+					groups={[
+						{
+							label: 'Assign to property',
+							name: 'assignToProperty',
+							children: []
+						},
+						{
+							label: 'Assign',
+							name: 'assign',
+							children: [
+								{
+									label: 'Remove assignments',
+									name: 'removeAssignment',
+									children: []
+								}
+							]
+						},
+						{
+							label: 'Selection',
+							name: 'select',
+							children: [
+								{
+									label: 'Select nodes',
+									name: 'select',
+									children: []
+								}
+							]
+						},
+						{
+							label: 'Column Menu',
+							name: 'columnMenu',
+							children: [
+								{
+									label: 'Add column left',
+									name: 'addColumnLeft',
+									action: 'addColumnLeft'
+								},
+								{
+									label: 'Add column right',
+									name: 'addColumnRight',
+									action: 'addColumnRight'
+								},
+								{
+									label: 'Delete column',
+									name: 'deleteColumn',
+									action: 'deleteColumn'
+								},
+								{
+									label: 'Rename column',
+									name: 'renameColumn',
+									action: 'renameColumn'
+								}
+							]
+						}
+					]}>Select File</MultiMenu
+				>
+				<MultiMenu triggerType="select" showSelectedValues groups={menuGroups}
+					>Select File</MultiMenu
+				>
+				<MultiMenu triggerType="button" showSelectedValues groups={menuGroups}
+					>Select File</MultiMenu
+				>
+				<MultiMenu groups={menuGroups} icon={IconAdjust}></MultiMenu>
+				<MultiMenu groups={emptyMenuGroups} icon={IconAdjust}></MultiMenu>
+				<MultiMenu groups={emptyMenuGroupsMini} icon={IconAdjust}></MultiMenu>
+				<MultiMenu triggerType="select" showSelectedValues groups={emptyMenuGroupsMini}
+					>Select File</MultiMenu
+				>
+
+				<form
+					onsubmit={(e) => {
+						e.preventDefault();
+						const formData = new FormData(e.currentTarget);
+
+						for (const [key, value] of formData) {
+							console.log(`${key}: ${value}`);
+						}
 					}}
-					placeholder="Single select menu"
-				></SelectMenu>
-				<p>Selected options: {selectedOpt1.map((o) => o.label).join(', ')}</p>
-				<SelectMenu placeholder="Multi select menu" {optGroups} multiselect showGroupLabels
-				></SelectMenu>
-				<p>Selected options: {selectedOpt2.map((o) => o.label).join(', ')}</p>
-				<SelectMenu
-					icon={IconNodeBooleanOperation}
-					{optGroups}
-					placeholder="Single select menu"
-				></SelectMenu>
-				<SelectMenu {optGroups} blink placeholder="Blinking select menu"></SelectMenu>
+				>
+					<MultiMenu
+						name="menu"
+						groups={menuGroups}
+						icon={IconAdjust}
+						style={'flex-grow: 1;'}
+						triggerType="select"
+						showSelectedValues>Select File</MultiMenu
+					>
+					<Input
+						name="input"
+						label="Input"
+						placeholder="Custom placeholder…"
+						style="margin-block: 1rem;"
+					></Input>
+					<Button type="submit">Submit</Button>
+				</form>
+			</Section>
+			<Section title="Toggle Button">
+				<ToggleButton
+					onchange={(checked) => {
+						checked ? toggleBtnCheckedCounter++ : null;
+					}}>Toggled on {toggleBtnCheckedCounter} times</ToggleButton
+				>
+				<Button onclick={() => (toggleBtnChecked = !toggleBtnChecked)}
+					>Manually toggle button 2</Button
+				>
+				<ToggleButton
+					checked={toggleBtnChecked}
+					onchange={() => console.log('Toggle Button 2 clicked')}
+					>Toggle Button 2</ToggleButton
+				>
+				<ToggleButton checked onchange={() => console.log('Toggle Button 3 clicked')}
+					><Icon icon={IconAdjust}></Icon></ToggleButton
+				>
+				<ToggleButton
+					disabled
+					icon={IconAdjust}
+					onchange={() => console.log('Toggle Button 4 clicked')}
+					>Toggle Button 4</ToggleButton
+				>
 			</Section>
 			<Section title="Disclosure">
 				<Disclosure>
@@ -464,7 +395,7 @@
 				</Disclosure>
 			</Section>
 			<Section title="Misc">
-				<OnboardingTip icon={IconNodeBooleanOperation}
+				<OnboardingTip icon={IconAdjust}
 					>This is an onboarding tip, like you can sometimes see in the sidebar.</OnboardingTip
 				>
 				<Label>This is a label</Label>

@@ -1,9 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	//pass svg data into icon by importing an svg in parent
-
-	type Props = {
+	interface Props {
+		'aria-hidden'?: boolean;
 		class?: string;
 		color?: string;
 		destructive?: boolean;
@@ -16,38 +15,33 @@
 		style?: string;
 		tabindex?: number;
 		children?: Snippet;
-		[key: string]: unknown;
-	};
+		[key: string]: any;
+	}
 
 	let {
-		class: className,
+		'aria-hidden': ariaHidden,
+		class: className = '',
 		color,
-		destructive,
-		disabled,
+		destructive = false,
+		disabled = false,
 		icon,
 		iconText,
-		rounded,
-		selected,
-		size = 32,
-		spin,
-		style,
+		rounded = false,
+		size = 24,
+		spin = false,
+		style = '',
 		tabindex = 0,
 		children,
 		...props
 	}: Props = $props();
 
-	$effect(() => {
-		style = !!color
-			? `color: var(${color}); fill: currentColor; width: ${size}px; height: ${size}px`
-			: `color: currentColor; fill: currentColor; width: ${size}px; height: ${size}px`;
-	});
-
-	// let svg: SVGSVGElement | null = new DOMParser()
-	// 	.parseFromString(icon, 'image/svg+xml')
-	// 	.querySelector('svg');
+	// TODO: Find a more robust way to handle icon colors
+	const _style = !!color
+		? `--color-icon: var(${color});`
+		: `color: currentColor; fill: currentColor; width: ${size}px; height: ${size}px`;
 </script>
 
-<div {...props} class:spin class="icon-component {className}" {style}>
+<div {...props} class={['icon__wrapper', spin, className]} style={_style} aria-hidden={ariaHidden}>
 	{#if iconText}
 		{iconText}
 	{:else}
@@ -56,17 +50,16 @@
 </div>
 
 <style>
-	.icon-component {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+	.icon__wrapper {
+		display: inline;
 		cursor: default;
-		width: var(--size-medium);
-		height: var(--size-medium);
 		pointer-events: none;
-		font-size: var(--font-size-xsmall);
-		font-family: var(--font-stack);
 		user-select: none;
+
+		:global(svg) {
+			width: 100%;
+			height: 100%;
+		}
 	}
 
 	.spin {
@@ -80,10 +73,5 @@
 		to {
 			transform: rotate(360deg);
 		}
-	}
-
-	:global(.icon-component *) {
-		fill: inherit;
-		color: inherit;
 	}
 </style>
