@@ -147,6 +147,13 @@ a {
 		--color-icon-secondary: var(--figma-color-icon-selected-secondary);
 		--color-icon-tertiary: var(--figma-color-icon-selected-tertiary);
 	}
+
+	/* Disabled attribute icon color */
+	&:disabled {
+		--color-icon: var(--figma-color-icon-disabled);
+		--color-icon-secondary: var(--figma-color-icon-disabled-secondary);
+		--color-icon-tertiary: var(--figma-color-icon-disabled-tertiary);
+	}
 }
 
 /* Hyperlink styling */

@@ -199,10 +199,10 @@
 				<Input label="Input without border" borders={false} value="No border"></Input>
 				<Input label="Input without border" borders={false} placeholder="No border"></Input>
 				<h2>
-					<Input label="Input" placeholder="Responsive font…" responsiveFont></Input>
+					<Input label="Input" placeholder="Custom font…" responsiveFont></Input>
 				</h2>
 				<span style="font-family: 'Comic Sans MS'">
-					<Input label="Input" placeholder="Responsive font…" responsiveFont></Input>
+					<Input label="Input" placeholder="Custom font…" responsiveFont></Input>
 				</span>
 				<Input label="Input" value="Invalid input" invalid errorMessage="Invalid input"
 				></Input>

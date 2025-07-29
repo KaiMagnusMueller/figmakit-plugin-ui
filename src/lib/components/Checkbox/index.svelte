@@ -1,20 +1,19 @@
 <script lang="ts">
-	import { blurOnEvent } from '$lib/helpers.svelte.js';
 	import type { HTMLInputAttributes } from 'svelte/elements';
+	import type { Snippet } from 'svelte';
 
-	type Props = {
-		onchange?: (e: Event) => void;
-		onfocus?: (e: Event) => void;
-		onblur?: (e: Event) => void;
+	interface Props extends HTMLInputAttributes {
+		onchange?: (event: Event) => void;
+		onfocus?: (event: FocusEvent) => void;
+		onblur?: (event: FocusEvent) => void;
 		checked?: boolean;
 		class?: string;
 		disabled?: boolean;
 		id?: string;
 		tabindex?: number;
 		value?: string;
-		children?: import('svelte').Snippet;
-		[key: string]: unknown;
-	} & HTMLInputAttributes;
+		children?: Snippet;
+	}
 
 	let {
 		onchange,
@@ -23,12 +22,15 @@
 		checked = $bindable(false),
 		class: className = '',
 		disabled = false,
-		id = 'fk-' + Math.random().toString(36),
+		id,
 		tabindex = 0,
 		value,
 		children,
 		...props
 	}: Props = $props();
+
+	const uid = $props.id();
+	id = 'checkbox-' + uid;
 </script>
 
 <label for={id}>

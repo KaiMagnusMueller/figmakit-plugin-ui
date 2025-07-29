@@ -1,13 +1,7 @@
 <script lang="ts">
 	import type { MenuGroup, MenuOption, SelectableMenuOption, SelectedValue } from './types.ts';
 	import { type Snippet } from 'svelte';
-	import {
-		IconCheck,
-		Icon,
-		IconChevronRight,
-		ToggleButton,
-		IconChevronDown
-	} from '$lib/index.js';
+	import { IconCheck, Icon, IconChevronRight, IconChevronDown } from '$lib/index.js';
 
 	type Value = Record<string, string | string[]>;
 
@@ -273,7 +267,7 @@
 					{/if}
 					<span>{option.label}</span>
 				</span>
-				<Icon icon={IconChevronRight} size={16} aria-hidden="true" />
+				<Icon icon={IconChevronRight} size={16} aria-hidden={true} />
 			</div>
 		</button>
 		{@render popoverContainer([option], anchorName)}
@@ -294,7 +288,7 @@
 			<div class="group__item-content">
 				<span class="left-group">
 					{#if option.selected}
-						<Icon icon={IconCheck} size={16} aria-hidden="true" />
+						<Icon icon={IconCheck} size={16} aria-hidden={true} />
 					{:else if hasSelectableOptions}
 						<div class="icon-placeholder" aria-hidden="true"></div>
 					{/if}

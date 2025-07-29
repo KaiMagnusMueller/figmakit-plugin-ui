@@ -1,21 +1,21 @@
 <script lang="ts">
 	import type { HTMLTextareaAttributes } from 'svelte/elements';
 
-	type Props = {
-		oninput?: (e: Event) => void;
-		onchange?: (e: Event) => void;
-		onkeydown?: (e: Event) => void;
+	interface Props extends HTMLTextareaAttributes {
+		oninput?: (event: Event) => void;
+		onchange?: (event: Event) => void;
+		onkeydown?: (event: KeyboardEvent) => void;
 		class?: string;
 		disabled?: boolean;
 		id?: string;
-		name?: any;
+		name?: string;
 		placeholder?: string;
 		rows?: number;
 		label: string;
 		showLabel?: boolean;
 		value?: string;
-		[key: string]: unknown;
-	} & HTMLTextareaAttributes;
+		[key: string]: any;
+	}
 
 	let {
 		oninput,
@@ -24,7 +24,7 @@
 		label,
 		showLabel = true,
 		class: className = '',
-		disabled,
+		disabled = false,
 		id,
 		name,
 		placeholder = 'Input something here...',

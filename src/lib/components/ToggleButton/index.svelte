@@ -1,19 +1,19 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import { blurOnEvent } from '$lib/helpers.svelte';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import type { Snippet } from 'svelte';
 	import { Icon } from '$lib/index.js';
 
-	type Props = {
+	interface Props extends Omit<HTMLButtonAttributes, 'onchange'> {
 		checked?: boolean;
 		onchange?: (checked: boolean) => void;
 		class?: string;
 		disabled?: boolean;
 		label?: string;
 		style?: string;
+		icon?: string;
 		children?: Snippet;
 		[key: string]: any;
-	} & HTMLButtonAttributes;
+	}
 
 	let {
 		checked = $bindable(false),
@@ -22,6 +22,7 @@
 		disabled = false,
 		label = '',
 		style = '',
+		icon = '',
 		children,
 		...props
 	}: Props = $props();
@@ -43,6 +44,9 @@
 	onclick={() => handleClick()}
 	aria-label={label}
 >
+	{#if icon}
+		<Icon {icon} />
+	{/if}
 	{#if children}
 		{@render children?.()}
 	{:else}

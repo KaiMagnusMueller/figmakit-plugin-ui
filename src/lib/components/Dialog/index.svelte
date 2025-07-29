@@ -32,6 +32,6 @@
 	>
 {/if}
 
-<Dialog {...props} {title} bind:id bind:dialog {headerControls}>
+<Dialog {...props} {title} {id} bind:dialog {headerControls}>
 	{@render children()}
 </Dialog>

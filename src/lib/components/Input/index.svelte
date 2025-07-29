@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { HTMLInputAttributes, HTMLInputTypeAttribute } from 'svelte/elements';
-	import Icon from './../Icon/index.svelte';
+	import Icon from '$lib/components/Icon/index.svelte';
 
-	type Props = {
-		oninput?: (e: Event) => void;
-		onchange?: (e: Event) => void;
-		onkeydown?: (e: Event) => void;
+	interface Props extends HTMLInputAttributes {
+		oninput?: (event: Event) => void;
+		onchange?: (event: Event) => void;
+		onkeydown?: (event: KeyboardEvent) => void;
 		autofocus?: boolean;
 		borders?: boolean;
 		class?: string;
@@ -26,7 +26,7 @@
 		type?: HTMLInputTypeAttribute;
 		value?: string;
 		[key: string]: any;
-	} & HTMLInputAttributes;
+	}
 
 	let {
 		oninput,
@@ -34,7 +34,7 @@
 		onkeydown,
 		label,
 		showLabel = true,
-		autofocus,
+		autofocus = false,
 		borders = true,
 		class: className = '',
 		color,
@@ -43,11 +43,11 @@
 		icon,
 		iconText,
 		id,
-		invalid,
+		invalid = false,
 		name,
-		hidden,
+		hidden = false,
 		placeholder = 'Input something here...',
-		spin,
+		spin = false,
 		responsiveFont = false,
 		type = 'text',
 		value = $bindable(''),

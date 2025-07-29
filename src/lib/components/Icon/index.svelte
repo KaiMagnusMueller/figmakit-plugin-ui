@@ -1,9 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	//pass svg data into icon by importing an svg in parent
-
-	type Props = {
+	interface Props {
+		'aria-hidden'?: boolean;
 		class?: string;
 		color?: string;
 		destructive?: boolean;
@@ -16,21 +15,21 @@
 		style?: string;
 		tabindex?: number;
 		children?: Snippet;
-		[key: string]: unknown;
-	};
+		[key: string]: any;
+	}
 
 	let {
+		'aria-hidden': ariaHidden,
 		class: className = '',
 		color,
-		destructive,
-		disabled,
+		destructive = false,
+		disabled = false,
 		icon,
 		iconText,
-		rounded,
-		selected,
+		rounded = false,
 		size = 24,
-		spin,
-		style,
+		spin = false,
+		style = '',
 		tabindex = 0,
 		children,
 		...props
@@ -42,7 +41,7 @@
 		: `color: currentColor; fill: currentColor; width: ${size}px; height: ${size}px`;
 </script>
 
-<div {...props} class={['icon__wrapper', spin, className]} style={_style}>
+<div {...props} class={['icon__wrapper', spin, className]} style={_style} aria-hidden={ariaHidden}>
 	{#if iconText}
 		{iconText}
 	{:else}

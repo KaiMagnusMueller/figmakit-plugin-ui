@@ -1,22 +1,23 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import { blurOnEvent } from '$lib/helpers.svelte';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
-	import { Icon } from '$lib/index.js';
+	import type { Snippet } from 'svelte';
+	import Icon from '$lib/components/Icon/index.svelte';
 
-	type Props = {
-		onclick?: (e: MouseEvent) => void;
-		onsubmit?: (e: SubmitEvent) => void;
+	interface Props extends HTMLButtonAttributes {
+		onclick?: (event: MouseEvent) => void;
+		onsubmit?: (event: SubmitEvent) => void;
 		class?: string;
 		destructive?: boolean;
 		disabled?: boolean;
 		icon?: string;
 		spin?: boolean;
+		size?: 'default' | 'large';
 		style?: string;
-		size?: 'large' | 'default';
 		variant?: 'primary' | 'secondary' | 'tertiary';
+		type?: 'button' | 'submit' | 'reset';
 		children?: Snippet;
-	} & HTMLButtonAttributes;
+		[key: string]: any;
+	}
 
 	let {
 		onclick,

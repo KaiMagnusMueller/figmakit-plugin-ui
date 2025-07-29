@@ -1,18 +1,19 @@
 <script lang="ts">
-	import { blurOnEvent } from '$lib/helpers.svelte.js';
 	import type { HTMLInputAttributes } from 'svelte/elements';
+	import type { Snippet } from 'svelte';
 
 	interface Props extends HTMLInputAttributes {
-		onchange?: (e: Event) => void;
-		onfocus?: (e: Event) => void;
-		onblur?: (e: Event) => void;
+		onchange?: (event: Event) => void;
+		onfocus?: (event: FocusEvent) => void;
+		onblur?: (event: FocusEvent) => void;
 		class?: string;
 		disabled?: boolean;
 		group: string | number;
+		id?: string;
 		tabindex?: number;
 		value: any;
-		children?: import('svelte').Snippet;
-		[key: string]: unknown;
+		children?: Snippet;
+		[key: string]: any;
 	}
 
 	let {
@@ -22,7 +23,7 @@
 		class: className = '',
 		disabled = false,
 		group = $bindable(''),
-		id = 'fk-' + Math.random().toString(36),
+		id,
 		tabindex = 0,
 		value = null,
 		children,
@@ -30,6 +31,9 @@
 	}: Props = $props();
 
 	let checked = $derived(group === value);
+
+	const uid = $props.id();
+	id = 'radio-' + uid;
 </script>
 
 <label for={id}>

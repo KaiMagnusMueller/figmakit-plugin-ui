@@ -14,7 +14,7 @@
 		disclosures?: SvelteMap<string, Disclosure>;
 		multiple?: boolean;
 		children?: import('svelte').Snippet;
-		[key: string]: unknown;
+		[key: string]: any;
 	}
 
 	let {

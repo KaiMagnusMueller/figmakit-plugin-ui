@@ -1,13 +1,11 @@
 <script lang="ts">
-	import { blurOnEvent } from '$lib/helpers.svelte.js';
-	import type { Snippet } from 'svelte';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import Icon from '$lib/components/Icon/index.svelte';
+	import type { Snippet } from 'svelte';
 
-	import Icon from './../Icon/index.svelte';
-
-	type Props = {
-		onclick?: (e: MouseEvent) => void;
-		onsubmit?: (e: SubmitEvent) => void;
+	interface Props extends HTMLButtonAttributes {
+		onclick?: (event: MouseEvent) => void;
+		onsubmit?: (event: SubmitEvent) => void;
 		class?: string;
 		destructive?: boolean;
 		disabled?: boolean;
@@ -20,21 +18,20 @@
 		tabindex?: number;
 		children?: Snippet;
 		[key: string]: any;
-	} & HTMLButtonAttributes;
+	}
 
 	let {
 		onclick,
 		onsubmit,
-		class: className,
-		destructive,
-		disabled,
+		class: className = '',
+		destructive = false,
+		disabled = false,
 		icon,
 		label,
-		selected,
 		size = 'default',
 		variant = 'tertiary',
-		spin,
-		style,
+		spin = false,
+		style = '',
 		tabindex = 0,
 		children,
 		...props

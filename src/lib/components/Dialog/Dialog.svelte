@@ -3,15 +3,7 @@
 	import { clickOutside } from '$lib/helpers.svelte.js';
 	import { IconButton, IconClose } from '$lib/index.js';
 
-	let {
-		id = $bindable(),
-		title,
-		dialog = $bindable(),
-		onclose,
-		children,
-		headerControls,
-		...props
-	}: {
+	interface Props {
 		id?: string;
 		title: string;
 		dialog?: HTMLDialogElement;
@@ -19,7 +11,17 @@
 		headerControls?: Snippet;
 		children: Snippet;
 		[key: string]: any;
-	} = $props();
+	}
+
+	let {
+		id,
+		title,
+		dialog = $bindable(),
+		onclose,
+		children,
+		headerControls,
+		...props
+	}: Props = $props();
 
 	const uid = $props.id();
 	id = 'dialog-' + uid;
