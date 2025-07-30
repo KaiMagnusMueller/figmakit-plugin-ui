@@ -334,18 +334,28 @@ export const teamList: MenuGroup[] = [
 		mode: 'single',
 		children: [
 			{
-				value: '1fhvdup1b41b135',
-				label: 'sdgfsdfgfdg',
+				value: 'design-system-team',
+				label: 'Design System Team',
 				selected: true
 			},
 			{
-				value: 'ub064yx7du02hr3',
-				label: 'DB Down Test',
+				value: 'product-team',
+				label: 'Product Team',
 				selected: false
 			},
 			{
-				value: 'u4iw3113ch04380',
-				label: 'Intersections Team',
+				value: 'engineering-team',
+				label: 'Engineering Team',
+				selected: false
+			},
+			{
+				value: 'marketing-team',
+				label: 'Marketing Team',
+				selected: false
+			},
+			{
+				value: 'research-team',
+				label: 'User Research Team',
 				selected: false
 			}
 		]
