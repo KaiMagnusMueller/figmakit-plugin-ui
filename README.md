@@ -146,7 +146,7 @@ Radio button component for single selection from a group.
 </script>
 
 <Radio bind:group={selectedOption} value="option1">Option 1</Radio>
-<Radio bind:group={selectedOption} value="option2">Option 2</Radio>
+<Radio bind:group={selectedOption} checked value="option2">Option 2</Radio>
 ```
 
 ### Textarea
@@ -170,7 +170,7 @@ Multi-line text input component.
 
 ### IconButton
 
-Compact button component for icons only.
+Compact button component with icon only. Label for acessibility.
 
 ![Icon buttons](assets/icon-buttons.jpg)
 
@@ -187,7 +187,7 @@ Compact button component for icons only.
 
 ### ToggleButton
 
-Button that maintains pressed/unpressed state.
+Button with checked state.
 
 ![Toggle buttons](assets/toggle-button.jpg)
 
@@ -264,8 +264,6 @@ Modal dialog component with header and customizable content.
 
 Collapsible sections with expand/collapse functionality.
 
-_[Screenshot placeholder: Disclosure sections in expanded and collapsed states]_
-
 | Prop       | Type      | Default | Description                  |
 | ---------- | --------- | ------- | ---------------------------- |
 | `multiple` | `boolean` | `false` | Allow multiple sections open |
@@ -289,8 +287,6 @@ _[Screenshot placeholder: Disclosure sections in expanded and collapsed states]_
 
 Flexible icon component for displaying SVG icons.
 
-_[Screenshot placeholder: Various icons with different sizes and colors]_
-
 | Prop    | Type      | Default     | Description                   |
 | ------- | --------- | ----------- | ----------------------------- |
 | `icon`  | `string`  | _required_  | SVG icon string               |
@@ -303,35 +299,24 @@ _[Screenshot placeholder: Various icons with different sizes and colors]_
 <Icon icon={IconCheck} color="--figma-color-icon-success" />
 ```
 
-### Utility Components
+### Other Components
 
 **Label**: Text labels for form sections
 **Type**: Typography component with size and weight variants  
-**OnboardingTip**: Informational tips with icons
+**OnboardingTip**: Informational tips with icons as seen in the right sidebar
 
 ---
 
 ## Icons
 
-The library includes essential Figma UI icons. You can also **copy SVG icons directly from Figma** and use them with the Icon component:
+The library includes essential Figma UI icons for the above components. You can also **copy SVG icons directly from Figma** and import them in your project:
 
-1. Select an icon in Figma
-2. Copy as SVG (Cmd/Ctrl + C)
-3. Use with Icon component: `<Icon icon={copiedSvgString} />`
+1. Open the Figma console/dev tools
+2. Navigate to an SVG icon in the UI with the element picker
+3. Save it as SVG file
+4. Use with Icon component: `<Icon icon={copiedSvgString} />`
 
-### Built-in Icons
-
-- `IconAdjust` - Settings/configuration
-- `IconCheck` - Checkmark
-- `IconChevronDown` / `IconChevronRight` - Navigation
-- `IconCaretDown` / `IconCaretRight` - Disclosure indicators
-- `IconClose` - Close/dismiss
-
-```svelte
-import {(IconAdjust, IconCheck)} from 'figmakit-plugin-ui-svelte';
-```
-
---- ## Development
+## Development
 
 ### Getting Started
 
@@ -380,4 +365,4 @@ MIT License - see [LICENSE](./LICENSE) for details.
 
 ---
 
-_Built on top of [figma-plugin-ds-svelte](https://github.com/thomas-lowry/figma-plugin-ds-svelte) - thanks to the original author!_
+_Built on top of [figma-plugin-ds-svelte](https://github.com/thomas-lowry/figma-plugin-ds-svelte) - thanks to the original author Thomas Lowry!_
