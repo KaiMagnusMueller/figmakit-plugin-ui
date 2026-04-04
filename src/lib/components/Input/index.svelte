@@ -117,12 +117,7 @@
 		border-radius: var(--border-radius-medium);
 		background-color: var(--figma-color-bg);
 		height: 24px;
-
-		&:hover,
-		&:placeholder-shown:hover {
-			background-image: none;
-			color: var(--figma-color-text-hover);
-		}
+		color: var(--figma-color-text);
 
 		&::selection {
 			background-color: var(--figma-color-text-selected);
@@ -138,15 +133,11 @@
 			outline-color: var(--figma-color-border-selected);
 		}
 
-		&:disabled {
+		&:has(input:disabled) {
 			cursor: not-allowed;
+			outline-color: var(--figma-color-border-disabled);
 			background-image: none;
 			color: var(--figma-color-text-disabled);
-
-			&:active,
-			&:focus {
-				outline: none;
-			}
 		}
 
 		&.no-borders {
@@ -173,7 +164,7 @@
 		padding: 0 7px;
 		width: 100%;
 		height: 100%;
-		color: var(--figma-color-text);
+		color: inherit;
 		font-weight: var(--font-weight-normal);
 		font-size: var(--font-size-xsmall);
 		line-height: var(--font-line-height);

@@ -121,10 +121,11 @@
 	textarea:disabled:hover {
 		position: relative;
 		cursor: not-allowed;
+		outline-color: var(--figma-color-border-disabled);
+		color: var(--figma-color-text-disabled);
 	}
 
 	textarea:disabled:active {
-		outline: none;
 		padding: 7px 4px 9px 7px;
 	}
 </style>

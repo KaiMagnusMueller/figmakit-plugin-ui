@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+- Fix Input and Textarea disabled styles
+
 ## 2.0.0
 
 - Update components to UI3
